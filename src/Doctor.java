@@ -6,7 +6,7 @@
 //contains the Doctor object and all methods to access and modify doctor attributes
 import java.util.*;
 public class Doctor extends User {
-    private String name, email, phone, address, hospital, pass, secretQuestion, secretAnswer;
+    private String  hospital, secretQuestion, secretAnswer;
     private ArrayList<Patient> patientList;
     
     //constructor

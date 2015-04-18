@@ -33,6 +33,7 @@ public class User implements Serializable {
 		this.name=name;
 		this.email=email;
 		this.phoneNumber=phoneNumber;
+		this.address=address;
 		this.password=password;
 	}
 //getter methods for each var	
@@ -45,6 +46,11 @@ public class User implements Serializable {
 	
 	public String getPhoneNumber(){
 		return phoneNumber;
+	}
+	
+	public String getAddress()
+	{
+		return address;
 	}
 	
 	public String getPassword(){
@@ -61,6 +67,11 @@ public class User implements Serializable {
 	
 	public void setPhoneNumber(String phoneNumber){
 		this.phoneNumber=phoneNumber;
+	}
+	
+	public void setAddress(String address)
+	{
+		this.address = address;
 	}
 	
 	public void setPassword(String Password){
