@@ -1,45 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
  * @author Grant
  */
+//contains the Doctor object and all methods to access and modify doctor attributes
 import java.util.*;
-public class Doctor {
-    private String name, email, address, phone, hospital, pass, secretQuestion, secretAnswer;
+public class Doctor extends User {
+    private String name, email, phone, address, hospital, pass, secretQuestion, secretAnswer;
     //private ArrayList<Patient> patientList;
     
-    public Doctor()
+    //constructor
+   public Doctor(String docName, String docEmail,String docPhone, String docAddress, 
+		    String docPass, String docHospital, String docSecret, String docAnswer)
     {
-        name = null;
-        email = null;
-        address = null;
-        phone = null;
-        hospital = null;
-        pass = null;
-        secretQuestion = null;
-        secretAnswer = null;
-       // patientList = new ArrayList<Patient>();
-    }
-    
-    public Doctor(String docName, String docEmail, String docAddress, 
-            String docPhone, String docHospital, String docPass, String docSecret, String docAnswer)
-    {
-        name = docName;
-        email = docEmail;
-        address = docAddress;
-        phone = docPhone;
+        super(docName, docEmail, docPhone, docAddress, docPass);
         hospital = docHospital;
-        pass = docPass;
         secretQuestion = docSecret;
         secretAnswer = docAnswer;
         //patientList = new ArrayList<Patient>();
     }
     
+   //accessor methods for all data
     public String getName()
     {
         return name;
@@ -78,6 +59,8 @@ public class Doctor {
     {
         return secretAnswer;
     }
+    
+    //mutator methods for all data
      public void setName(String changeName)
     {
         name = changeName;
