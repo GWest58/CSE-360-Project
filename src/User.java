@@ -33,7 +33,6 @@ public class User implements Serializable {
 		this.name=name;
 		this.email=email;
 		this.phoneNumber=phoneNumber;
-		this.email=email;
 		this.password=password;
 	}
 //getter methods for each var	
