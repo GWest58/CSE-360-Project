@@ -29,7 +29,7 @@ public class UI {
 		
 		// probably pass in the doctor read in from the login screen
 		DoctorUI doctorFrame = new DoctorUI(doc);
-		doctorFrame.setVisible(true);
+		doctorFrame.setVisible(false);
 	}
 
 }

@@ -7,6 +7,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class PatientUI extends javax.swing.JFrame {
 
@@ -631,11 +632,22 @@ public class PatientUI extends javax.swing.JFrame {
 
         dateReceivedHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         dateReceivedHeader.setText("Date Received: ");
-
-        messageDates.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "3/27/2015", "3/28/2015", "3/29/2015", "3/30/2015" }));
+        
+        ArrayList<String> dates = new ArrayList<String>();
+        
+        // for TESTING- IT WORKS! :D
+        patient.addMessage("04/19/2015 Hey, call me. My phone number is 623-555-5555");
+        patient.addMessage("04/20/2015 Hey, I think you're pregnant. Call me.");
+     
+        // adds the dates to the dates combo box
+        for(int i = 0; i < patient.getMessageList().size(); i++){
+        	dates.add(patient.getMessageList().get(i).substring(0, 11));
+        }
+               
+        messageDates.setModel(new javax.swing.DefaultComboBoxModel(dates.toArray()));
         messageDates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                messageDatesActionPerformed(evt);
+                messageDatesActionPerformed(evt, patient);
             }
         });
 
@@ -645,6 +657,10 @@ public class PatientUI extends javax.swing.JFrame {
         messages.setEditable(false);
         messages.setColumns(20);
         messages.setRows(5);
+        messages.setLineWrap(true);
+        if(patient.getMessageList().size() > 0)
+        	messages.append(patient.getMessageList().get(0).substring(11, patient.getMessageList().get(0).length()));
+       
         JScrollPane3.setViewportView(messages);
 
         prescriptionHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
@@ -923,8 +939,15 @@ public class PatientUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                             
 
-    private void messageDatesActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
+    private void messageDatesActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                             
+        String selectedDate = (String) messageDates.getSelectedItem();
+        messages.setText(null);
+        
+        for(int i = 0; i < patient.getMessageList().size(); i++){
+        	if(selectedDate.compareTo(patient.getMessageList().get(i).substring(0, 11)) == 0){
+        		messages.append(patient.getMessageList().get(i).substring(11, patient.getMessageList().get(i).length()));
+        	}
+        }
     }                                            
 
     /**
