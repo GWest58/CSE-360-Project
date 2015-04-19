@@ -15,8 +15,8 @@ public class DoctorUI extends javax.swing.JFrame {
     /**
      * Creates new form DoctorUI
      */
-    public DoctorUI() {
-        initComponents();
+    public DoctorUI(Doctor doc) {
+        initComponents(doc);
     }
 
     /**
@@ -26,7 +26,7 @@ public class DoctorUI extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
+    private void initComponents(Doctor doc) {
 
         DoctorUI = new javax.swing.JTabbedPane();
         ViewPatientListTab = new javax.swing.JScrollPane();
@@ -205,18 +205,18 @@ public class DoctorUI extends javax.swing.JFrame {
         doctorSubmitButton.setText("Submit");
         doctorSubmitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                doctorSubmitButtonActionPerformed(evt);
+                doctorSubmitButtonActionPerformed(evt, doc);
             }
         });
 
         invalidPassLabel.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         invalidPassLabel.setForeground(new java.awt.Color(204, 0, 0));
 
-        doctorCurrentName.setText(doc.getName());
+        doctorCurrentName.setText(doc.getname());
 
         doctorCurrentEmail.setText(doc.getEmail());
 
-        doctorCurrentAddress.setText(doc.getAddress());
+        doctorCurrentAddress.setText(doc.getStreetAddress() + " " + doc.getCityStateAddress());
 
         doctorCurrentHospital.setText(doc.getHospital());
 
@@ -227,7 +227,7 @@ public class DoctorUI extends javax.swing.JFrame {
         doctorPhoneLabel.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         doctorPhoneLabel.setText("Phone");
 
-        doctorCurrentPhone.setText(doc.getPhone());
+        doctorCurrentPhone.setText(doc.getPhoneNumber());
 
         doctorPhoneField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -376,13 +376,13 @@ public class DoctorUI extends javax.swing.JFrame {
         patientNameField.setText("");
     }                                                     
 
-    private void doctorSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+    private void doctorSubmitButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {                                                   
         invalidPassLabel.setText("");
         if(!(doctorNameField.getText().equals("")))
     	{
     		doc.setName(doctorNameField.getText());
     		doctorNameField.setText("");
-    		doctorCurrentName.setText(doc.getName());
+    		doctorCurrentName.setText(doc.getname());
     	}
     	if(!(doctorEmailField.getText().equals("")))
     	{
@@ -392,15 +392,15 @@ public class DoctorUI extends javax.swing.JFrame {
     	}
     	if(!(doctorAddressField.getText().equals("")))
     	{
-    		doc.setAddress(doctorAddressField.getText());
+    		doc.setStreetAddress(doctorAddressField.getText());
     		doctorAddressField.setText("");
-    		doctorCurrentAddress.setText(doc.getAddress());
+    		doctorCurrentAddress.setText(doc.getStreetAddress());
     	}
     	if(!(doctorPhoneField.getText().equals("")))
     	{
     		doc.setPhoneNumber(doctorPhoneField.getText());
     		doctorPhoneField.setText("");
-    		doctorCurrentPhone.setText(doc.getPhone());
+    		doctorCurrentPhone.setText(doc.getPhoneNumber());
     	}
     	if(!(doctorHospitalField.getText().equals("")))
     	{
