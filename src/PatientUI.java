@@ -330,7 +330,7 @@ public class PatientUI extends javax.swing.JFrame {
         patientName = new javax.swing.JLabel();
         providerName = new javax.swing.JLabel();
         patientDOB = new javax.swing.JLabel();
-        patientSex = new javax.swing.JLabel();
+       // patientSex = new javax.swing.JLabel();
         emailHeader = new javax.swing.JLabel();
         patientEmail = new javax.swing.JLabel();
         editEmail = new javax.swing.JTextField();
@@ -360,23 +360,24 @@ public class PatientUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         prescriptionSummary = new javax.swing.JTextArea();
         prescriptionSummary.setEditable(false);
+        
         patientName.setFont(new java.awt.Font("Georgia", 0, 24)); // NOI18N
-        patientName.setText("Nizar Kury");
+        patientName.setText(patient.getname());
 
         providerName.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
-        providerName.setText("Provider: Dr. Bob Bobness");
+        providerName.setText("Provider: " + patient.getDoctor().getname());
 
-        patientDOB.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+       /* patientDOB.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         patientDOB.setText("DOB: 8/18/1995");
 
         patientSex.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        patientSex.setText("Male");
+        patientSex.setText("Male"); */
 
         emailHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         emailHeader.setText("Email:");
 
         patientEmail.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        patientEmail.setText("nkury@asu.edu");
+        patientEmail.setText(patient.getEmail());
 
         editEmail.setText("Enter new email address here");
         
@@ -398,7 +399,7 @@ public class PatientUI extends javax.swing.JFrame {
         phoneHeader.setText("Phone Number:");
 
         patientPhone.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        patientPhone.setText("(623) 565-2645");
+        patientPhone.setText(patient.getPhoneNumber());
 
         editPhone.setText("Enter new phone number here");
         editPhone.addFocusListener(new FocusAdapter() {
@@ -418,7 +419,7 @@ public class PatientUI extends javax.swing.JFrame {
         addressHeader.setText("Address:");
 
         streetAddr.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        streetAddr.setText("1901 N. 104th Ave.");
+        streetAddr.setText(patient.getAddress());
 
         editStreet.setText("Enter new street address here");
         editStreet.addFocusListener(new FocusAdapter() {
@@ -435,7 +436,7 @@ public class PatientUI extends javax.swing.JFrame {
         });
 
         cityStateAddr.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        cityStateAddr.setText("Avondale, AZ 85392");
+        cityStateAddr.setText(patient.getAddress());
 
         editCityState.setText("Enter new city, state zip here");
         editCityState.setToolTipText("");
@@ -456,13 +457,13 @@ public class PatientUI extends javax.swing.JFrame {
         pharHeader.setText("Pharmacy:");
 
         pharName.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        pharName.setText("Walgreen's Pharmacy");
+        pharName.setText(patient.getPharmacy().getName());
 
         pharCityState.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        pharCityState.setText("Phoenix, AZ");
+        pharCityState.setText(patient.getPharmacy().getAddress());
 
         pharPhone.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        pharPhone.setText("(623) 555-5555");
+        pharPhone.setText(patient.getPharmacy().getPhone());
 
         editPharName.setText("Enter new pharmacy name");
         editPharName.setToolTipText("");
