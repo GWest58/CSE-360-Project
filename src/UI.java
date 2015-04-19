@@ -8,8 +8,8 @@ public class UI {
 		// login.setVisible(true);
 		// login.getAuthentication()
 		// OVERALL, WRITE METHODS IN PATIENT/DOCTOR/LOGIN UI that handles logic flow
-		//PatientUI patientFrame = new PatientUI();
-		
+	
+	
 		//if(login.getAuthenticated && login.isDoctor())
 		PatientUI patientFrame = new PatientUI();
 		patientFrame.setVisible(true);
