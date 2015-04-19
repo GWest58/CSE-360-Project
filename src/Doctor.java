@@ -63,12 +63,12 @@ public class Doctor extends User {
     {
     	patientList.add(newPatient);
     }
-    public void writeToFile(Doctor doc)
+    public void writeToFile()
     {
     	 String fileName = "doctor.bin";
          try{
          	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName));
-				os.writeObject(doc);
+				os.writeObject(this);
 				os.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -78,6 +78,16 @@ public class Doctor extends User {
          }
     }
     
+   
+   
+
+public static void main(String args[])
+{
+	 Doctor Grant = new Doctor("Grant West", "GrantMD@health.net", "6230005211", "0000 W Cure St.", "catsrcool", "Software Hospital", "What is your mother's maiden name?", "Micham");
+	 Doctor Nizar = new Doctor("Nizar Kury", "NizarMD@health.net", "6231111234", "9999 D Health Dr.", "ilovemonkeys", "Software Hospital", "Who was your childhood hero?", "Batman" );
+	 Grant.writeToFile();
+	 Nizar.writeToFile();
+}
 }
     
     
