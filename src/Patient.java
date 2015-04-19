@@ -29,7 +29,7 @@ public class Patient extends User {
 	}
 	
 	void newSymptom(String symptomName, int symptomLevel, String symptomDate){
-		Symtpom newSymptom = new Symptom(symptomName, symptomLevel, symptomDate);
+		Symptom newSymptom = new Symptom(symptomName, symptomLevel, symptomDate);
 		symptomList.add(newSymptom);
 	}
 }

@@ -8,6 +8,7 @@
  *
  * @author Grant
  */
+//altering master branch and then pulling into another branch test
 import javax.swing.*;
 public class DoctorUI extends javax.swing.JFrame {
 
@@ -397,7 +398,7 @@ public class DoctorUI extends javax.swing.JFrame {
     	}
     	if(!(doctorPhoneField.getText().equals("")))
     	{
-    		doc.setPhone(doctorPhoneField.getText());
+    		doc.setPhoneNumber(doctorPhoneField.getText());
     		doctorPhoneField.setText("");
     		doctorCurrentPhone.setText(doc.getPhone());
     	}
@@ -423,7 +424,7 @@ public class DoctorUI extends javax.swing.JFrame {
     	{
     		if(doctorPassField.getText().equals(doctorConfirmField.getText()))
     		{
-    			doc.setPass(doctorPassField.getText());
+    			doc.setPassword(doctorPassField.getText());
                         
     		}
     		else
@@ -522,14 +523,15 @@ public class DoctorUI extends javax.swing.JFrame {
     private javax.swing.JButton patientRegisterButton;
     // End of variables declaration                   
     private DefaultListModel listModel = new DefaultListModel();
-    private Doctor doc = new Doctor("Bob", "Bob@yahoo.com", "9516 W Bob St", "623-000-9999", 
-    		"Bob's Hope Hospital", "catsRule", "What is your mother's maiden name?", "Bobington");
+}
+    /*private Doctor doc = new Doctor("Bob", "Bob@yahoo.com", "9516 W Bob St", "623-000-9999", 
+    		"Bob's Hope Hospital", "testingGit", "What is your mother's maiden name?", "Bobington");
     
-    private boolean authenticated;
+   /* private boolean authenticated;
     public User getAuthentication(){
     	return authenticated;
     }
     public boolean isDoctor(){
     	
     }
-}
+} */

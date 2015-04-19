@@ -1,73 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
  * @author Grant
  */
+//contains the Doctor object and all methods to access and modify doctor attributes
 import java.util.*;
-public class Doctor {
-    private String name, email, address, phone, hospital, pass, secretQuestion, secretAnswer;
-    //private ArrayList<Patient> patientList;
+public class Doctor extends User {
+    private String  hospital, secretQuestion, secretAnswer;
+    private ArrayList<Patient> patientList;
     
-    public Doctor()
+    //constructor
+   public Doctor(String docName, String docEmail,String docPhone, String docAddress, 
+		    String docPass, String docHospital, String docSecret, String docAnswer)
     {
-        name = null;
-        email = null;
-        address = null;
-        phone = null;
-        hospital = null;
-        pass = null;
-        secretQuestion = null;
-        secretAnswer = null;
-       // patientList = new ArrayList<Patient>();
-    }
-    
-    public Doctor(String docName, String docEmail, String docAddress, 
-            String docPhone, String docHospital, String docPass, String docSecret, String docAnswer)
-    {
-        name = docName;
-        email = docEmail;
-        address = docAddress;
-        phone = docPhone;
+        super(docName, docEmail, docPhone, docAddress, docPass);
         hospital = docHospital;
-        pass = docPass;
         secretQuestion = docSecret;
         secretAnswer = docAnswer;
-        //patientList = new ArrayList<Patient>();
+        patientList = new ArrayList<Patient>();
     }
     
-    public String getName()
-    {
-        return name;
-    }
-    
-    public String getEmail()
-    {
-        return email;
-    }
-    
-    public String getAddress()
-    {
-        return address;
-    }
-    
-    public String getPhone()
-    {
-        return phone;
-    }
-    
+   //accessor methods for all data
+ 
     public String getHospital()
     {
         return hospital;
-    }
-    
-    public String getPass()
-    {
-        return pass;
     }
     public String getSecret()
     {
@@ -78,35 +35,17 @@ public class Doctor {
     {
         return secretAnswer;
     }
-     public void setName(String changeName)
+    public ArrayList<Patient> getPatientList()
     {
-        name = changeName;
+    	return patientList;
     }
     
-    public void setEmail(String changeEmail)
-    {
-        email = changeEmail;
-    }
-    
-    public void setAddress(String changeAddress)
-    {
-        address = changeAddress;
-    }
-    
-    public void setPhone(String changePhone)
-    {
-        phone = changePhone;
-    }
-    
+    //mutator methods
     public void setHospital(String changeHospital)
     {
         hospital = changeHospital;
     }
     
-    public void setPass(String changePass)
-    {
-        pass = changePass;
-    }
     public void setSecret(String changeSecret)
     {
         secretQuestion = changeSecret;
@@ -116,11 +55,12 @@ public class Doctor {
     {
         secretAnswer = changeAnswer;
     }
+    public void registerPatient(Patient newPatient)
+    {
+    	patientList.add(newPatient);
+    }
 }
     
-    /*public void registerPatient(Patient addPatient)
-    {
-        patientList.add(new Patient(...));
-    }
+    
    
-}*/
+

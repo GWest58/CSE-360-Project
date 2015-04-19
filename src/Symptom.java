@@ -7,7 +7,7 @@
 
 import java.util.ArrayList;
 import java.lang.Math;
-import java.util.
+import java.util.*;
 public class Symptom {
 	String name;
 	int level;

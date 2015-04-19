@@ -7,13 +7,13 @@ public class Pharmacy{
 		String name;
 		String address;
 		String phoneNum;
-		Prescription[] prescriptionList;
+		Prescription prescriptionList[];
 		
 	public Pharmacy(String nm, String addr, String phone){
 		name = nm;
 		address = addr;
 		phoneNum = phone;
-		prescriptionList = Prescription[MAX_PRESCRIPTIONS];
+		prescriptionList = new Prescription[MAX_PRESCRIPTIONS];
 	}
 	
 	public String getName(){
@@ -40,8 +40,8 @@ public class Pharmacy{
 		phoneNum = newPh;
 	}
 	
-	public void newPrescription(String name, int frequency, int dose){
-		prescription = new Prescription(name, frequency, dose);
+	public void newPrescription(String name, int frequency, int dose, int index){
+		prescriptionList[index] = new Prescription(name, frequency, dose);
 		
 	}
 }
