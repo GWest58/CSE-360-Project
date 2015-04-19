@@ -13,7 +13,7 @@ public class UI {
 		//if(login.getAuthenticated && login.isDoctor())
 		
 		// for testing-- IT WORKS!
-		Doctor doc = new Doctor("Bob", "Bob@yahoo.com", "9516 W Bob St", "Avondale, AZ, 85392", "623-000-9999", 
+		Doctor doc = new Doctor("Bob", "Bob@yahoo.com", "623-000-9999", "9516 W Bob St", "Avondale, AZ, 85392",
 	    		"Bob's Hope Hospital", "testingGit", "What is your mother's maiden name?", "Bobington");
 		Pharmacy testing = new Pharmacy("Walgreens", "Avondale, AZ, 85392", "6235652645");
 		Patient test = new Patient("Nizar Kury", "nkury@asu.edu", "6235652645", "1901 N. 104th AVE.", 
