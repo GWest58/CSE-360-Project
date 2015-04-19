@@ -28,18 +28,18 @@ public class Login extends javax.swing.JFrame {
 
         Login = new javax.swing.JLayeredPane();
         login_main = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        loginMainHeader = new javax.swing.JLabel();
+        loginMainsubHeader = new javax.swing.JLabel();
         doctorLoginButton = new javax.swing.JButton();
         patientLoginButton = new javax.swing.JButton();
         login_doctor = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        doctorLoginHeader = new javax.swing.JLabel();
         doctorLoginSubmit = new javax.swing.JButton();
         loginCancel = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        doctorLoginNameLabel = new javax.swing.JLabel();
+        DoctorLoginNameField = new javax.swing.JTextField();
+        doctorLoginPassLabel = new javax.swing.JLabel();
+        doctorLoginPassField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,11 +47,11 @@ public class Login extends javax.swing.JFrame {
 
         login_main.setBackground(new java.awt.Color(153, 255, 204));
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel1.setText("Efferent Patient Care");
+        loginMainHeader.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        loginMainHeader.setText("Efferent Patient Care");
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setText("Login");
+        loginMainsubHeader.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        loginMainsubHeader.setText("Login");
 
         doctorLoginButton.setText("Doctor");
         doctorLoginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -70,10 +70,10 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(login_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(login_mainLayout.createSequentialGroup()
                         .addGap(176, 176, 176)
-                        .addComponent(jLabel2))
+                        .addComponent(loginMainsubHeader))
                     .addGroup(login_mainLayout.createSequentialGroup()
                         .addGap(89, 89, 89)
-                        .addComponent(jLabel1)))
+                        .addComponent(loginMainHeader)))
                 .addContainerGap(91, Short.MAX_VALUE))
             .addGroup(login_mainLayout.createSequentialGroup()
                 .addGap(67, 67, 67)
@@ -86,9 +86,9 @@ public class Login extends javax.swing.JFrame {
             login_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(login_mainLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(loginMainHeader)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(loginMainsubHeader)
                 .addGap(84, 84, 84)
                 .addGroup(login_mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(doctorLoginButton)
@@ -98,20 +98,25 @@ public class Login extends javax.swing.JFrame {
 
         login_doctor.setBackground(new java.awt.Color(204, 255, 204));
 
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-        jLabel3.setText("Doctor Login");
+        doctorLoginHeader.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        doctorLoginHeader.setText("Doctor Login");
 
         doctorLoginSubmit.setText("Submit");
 
         loginCancel.setText("Cancel");
-
-        jLabel4.setText("Name");
-
-        jLabel5.setText("Password");
-
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        loginCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                loginCancelActionPerformed(evt);
+            }
+        });
+
+        doctorLoginNameLabel.setText("Name");
+
+        doctorLoginPassLabel.setText("Password");
+
+        doctorLoginPassField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                doctorLoginPassFieldActionPerformed(evt);
             }
         });
 
@@ -129,34 +134,34 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(login_doctorLayout.createSequentialGroup()
                         .addGap(122, 122, 122)
-                        .addComponent(jLabel3))
+                        .addComponent(doctorLoginHeader))
                     .addGroup(login_doctorLayout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
+                            .addComponent(doctorLoginPassLabel)
+                            .addComponent(doctorLoginNameLabel))
                         .addGap(52, 52, 52)
                         .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(DoctorLoginNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(doctorLoginPassField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
 
-        login_doctorLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPasswordField1, jTextField1});
+        login_doctorLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {DoctorLoginNameField, doctorLoginPassField});
 
         login_doctorLayout.setVerticalGroup(
             login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(login_doctorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(doctorLoginHeader)
                 .addGap(46, 46, 46)
                 .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(doctorLoginNameLabel)
+                    .addComponent(DoctorLoginNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(doctorLoginPassLabel)
+                    .addComponent(doctorLoginPassField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
                 .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(doctorLoginSubmit)
@@ -195,14 +200,19 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    private void doctorLoginPassFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
-    }                                               
+    }                                                    
 
     private void doctorLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         login_main.setVisible(false);
         login_doctor.setVisible(true);
     }                                                 
+
+    private void loginCancelActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        login_doctor.setVisible(false);
+        login_main.setVisible(true);
+    }                                           
 
     /**
      * @param args the command line arguments
@@ -240,17 +250,17 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
+    private javax.swing.JTextField DoctorLoginNameField;
     private javax.swing.JLayeredPane Login;
     private javax.swing.JButton doctorLoginButton;
+    private javax.swing.JLabel doctorLoginHeader;
+    private javax.swing.JLabel doctorLoginNameLabel;
+    private javax.swing.JPasswordField doctorLoginPassField;
+    private javax.swing.JLabel doctorLoginPassLabel;
     private javax.swing.JButton doctorLoginSubmit;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton loginCancel;
+    private javax.swing.JLabel loginMainHeader;
+    private javax.swing.JLabel loginMainsubHeader;
     private javax.swing.JPanel login_doctor;
     private javax.swing.JPanel login_main;
     private javax.swing.JButton patientLoginButton;

@@ -523,10 +523,8 @@ public class DoctorUI extends javax.swing.JFrame {
     private javax.swing.JButton patientRegisterButton;
     // End of variables declaration                   
     private DefaultListModel listModel = new DefaultListModel();
+	private Doctor doc = new Doctor("Grant West", "GrantMD@health.net", "6230005211", "0000 W Cure St.", "catsrcool", "Software Hospital", "What is your mother's maiden name?", "Micham");
 }
-    /*private Doctor doc = new Doctor("Bob", "Bob@yahoo.com", "9516 W Bob St", "623-000-9999", 
-    		"Bob's Hope Hospital", "testingGit", "What is your mother's maiden name?", "Bobington");
-    
    /* private boolean authenticated;
     public User getAuthentication(){
     	return authenticated;
