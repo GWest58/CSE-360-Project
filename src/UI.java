@@ -19,11 +19,9 @@ public class UI {
             }
         });*/
 		
-		  java.awt.EventQueue.invokeLater(new Runnable() {
-	            public void run() {
-	                new DoctorUI().setVisible(true);
-	            }
-	        });
+		// probably pass in the doctor read in from the login screen
+		DoctorUI doctorFrame = new DoctorUI();
+		doctorFrame.setVisible(true);
 	}
 
 }

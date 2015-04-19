@@ -74,7 +74,7 @@ public class User implements Serializable {
 		this.address = address;
 	}
 	
-	public void setPassword(String Password){
+	public void setPassword(String password){
 		this.password=password;
 	}
 //this is where we get the user object from the text file	
