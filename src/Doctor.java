@@ -5,6 +5,7 @@
  */
 //contains the Doctor object and all methods to access and modify doctor attributes
 import java.util.*;
+import java.io.*;
 public class Doctor extends User {
     private String  hospital, secretQuestion, secretAnswer;
     private ArrayList<Patient> patientList;
@@ -18,6 +19,9 @@ public class Doctor extends User {
         secretQuestion = docSecret;
         secretAnswer = docAnswer;
         patientList = new ArrayList<Patient>();
+       
+        
+        
     }
     
    //accessor methods for all data
@@ -59,6 +63,21 @@ public class Doctor extends User {
     {
     	patientList.add(newPatient);
     }
+    public void writeToFile(Doctor doc)
+    {
+    	 String fileName = "doctor.bin";
+         try{
+         	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName));
+				os.writeObject(doc);
+				os.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch(IOException e) {
+				e.printStackTrace();
+
+         }
+    }
+    
 }
     
     
