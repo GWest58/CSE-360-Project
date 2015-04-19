@@ -399,7 +399,9 @@ public class PatientUI extends javax.swing.JFrame {
         phoneHeader.setText("Phone Number:");
 
         patientPhone.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        patientPhone.setText(patient.getPhoneNumber());
+        patientPhone.setText("(" + patient.getPhoneNumber().substring(0, 3) + ") " +
+        		patient.getPhoneNumber().substring(3, 6) + "-" + 
+        		patient.getPhoneNumber().substring(6, patient.getPhoneNumber().length()));
 
         editPhone.setText("Enter new phone number here");
         editPhone.addFocusListener(new FocusAdapter() {
@@ -419,7 +421,7 @@ public class PatientUI extends javax.swing.JFrame {
         addressHeader.setText("Address:");
 
         streetAddr.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        streetAddr.setText(patient.getAddress());
+        streetAddr.setText(patient.getStreetAddress());
 
         editStreet.setText("Enter new street address here");
         editStreet.addFocusListener(new FocusAdapter() {
@@ -436,7 +438,7 @@ public class PatientUI extends javax.swing.JFrame {
         });
 
         cityStateAddr.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        cityStateAddr.setText(patient.getAddress());
+        cityStateAddr.setText(patient.getCityStateAddress());
 
         editCityState.setText("Enter new city, state zip here");
         editCityState.setToolTipText("");
@@ -463,7 +465,9 @@ public class PatientUI extends javax.swing.JFrame {
         pharCityState.setText(patient.getPharmacy().getAddress());
 
         pharPhone.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        pharPhone.setText(patient.getPharmacy().getPhone());
+        pharPhone.setText("(" + patient.getPharmacy().getPhone().substring(0, 3) + ") " +
+        		patient.getPharmacy().getPhone().substring(3, 6) + "-" + 
+        		patient.getPharmacy().getPhone().substring(6, patient.getPharmacy().getPhone().length()));
 
         editPharName.setText("Enter new pharmacy name");
         editPharName.setToolTipText("");
@@ -514,7 +518,7 @@ public class PatientUI extends javax.swing.JFrame {
         editInfoButton.setText("Edit");
         editInfoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editButtonActionPerformed(evt);
+                editButtonActionPerformed(evt, patient);
             }
         });
         javax.swing.GroupLayout patientInfoPanelLayout = new javax.swing.GroupLayout(patientInfoPanel);
@@ -798,14 +802,14 @@ public class PatientUI extends javax.swing.JFrame {
     	}
     }
     
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt){
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient){
     	int count = 0;
     	if(!editEmail.getText().equals("") && !editEmail.getText().equals("Enter new email address here")){
     		if(isEmail(editEmail.getText())){
 	    		 String newEmail = editEmail.getText();	
 	    	     patientEmail.setText(newEmail);
 	    	     editEmail.setText("");
-	    	     // save to target Patient
+	    	     patient.setEmail(newEmail); // I hope this actually changes the patient field when we return to UI
     		}
     		else{
     			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid email.");
@@ -821,7 +825,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newPhone= editPhone.getText();	
     		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
    	     	editPhone.setText("");
-   	     	// save to target Patient
+   	     	patient.setPhoneNumber(newPhone); // I hope this actually changes the patient variable when we return
     		}
     		else{
     			count++;
@@ -837,7 +841,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newStreet = editStreet.getText();
     		streetAddr.setText(newStreet);
     		editStreet.setText("");
-    		// save to target Patient
+    		patient.setStreetAddress(newStreet);
     	}
     	else 
     		count++;
@@ -846,7 +850,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newCityState = editCityState.getText();
     		cityStateAddr.setText(newCityState);
     		editCityState.setText("");
-    		// save to target Patient
+    		patient.setCityStateAddress(newCityState);
     	}
     	else
     		count++;
@@ -855,7 +859,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newPharName = editPharName.getText();
     		pharName.setText(newPharName);
     		editPharName.setText("");
-    		// save to Excel file
+    		patient.getPharmacy().changeName(newPharName);
     	}
     	else
     		count++;
@@ -864,16 +868,23 @@ public class PatientUI extends javax.swing.JFrame {
     		String newPharCity = editPharCity.getText();
     		pharCityState.setText(newPharCity);
     		editPharCity.setText("");
-    		// save to Excel file
+    		patient.getPharmacy().changeAddr(newPharCity);
     	}
     	else
     		count++;
     	
     	if(!editPharPhone.getText().equals("") && !editPharPhone.getText().equals("Enter new pharmacy phone number")){
-    		String newPharPhone = editPharPhone.getText();
-    		pharPhone.setText(newPharPhone);
-    		editPharPhone.setText("");
-    		// save to Excel file
+    		if(isPhone(editPharPhone.getText())){
+        		String newPhone= editPharPhone.getText();	
+        		pharPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
+       	     	editPharPhone.setText("");
+       	     	patient.getPharmacy().changePhone(newPhone);
+        		}
+        		else{
+        			count++;
+        			editPharPhone.setText("");
+        			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid pharmacy phone number in the form of XXXXXXXXXX with no spaces");
+        		}
     	}
     	else
     		count++;

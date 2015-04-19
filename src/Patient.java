@@ -6,8 +6,8 @@ public class Patient extends User {
 	ArrayList<Symptom> symptomList;
 	Doctor associatedDoctor;
 	
-	Patient(String name, String email, String phoneNumber, String address, String password, Pharmacy phar, Doctor doc){
-		super(name, email, phoneNumber, address, password); //call the parent constructor to fill in those fields
+	Patient(String name, String email, String phoneNumber, String streetAddress, String cityStateAddress, String password, Pharmacy phar, Doctor doc){
+		super(name, email, phoneNumber, streetAddress, cityStateAddress, password); //call the parent constructor to fill in those fields
 		pharmacy = phar;
 		associatedDoctor = doc;
 	}

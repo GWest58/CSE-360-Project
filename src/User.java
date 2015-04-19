@@ -25,15 +25,17 @@ public class User implements Serializable {
 	private String name;
 	private String email;
 	private String phoneNumber;
-	private String address;
+	private String streetAddress;
+	private String cityStateAddress;
 	private String password;
 	
-	public User(String name,  String email, String phoneNumber, String address, String password){
+	public User(String name,  String email, String phoneNumber, String sAddress, String csAddress, String password){
 //constructor method		
 		this.name=name;
 		this.email=email;
 		this.phoneNumber=phoneNumber;
-		this.address=address;
+		this.streetAddress = sAddress;
+		this.cityStateAddress = csAddress;
 		this.password=password;
 	}
 //getter methods for each var	
@@ -48,9 +50,14 @@ public class User implements Serializable {
 		return phoneNumber;
 	}
 	
-	public String getAddress()
+	public String getStreetAddress()
 	{
-		return address;
+		return streetAddress;
+	}
+	
+	public String getCityStateAddress()
+	{
+		return cityStateAddress;
 	}
 	
 	public String getPassword(){
@@ -69,9 +76,13 @@ public class User implements Serializable {
 		this.phoneNumber=phoneNumber;
 	}
 	
-	public void setAddress(String address)
+	public void setStreetAddress(String address)
 	{
-		this.address = address;
+		this.streetAddress = address;
+	}
+	
+	public void setCityStateAddress(String address){
+		this.cityStateAddress = address;
 	}
 	
 	public void setPassword(String password){

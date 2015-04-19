@@ -10,10 +10,10 @@ public class Doctor extends User {
     private ArrayList<Patient> patientList;
     
     //constructor
-   public Doctor(String docName, String docEmail,String docPhone, String docAddress, 
-		    String docPass, String docHospital, String docSecret, String docAnswer)
+   public Doctor(String docName, String docEmail,String docPhone, String docStreetAddress, 
+		    String docCityStateAddress, String docPass, String docHospital, String docSecret, String docAnswer)
     {
-        super(docName, docEmail, docPhone, docAddress, docPass);
+        super(docName, docEmail, docPhone, docStreetAddress, docCityStateAddress, docPass);
         hospital = docHospital;
         secretQuestion = docSecret;
         secretAnswer = docAnswer;
