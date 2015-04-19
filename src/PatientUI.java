@@ -330,7 +330,7 @@ public class PatientUI extends javax.swing.JFrame {
         patientName = new javax.swing.JLabel();
         providerName = new javax.swing.JLabel();
         patientDOB = new javax.swing.JLabel();
-       // patientSex = new javax.swing.JLabel();
+        patientSex = new javax.swing.JLabel();
         emailHeader = new javax.swing.JLabel();
         patientEmail = new javax.swing.JLabel();
         editEmail = new javax.swing.JTextField();

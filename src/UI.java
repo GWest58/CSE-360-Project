@@ -11,7 +11,14 @@ public class UI {
 	
 	
 		//if(login.getAuthenticated && login.isDoctor())
-		PatientUI patientFrame = new PatientUI();
+		
+		// for testing-- IT WORKS!
+		Doctor doc = new Doctor("Bob", "Bob@yahoo.com", "9516 W Bob St", "623-000-9999", 
+	    		"Bob's Hope Hospital", "testingGit", "What is your mother's maiden name?", "Bobington");
+		Pharmacy testing = new Pharmacy("Walgreens", "Avondale, AZ, 85392", "6235652645");
+		Patient test = new Patient("Nizar Kury", "nkury@asu.edu", "6235652645", "1901 N. 104th AVE.", 
+				"password", testing, doc);
+		PatientUI patientFrame = new PatientUI(test);
 		patientFrame.setVisible(true);
 		/*java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
