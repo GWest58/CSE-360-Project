@@ -1,3 +1,10 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+import java.awt.event.WindowEvent;
+import java.io.*;
 
 /**
  *
@@ -34,6 +41,7 @@ public class Login extends javax.swing.JFrame {
         doctorLoginPassField = new javax.swing.JPasswordField();
         doctorLoginCancelButton = new javax.swing.JButton();
         doctorLoginSubmitButton = new javax.swing.JButton();
+        doctorLoginErrorLabel = new javax.swing.JLabel();
         login_patient = new javax.swing.JPanel();
         patientLoginHeader = new javax.swing.JLabel();
         patientLoginEmailLabel = new javax.swing.JLabel();
@@ -44,6 +52,7 @@ public class Login extends javax.swing.JFrame {
         patientLoginPassField = new javax.swing.JPasswordField();
         patientLoginCancelButton = new javax.swing.JButton();
         patientLoginSubmitButton = new javax.swing.JButton();
+        patientLoginErrorLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(350, 100, 100, 100));
@@ -143,6 +152,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        doctorLoginErrorLabel.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        doctorLoginErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+
         javax.swing.GroupLayout login_doctorLayout = new javax.swing.GroupLayout(login_doctor);
         login_doctor.setLayout(login_doctorLayout);
         login_doctorLayout.setHorizontalGroup(
@@ -154,7 +166,7 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(doctorLoginHeader))
                     .addGroup(login_doctorLayout.createSequentialGroup()
                         .addGap(137, 137, 137)
-                        .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(login_doctorLayout.createSequentialGroup()
                                 .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(doctorLoginEmailLabel)
@@ -165,9 +177,12 @@ public class Login extends javax.swing.JFrame {
                                     .addComponent(doctorLoginPassField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(login_doctorLayout.createSequentialGroup()
                                 .addComponent(doctorLoginCancelButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(doctorLoginSubmitButton)))))
-                .addContainerGap(187, Short.MAX_VALUE))
+                                .addGap(104, 104, 104)
+                                .addComponent(doctorLoginSubmitButton))))
+                    .addGroup(login_doctorLayout.createSequentialGroup()
+                        .addGap(167, 167, 167)
+                        .addComponent(doctorLoginErrorLabel)))
+                .addContainerGap(179, Short.MAX_VALUE))
         );
         login_doctorLayout.setVerticalGroup(
             login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,11 +197,13 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(doctorLoginPassLabel)
                     .addComponent(doctorLoginPassField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
+                .addGap(21, 21, 21)
+                .addComponent(doctorLoginErrorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(login_doctorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(doctorLoginCancelButton)
                     .addComponent(doctorLoginSubmitButton))
-                .addContainerGap(418, Short.MAX_VALUE))
+                .addContainerGap(444, Short.MAX_VALUE))
         );
 
         getContentPane().add(login_doctor, "card3");
@@ -222,6 +239,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        patientLoginErrorLabel.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        patientLoginErrorLabel.setForeground(new java.awt.Color(204, 0, 0));
+
         javax.swing.GroupLayout login_patientLayout = new javax.swing.GroupLayout(login_patient);
         login_patient.setLayout(login_patientLayout);
         login_patientLayout.setHorizontalGroup(
@@ -247,7 +267,10 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(login_patientLayout.createSequentialGroup()
                                 .addComponent(patientLoginCancelButton)
                                 .addGap(111, 111, 111)
-                                .addComponent(patientLoginSubmitButton)))))
+                                .addComponent(patientLoginSubmitButton))))
+                    .addGroup(login_patientLayout.createSequentialGroup()
+                        .addGap(256, 256, 256)
+                        .addComponent(patientLoginErrorLabel)))
                 .addContainerGap(140, Short.MAX_VALUE))
         );
         login_patientLayout.setVerticalGroup(
@@ -267,11 +290,13 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(login_patientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(patientLoginPassField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(patientLoginPassLabel))
-                .addGap(34, 34, 34)
+                .addGap(14, 14, 14)
+                .addComponent(patientLoginErrorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(login_patientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(patientLoginCancelButton)
                     .addComponent(patientLoginSubmitButton))
-                .addContainerGap(434, Short.MAX_VALUE))
+                .addContainerGap(448, Short.MAX_VALUE))
         );
 
         getContentPane().add(login_patient, "card4");
@@ -304,7 +329,54 @@ public class Login extends javax.swing.JFrame {
     }                                                        
 
     private void doctorLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-        // TODO add your handling code here:
+    	doctorLoginErrorLabel.setText("");	//clears the error label
+    	if(!doctorLoginEmailField.getText().equals(""))	//if there is an email entered in the email field
+        {
+    		//search the doctor file to see if the entered information mathes a doctor within the file
+    		Doctor doc = database.deserialize(doctorLoginEmailField.getText(), doctorLoginPassField.getText(), "src/doctor.bin");
+    		if(doc != null)
+    		{
+    			 DoctorUI ui = new DoctorUI(doc);	//open doctorUI
+				 ui.setVisible(true);
+				 this.setVisible(false);	// close Login
+				 this.dispose();
+    		}
+    		else
+    		{
+    			doctorLoginErrorLabel.setText("Email or password entered is incorrect");
+    			doctorLoginPassField.setText(""); //clears the pass field
+    		}
+        }
+    }
+    		/*
+    	try{
+    		 ObjectInputStream is = new ObjectInputStream(new FileInputStream("src/doctor.bin"));
+			 Doctor doc = null;
+			 boolean run = true;
+			 try{
+			 while(run)	//reads each object in the doctor field and compares the emails and passwords to the 
+				 		//items entered in the text fields
+			 {
+				 doc = (Doctor)is.readObject();
+				 if(doc.getEmail().equalsIgnoreCase(doctorLoginEmailField.getText()))
+				 {
+					 if(doc.getPassword().equals(doctorLoginPassField.getText()))
+					 {
+						 DoctorUI ui = new DoctorUI(doc);	//open doctorUI
+						 ui.setVisible(true);
+						 this.setVisible(false);	// close Login
+						 this.dispose();
+						 
+					 }
+				 }
+			 }
+			 }catch(EOFException ex){ //outputs if the doctor is not found in the file
+				 doctorLoginErrorLabel.setText("Email or password entered is incorrect");
+			 }
+		 }catch(Exception ex){
+			 ex.printStackTrace();
+		 }
+        }
     }                                                       
 
     /**
@@ -347,6 +419,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton doctorLoginCancelButton;
     private javax.swing.JTextField doctorLoginEmailField;
     private javax.swing.JLabel doctorLoginEmailLabel;
+    private javax.swing.JLabel doctorLoginErrorLabel;
     private javax.swing.JLabel doctorLoginHeader;
     private javax.swing.JPasswordField doctorLoginPassField;
     private javax.swing.JLabel doctorLoginPassLabel;
@@ -362,10 +435,11 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel patientLoginDoctorLabel;
     private javax.swing.JTextField patientLoginEmailField;
     private javax.swing.JLabel patientLoginEmailLabel;
+    private javax.swing.JLabel patientLoginErrorLabel;
     private javax.swing.JLabel patientLoginHeader;
     private javax.swing.JPasswordField patientLoginPassField;
     private javax.swing.JLabel patientLoginPassLabel;
     private javax.swing.JButton patientLoginSubmitButton;
+    private Serialize database = new Serialize();
     // End of variables declaration                   
 }
-

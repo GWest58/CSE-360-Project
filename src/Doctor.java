@@ -63,6 +63,8 @@ public class Doctor extends User {
     {
     	patientList.add(newPatient);
     }
+    
+    /*
     public void writeToFile()
     {
     	 String fileName = "doctor.bin";
@@ -78,17 +80,78 @@ public class Doctor extends User {
          }
     }
     
+    public Doctor readFromFile()
+    {
+    	String fileName = "doctor.bin";
+    	Doctor doc = null;
+    	try {
+			ObjectInputStream is = new ObjectInputStream(new FileInputStream(fileName));
+			try {
+				doc = (Doctor)is.readObject();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				doc = null;
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	return doc;
+    }
+    */
    
    
 
 public static void main(String args[])
 {
-	 Doctor Grant = new Doctor("Grant West", "GrantMD@health.net", "6230005211", "0000 W Cure St.", "catsrcool", "Software Hospital", "What is your mother's maiden name?", "Micham");
-	 Doctor Nizar = new Doctor("Nizar Kury", "NizarMD@health.net", "6231111234", "9999 D Health Dr.", "ilovemonkeys", "Software Hospital", "Who was your childhood hero?", "Batman" );
-	 Grant.writeToFile();
-	 Nizar.writeToFile();
+	 Doctor Grant = new Doctor("Grant West", "GrantMD@health.net", "6230005211", "0000 W Cure St.", "Tempe, AZ, 85281",  "catsrcool", "Software Hospital", "What is your mother's maiden name?", "Micham");
+	 Doctor Nizar = new Doctor("Nizar Kury", "NizarMD@health.net", "6231111234", "9999 S Health Dr.", "Tempe, AZ, 85281", "ilovemonkeys", "Software Hospital", "Who was your childhood hero?", "Batman" );
+	 Doctor Luis = new Doctor("Luis Saenz", "LuisMd@health.net", "6232225656", "5555 S Healing Ln.", 
+			 "Tempe, AZ, 85281", "concoosion", "Software Hospital", "How much wood would a woodchuck chuck?", "5 woods" );
+		
+	 try{
+		 /*
+		 ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/doctor.bin"));
+		 
+		 os.writeObject(Grant);
+		 os.writeObject(Nizar);
+		 os.writeObject(Luis);
+		 os.flush();
+		 os.close();
+		 */
+		 
+		 ObjectInputStream is = new ObjectInputStream(new FileInputStream("src/doctor.bin"));
+		 Doctor doc = null;
+		 boolean run = true;
+		 try{
+		 while(run)
+		 {
+			 doc = (Doctor)is.readObject();
+			 if(doc.getname().equalsIgnoreCase("Bob"))
+			 {
+				 run = false;
+			 }
+		 }
+		 System.out.println("Name = " + doc.getname());
+		 }catch(EOFException ex){
+			 System.out.println("Doctor does not exist");
+		 }
+	 }catch(Exception ex){
+		 ex.printStackTrace();
+	 }
+		 
+		 
+		 
+	 }
+	 
 }
-}
+
+
     
     
    
