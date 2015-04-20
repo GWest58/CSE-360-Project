@@ -8,12 +8,12 @@
  *
  * @author MSClark
  */
-public class DoctorUI extends javax.swing.JFrame {
+public class DoctorUI2 extends javax.swing.JFrame {
 
     /**
      * Creates new form DoctorUI
      */
-    public DoctorUI() {
+    public DoctorUI2() {
         initComponents();
     }
 
