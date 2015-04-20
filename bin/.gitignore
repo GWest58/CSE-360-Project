@@ -1,4 +1,7 @@
 /Doctor.class
+/DoctorUI$1.class
+/DoctorUI$2.class
+/DoctorUI$3.class
 /DoctorUI.class
 /DoctorUI2$1.class
 /DoctorUI2$2.class
@@ -11,6 +14,9 @@
 /Login$2.class
 /Login$3.class
 /Login$4.class
+/Login$5.class
+/Login$6.class
+/Login$7.class
 /Login.class
 /Patient.class
 /PatientUI$1.class
@@ -34,15 +40,8 @@
 /PatientUI.class
 /Pharmacy.class
 /Prescription.class
+/Serialize.class
 /Symptom.class
 /UI.class
 /User.class
-/Login$5.class
-/Login$6.class
-/Login$7.class
-/doctor/
 /doctor.bin
-/DoctorUI$1.class
-/DoctorUI$2.class
-/DoctorUI$3.class
-/Serialize.class

@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Grant
@@ -378,6 +380,16 @@ public class DoctorUI extends javax.swing.JFrame {
 
     private void doctorSubmitButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {                                                   
         invalidPassLabel.setText("");
+        docList = Serialize.deserialize("src/doctor.bin");
+        for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(doc.getEmail()) 
+        			&& docList.get(i).getPassword().equals(doc.getPassword()))
+        	{
+        		docList.remove(i);
+        		break;
+        	}
+        }
         if(!(doctorNameField.getText().equals("")))
     	{
     		doc.setName(doctorNameField.getText());
@@ -429,11 +441,19 @@ public class DoctorUI extends javax.swing.JFrame {
     		}
     		else
     		{
-                        invalidPassLabel.setText("The passwords do not match");
+                invalidPassLabel.setText("The passwords do not match");
     		}
                 doctorPassField.setText("");
                 doctorConfirmField.setText("");
     	}
+    	
+    	docList.add(doc);
+    	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
+    													//new information
+    	
+    	
+    	
+    	
     }                                                  
 
     private void doctorPhoneFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                 
@@ -523,6 +543,7 @@ public class DoctorUI extends javax.swing.JFrame {
     private javax.swing.JButton patientRegisterButton;
     // End of variables declaration                   
     private DefaultListModel listModel = new DefaultListModel();
+    private ArrayList<Doctor> docList;
 }
    /* private boolean authenticated;
     public User getAuthentication(){
