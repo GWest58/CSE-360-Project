@@ -420,7 +420,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DoctorUI().setVisible(true);
+                new DoctorUI2().setVisible(true);
             }
         });
     }
