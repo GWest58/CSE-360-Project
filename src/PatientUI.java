@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class PatientUI extends javax.swing.JFrame {
 
@@ -743,6 +746,7 @@ public class PatientUI extends javax.swing.JFrame {
             return false;
     }
     
+    
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:      
         double painRate = painSlider.getValue();
@@ -756,16 +760,42 @@ public class PatientUI extends javax.swing.JFrame {
         double drowsinessRate = drowsinessSlider.getValue();
         double otherRate = otherSlider.getValue();
         
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYY");//include time??
+        //check if submitting symptoms within specified time frame???
+        Date today = new Date();
+        
         //check if all values are valid
         if (checkVal(painRate) && checkVal(shortnessOfBreathRate) && checkVal(wellbeingRate) && checkVal(anxietyRate) && checkVal(tirednessRate) &&
                 checkVal(depressionRate) && checkVal(nauseaRate) && checkVal(appetiteRate) && checkVal(drowsinessRate) && checkVal(otherRate))
         {
-            //continue, push values to database, disable button
+            Symptom new_pain = new Symptom("Pain", painRate, today, threshhold);
+            Symptom new_shortnessOfBreath = new Symptom("Shortness of Breath", shortnessOfBreathRate, today, threshhold);
+            Symptom new_wellbeing = new Symptom("Wellbeing", wellbeingRate, today, threshhold);
+            Symptom new_anxiety = new Symptom("Anxiety", anxietyRate, today, threshhold);
+            Symptom new_tiredness = new Symptom("Tiredness", tirednessRate, today, threshhold);
+            Symptom new_depression = new Symptom("Depression", depressionRate, today, threshhold);
+            Symptom new_nausea = new Symptom("Nausea", nauseaRate, today, threshhold);
+            Symptom new_appetite = new Symptom("Appetite", appetiteRate, today, threshhold);
+            Symptom new_drowsiness = new Symptom("Drowsiness", drowsinessRate, today, threshhold);
+            Symptom new_other = new Symptom("Other", otherRate, today, threshhold); 
+            //add new symtoms to pt's symptom list
+            patient.symptomList.add(new_pain);
+            patient.symptomList.add(new_shortnessOfBreath);
+            patient.symptomList.add(new_wellbeing);
+            patient.symptomList.add(new_anxiety);
+            patient.symptomList.add(new_tiredness);
+            patient.symptomList.add(new_depression);
+            patient.symptomList.add(new_nausea);
+            patient.symptomList.add(new_appetite);
+            patient.symptomList.add(new_drowsiness);
+            patient.symptomList.add(new_other);
+            
         }
         else if (!checkVal(painRate)){
-            //print error message
+            //
         }
         
+        //continue error messages
         
     }            
     
