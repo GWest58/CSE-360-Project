@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.awt.event.WindowEvent;
 import java.io.*;
 
 /**
@@ -342,10 +343,16 @@ public class Login extends javax.swing.JFrame {
 				 doc = (Doctor)is.readObject();
 				 if(doc.getEmail().equalsIgnoreCase(doctorLoginEmailField.getText()))
 				 {
-					 run = false; 	//stops running if the doctor is found in the file
+					 if(doc.getPassword().equals(doctorLoginPassField.getText()))
+					 {
+						 DoctorUI ui = new DoctorUI(doc);	//open doctorUI
+						 ui.setVisible(true);
+						 this.setVisible(false);	// close Login
+						 this.dispose();
+						 
+					 }
 				 }
 			 }
-			 System.out.println("email = " + doc.getEmail());
 			 }catch(EOFException ex){ //outputs if the doctor is not found in the file
 				 doctorLoginErrorLabel.setText("Email or password entered is incorrect");
 			 }
