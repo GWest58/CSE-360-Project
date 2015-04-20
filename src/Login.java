@@ -343,7 +343,7 @@ public class Login extends javax.swing.JFrame {
     		{
     			//searches every doctor in the list and compares info with user entered
     			//info to find a match
-    			for(int i = 0; i < docList.size(); i++)
+    			for(int i = 0; i < docList.size(); i++)	
     			{
     				if(docList.get(i).getEmail().equalsIgnoreCase(doctorLoginEmailField.getText()) 
     						&& docList.get(i).getPassword().equals(doctorLoginPassField.getText()))
