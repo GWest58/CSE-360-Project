@@ -18,10 +18,7 @@ public class Doctor extends User {
         hospital = docHospital;
         secretQuestion = docSecret;
         secretAnswer = docAnswer;
-        patientList = new ArrayList<Patient>();
-       
-        
-        
+        patientList = new ArrayList<Patient>(); 
     }
     
    //accessor methods for all data
@@ -113,7 +110,14 @@ public static void main(String args[])
 	 Doctor Nizar = new Doctor("Nizar Kury", "NizarMD@health.net", "6231111234", "9999 S Health Dr.", "Tempe, AZ, 85281", "ilovemonkeys", "Software Hospital", "Who was your childhood hero?", "Batman" );
 	 Doctor Luis = new Doctor("Luis Saenz", "LuisMd@health.net", "6232225656", "5555 S Healing Ln.", 
 			 "Tempe, AZ, 85281", "concoosion", "Software Hospital", "How much wood would a woodchuck chuck?", "5 woods" );
-		
+	ArrayList<Doctor> docList = new ArrayList<Doctor>();
+	docList.add(Grant);
+	docList.add(Nizar);
+	docList.add(Luis);
+	Serialize.serialize(docList, "src/doctor.bin");
+}
+}
+	/*
 	 try{
 		 /*
 		 ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/doctor.bin"));
@@ -124,7 +128,7 @@ public static void main(String args[])
 		 os.flush();
 		 os.close();
 		 */
-		 
+		 /*
 		 ObjectInputStream is = new ObjectInputStream(new FileInputStream("src/doctor.bin"));
 		 Doctor doc = null;
 		 boolean run = true;
@@ -144,12 +148,10 @@ public static void main(String args[])
 	 }catch(Exception ex){
 		 ex.printStackTrace();
 	 }
+		 */
 		 
 		 
-		 
-	 }
-	 
-}
+
 
 
     
