@@ -330,9 +330,53 @@ public class Login extends javax.swing.JFrame {
     }                                                        
 
     private void patientLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                         
-        patientLoginErrorLabel.setText("");
-        if(!patientLoginEmailField.getText().equals("")){
+
+        boolean knowsEmail = false;
+    	patientLoginErrorLabel.setText("");
+        // Patient Email and Doctor fields cannot be empty
+        if(!patientLoginEmailField.getText().equals("") && !patientLoginDoctorField.getText().equals("")){
         	
+        	// loads in the doctor list from the source doctor file
+        	docList = Serialize.deserialize("src/doctor.bin");
+        	if(docList != null){
+        		// searches for the doctor the patient identified to therefore search for the patient
+        		for(int i = 0; i < docList.size(); i++){
+        			if(docList.get(i).getname().equalsIgnoreCase(patientLoginDoctorField.getText())){
+        				for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        					// if doctor's patient matches email and password, then open patient gui
+        					if(docList.get(i).getPatientList().get(j).getEmail().equalsIgnoreCase(
+        							patientLoginEmailField.getText()) && docList.get(i).getPatientList().
+        							get(j).getPassword().equals(patientLoginPassField)){
+		        						Patient pat = docList.get(i).getPatientList().get(j);
+		    							PatientUI patUI = new PatientUI(pat);
+		    							patUI.setVisible(true);
+		    							this.setVisible(false);
+		    							this.dispose();
+        					}
+        					else if(docList.get(i).getPatientList().get(j).getEmail().equalsIgnoreCase(
+        							patientLoginEmailField.getText())){
+        						knowsEmail = true;
+        						patientLoginEmailField.setEditable(false);
+        						break;
+        					}
+        				
+        				}
+        			}
+        		}
+        		
+        		if(!knowsEmail && patientCount < 5)
+    				patientLoginErrorLabel.setText("Email and password entered is incorrect");
+        		else if(knowsEmail && patientCount < 5)
+        			patientLoginErrorLabel.setText("Email correct. Password entered incorrectly");
+        		else if(patientCount >= 5){
+        			patientLoginErrorLabel.setText("Please call your doctor to recover email or password");  
+        		}
+        		
+				patientLoginPassField.setText(""); //clears the pass field
+				patientCount++;
+        		
+        	}
+
         }
     }                                                        
 
@@ -450,5 +494,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton patientLoginSubmitButton;
     private ArrayList<Doctor> docList;
  	int count = 0; // for doctor login to prompt secret question
+ 	int patientCount = 0; // for patient login to prompt them to call doctor's phone number
     // End of variables declaration                   
 }
