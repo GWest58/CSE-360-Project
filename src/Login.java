@@ -330,8 +330,25 @@ public class Login extends javax.swing.JFrame {
 
     private void doctorLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                        
     	doctorLoginErrorLabel.setText("");	//clears the error label
-    	if(!doctorLoginEmailField.getText().equals(""))	//if there is a name entered in the email field
+    	if(!doctorLoginEmailField.getText().equals(""))	//if there is an email entered in the email field
         {
+    		//search the doctor file to see if the entered information mathes a doctor within the file
+    		Doctor doc = database.deserialize(doctorLoginEmailField.getText(), doctorLoginPassField.getText(), "src/doctor.bin");
+    		if(doc != null)
+    		{
+    			 DoctorUI ui = new DoctorUI(doc);	//open doctorUI
+				 ui.setVisible(true);
+				 this.setVisible(false);	// close Login
+				 this.dispose();
+    		}
+    		else
+    		{
+    			doctorLoginErrorLabel.setText("Email or password entered is incorrect");
+    			doctorLoginPassField.setText(""); //clears the pass field
+    		}
+        }
+    }
+    		/*
     	try{
     		 ObjectInputStream is = new ObjectInputStream(new FileInputStream("src/doctor.bin"));
 			 Doctor doc = null;
@@ -423,5 +440,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField patientLoginPassField;
     private javax.swing.JLabel patientLoginPassLabel;
     private javax.swing.JButton patientLoginSubmitButton;
+    private Serialize database = new Serialize();
     // End of variables declaration                   
 }
