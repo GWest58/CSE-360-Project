@@ -92,7 +92,7 @@ public class PatientUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Select Symptom");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pain", "Shortness of Breath", "Wellbeing", "Anxiety", "Tiredness", "Depression", "Appetit", "Nausea", "Drowsiness", "Other" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pain", "Shortness of Breath", "Wellbeing", "Anxiety", "Tiredness", "Depression", "Appetite", "Nausea", "Drowsiness", "Other" }));
         jComboBox1.setToolTipText("");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -763,39 +763,72 @@ public class PatientUI extends javax.swing.JFrame {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYY");//include time??
         //check if submitting symptoms within specified time frame???
         Date today = new Date();
-        
-        //check if all values are valid
-        if (checkVal(painRate) && checkVal(shortnessOfBreathRate) && checkVal(wellbeingRate) && checkVal(anxietyRate) && checkVal(tirednessRate) &&
-                checkVal(depressionRate) && checkVal(nauseaRate) && checkVal(appetiteRate) && checkVal(drowsinessRate) && checkVal(otherRate))
-        {
-            Symptom new_pain = new Symptom("Pain", painRate, today, threshhold);
-            Symptom new_shortnessOfBreath = new Symptom("Shortness of Breath", shortnessOfBreathRate, today, threshhold);
-            Symptom new_wellbeing = new Symptom("Wellbeing", wellbeingRate, today, threshhold);
-            Symptom new_anxiety = new Symptom("Anxiety", anxietyRate, today, threshhold);
-            Symptom new_tiredness = new Symptom("Tiredness", tirednessRate, today, threshhold);
-            Symptom new_depression = new Symptom("Depression", depressionRate, today, threshhold);
-            Symptom new_nausea = new Symptom("Nausea", nauseaRate, today, threshhold);
-            Symptom new_appetite = new Symptom("Appetite", appetiteRate, today, threshhold);
-            Symptom new_drowsiness = new Symptom("Drowsiness", drowsinessRate, today, threshhold);
-            Symptom new_other = new Symptom("Other", otherRate, today, threshhold); 
-            //add new symtoms to pt's symptom list
-            patient.symptomList.add(new_pain);
-            patient.symptomList.add(new_shortnessOfBreath);
-            patient.symptomList.add(new_wellbeing);
-            patient.symptomList.add(new_anxiety);
-            patient.symptomList.add(new_tiredness);
-            patient.symptomList.add(new_depression);
-            patient.symptomList.add(new_nausea);
-            patient.symptomList.add(new_appetite);
-            patient.symptomList.add(new_drowsiness);
-            patient.symptomList.add(new_other);
+
+        boolean allValid = false;
+        while (!allValid){
+        	//check if all values are valid
+        	if (checkVal(painRate) && checkVal(shortnessOfBreathRate) && checkVal(wellbeingRate) && checkVal(anxietyRate) && checkVal(tirednessRate) &&
+        			checkVal(depressionRate) && checkVal(nauseaRate) && checkVal(appetiteRate) && checkVal(drowsinessRate) && checkVal(otherRate))
+        	{
+        		submitButton.setEnabled(false);
+        		allValid = true;
+        		
+        		/*Symptom new_pain = new Symptom("Pain", painRate, today, threshhold);
+        		Symptom new_shortnessOfBreath = new Symptom("Shortness of Breath", shortnessOfBreathRate, today, threshhold);
+        		Symptom new_wellbeing = new Symptom("Wellbeing", wellbeingRate, today, threshhold);
+        		Symptom new_anxiety = new Symptom("Anxiety", anxietyRate, today, threshhold);
+        		Symptom new_tiredness = new Symptom("Tiredness", tirednessRate, today, threshhold);
+        		Symptom new_depression = new Symptom("Depression", depressionRate, today, threshhold);
+        		Symptom new_nausea = new Symptom("Nausea", nauseaRate, today, threshhold);
+        		Symptom new_appetite = new Symptom("Appetite", appetiteRate, today, threshhold);
+        		Symptom new_drowsiness = new Symptom("Drowsiness", drowsinessRate, today, threshhold);
+        		Symptom new_other = new Symptom("Other", otherRate, today, threshhold); 
             
-        }
-        else if (!checkVal(painRate)){
-            //
+        		//add new symptoms to pt's symptom list
+        		patient.symptomList.add(new_pain);
+        		patient.symptomList.add(new_shortnessOfBreath);
+        		patient.symptomList.add(new_wellbeing);
+        		patient.symptomList.add(new_anxiety);
+        		patient.symptomList.add(new_tiredness);
+        		patient.symptomList.add(new_depression);
+        		patient.symptomList.add(new_nausea);
+        		patient.symptomList.add(new_appetite);
+        		patient.symptomList.add(new_drowsiness);
+        		patient.symptomList.add(new_other);
+        		*/
+        	}
+        	else if (!checkVal(painRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Pain between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(shortnessOfBreathRate)){
+        		JOptionPane.showMessageDialog(submitSymptomsTab, "Please rate Shortness of Breath between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(wellbeingRate)){
+        		JOptionPane.showMessageDialog(submitSymptomsTab, "Please rate Wellbeing between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(anxietyRate)){
+        		JOptionPane.showMessageDialog(submitSymptomsTab, "Please rate Anxiety between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(tirednessRate)){
+        		JOptionPane.showMessageDialog(submitSymptomsTab, "Please rate Tiredness between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(depressionRate)){
+        		JOptionPane.showMessageDialog(submitSymptomsTab, "Please rate Depression between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(nauseaRate)){
+        		JOptionPane.showMessageDialog(submitSymptomsTab, "Please rate Nausea between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(appetiteRate)){
+        		JOptionPane.showMessageDialog(submitSymptomsTab, "Please rate Appetite between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(drowsinessRate)){
+        		JOptionPane.showMessageDialog(submitSymptomsTab, "Please rate Drowsiness between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(otherRate)){
+        		JOptionPane.showMessageDialog(submitSymptomsTab, "Please rate Other between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
         }
         
-        //continue error messages
         
     }            
     
