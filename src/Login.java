@@ -333,7 +333,8 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                                        
 
-    private void doctorLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                        
+    private void doctorLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {     
+    	boolean knowsEmail = false;
     	doctorLoginErrorLabel.setText("");	//clears the error label
     	if(!doctorLoginEmailField.getText().equals(""))	//if there is an email entered in the email field
         {
@@ -355,11 +356,33 @@ public class Login extends javax.swing.JFrame {
     							this.setVisible(false);
     							this.dispose();
     						}
+    				else if(count < 5 && docList.get(i).getEmail().equalsIgnoreCase(doctorLoginEmailField.getText())){
+    					knowsEmail = true;
+    					doctorLoginEmailField.setEditable(false);
+    					break;
+    				}
+    				else if(count >= 5 && docList.get(i).getEmail().equalsIgnoreCase(doctorLoginEmailField.getText())){
+    					doctorLoginErrorLabel.setText("Enter answer to secret question as password\n" +
+    							docList.get(i).getSecret()); // I haven't figured out how to properly format this
+    					if(docList.get(i).getPassword().equals(doctorLoginPassField.getText()) ||
+    							docList.get(i).getAnswer().equalsIgnoreCase(doctorLoginPassField.getText())){
+    						Doctor doc = docList.get(i);
+							DoctorUI docUI = new DoctorUI(doc);
+							docUI.setVisible(true);
+							this.setVisible(false);
+							this.dispose();
+    					}
+    				}
     				
     			}
     			//doctor is not found, display error to user
-				doctorLoginErrorLabel.setText("Email or password entered is incorrect");
+    			if(!knowsEmail && count < 5)
+    				doctorLoginErrorLabel.setText("Email and password entered is incorrect");
+    			else if(knowsEmail && count < 5)
+    				doctorLoginErrorLabel.setText("Correct email. Password entered incorrectly");
+    			
 				doctorLoginPassField.setText(""); //clears the pass field
+				count++;
     		}
         }
     }
@@ -423,5 +446,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel patientLoginPassLabel;
     private javax.swing.JButton patientLoginSubmitButton;
     private ArrayList<Doctor> docList;
+ 	int count = 0; // for doctor login to prompt secret question
     // End of variables declaration                   
 }
