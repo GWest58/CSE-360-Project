@@ -115,41 +115,15 @@ public static void main(String args[])
 	docList.add(Nizar);
 	docList.add(Luis);
 	Serialize.serialize(docList, "src/doctor.bin");
+	
+	ArrayList<Doctor> print = Serialize.deserialize("src/doctor.bin");
+	for(int i = 0; i < print.size(); i++)
+	{
+		System.out.println("Name = " + print.get(i).getname());
+	}
 }
 }
-	/*
-	 try{
-		 /*
-		 ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("src/doctor.bin"));
-		 
-		 os.writeObject(Grant);
-		 os.writeObject(Nizar);
-		 os.writeObject(Luis);
-		 os.flush();
-		 os.close();
-		 */
-		 /*
-		 ObjectInputStream is = new ObjectInputStream(new FileInputStream("src/doctor.bin"));
-		 Doctor doc = null;
-		 boolean run = true;
-		 try{
-		 while(run)
-		 {
-			 doc = (Doctor)is.readObject();
-			 if(doc.getname().equalsIgnoreCase("Bob"))
-			 {
-				 run = false;
-			 }
-		 }
-		 System.out.println("Name = " + doc.getname());
-		 }catch(EOFException ex){
-			 System.out.println("Doctor does not exist");
-		 }
-	 }catch(Exception ex){
-		 ex.printStackTrace();
-	 }
-		 */
-		 
+
 		 
 
 

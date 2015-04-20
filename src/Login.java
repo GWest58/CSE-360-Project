@@ -355,66 +355,14 @@ public class Login extends javax.swing.JFrame {
     							this.setVisible(false);
     							this.dispose();
     						}
-    				else
-    				{
-    					//doctor is not found, display error to user
-    					doctorLoginErrorLabel.setText("Email or password entered is incorrect");
-    					doctorLoginPassField.setText(""); //clears the pass field
-    				}
+    				
     			}
+    			//doctor is not found, display error to user
+				doctorLoginErrorLabel.setText("Email or password entered is incorrect");
+				doctorLoginPassField.setText(""); //clears the pass field
     		}
         }
     }
-    		/*//search the doctor file to see if the entered information mathes a doctor within the file
-    		Doctor doc = database.deserialize(doctorLoginEmailField.getText(), doctorLoginPassField.getText(), "src/doctor.bin");
-    		if(doc != null)
-    		{
-    			 DoctorUI ui = new DoctorUI(doc);	//open doctorUI
-				 ui.setVisible(true);
-				 this.setVisible(false);	// close Login
-				 this.dispose();
-    		}
-    		else
-    		{
-    			doctorLoginErrorLabel.setText("Email or password entered is incorrect");
-    			doctorLoginPassField.setText(""); //clears the pass field
-    		}
-        }
-    }
-    		/*
-    	try{
-    		 ObjectInputStream is = new ObjectInputStream(new FileInputStream("src/doctor.bin"));
-			 Doctor doc = null;
-			 boolean run = true;
-			 try{
-			 while(run)	//reads each object in the doctor field and compares the emails and passwords to the 
-				 		//items entered in the text fields
-			 {
-				 doc = (Doctor)is.readObject();
-				 if(doc.getEmail().equalsIgnoreCase(doctorLoginEmailField.getText()))
-				 {
-					 if(doc.getPassword().equals(doctorLoginPassField.getText()))
-					 {
-						 DoctorUI ui = new DoctorUI(doc);	//open doctorUI
-						 ui.setVisible(true);
-						 this.setVisible(false);	// close Login
-						 this.dispose();
-						 
-					 }
-				 }
-			 }
-			 }catch(EOFException ex){ //outputs if the doctor is not found in the file
-				 doctorLoginErrorLabel.setText("Email or password entered is incorrect");
-			 }
-		 }catch(Exception ex){
-			 ex.printStackTrace();
-		 }
-        }
-    }                                                       
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
