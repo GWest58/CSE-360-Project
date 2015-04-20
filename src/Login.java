@@ -5,6 +5,7 @@
  */
 import java.awt.event.WindowEvent;
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -309,7 +310,10 @@ public class Login extends javax.swing.JFrame {
         login_doctor.setVisible(true);
     }                                                 
 
-    private void doctorLoginCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                        
+    private void doctorLoginCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    	doctorLoginEmailField.setText("");
+    	doctorLoginPassField.setText("");
+    	doctorLoginErrorLabel.setText("");
         login_main.setVisible(true);
         login_doctor.setVisible(false);
     }                                                       
@@ -319,7 +323,8 @@ public class Login extends javax.swing.JFrame {
         login_patient.setVisible(true);
     }                                                  
 
-    private void patientLoginCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                         
+    private void patientLoginCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {   
+    	
         login_main.setVisible(true);
         login_patient.setVisible(false);
     }                                                        
@@ -332,7 +337,35 @@ public class Login extends javax.swing.JFrame {
     	doctorLoginErrorLabel.setText("");	//clears the error label
     	if(!doctorLoginEmailField.getText().equals(""))	//if there is an email entered in the email field
         {
-    		//search the doctor file to see if the entered information mathes a doctor within the file
+    		//loads in the list of doctors from the doctor file
+    		docList = Serialize.deserialize("src/doctor.bin");
+    		if(docList != null)	//makes sure doctor file is not empty
+    		{
+    			//searches every doctor in the list and compares info with user entered
+    			//info to find a match
+    			for(int i = 0; i < docList.size(); i++)
+    			{
+    				if(docList.get(i).getEmail().equalsIgnoreCase(doctorLoginEmailField.getText()) 
+    						&& docList.get(i).getPassword().equals(doctorLoginPassField.getText()))
+    						{
+    						//if doctor is found, loads up the doctor interface
+    							Doctor doc = docList.get(i);
+    							DoctorUI docUI = new DoctorUI(doc);
+    							docUI.setVisible(true);
+    							this.setVisible(false);
+    							this.dispose();
+    						}
+    				else
+    				{
+    					//doctor is not found, display error to user
+    					doctorLoginErrorLabel.setText("Email or password entered is incorrect");
+    					doctorLoginPassField.setText(""); //clears the pass field
+    				}
+    			}
+    		}
+        }
+    }
+    		/*//search the doctor file to see if the entered information mathes a doctor within the file
     		Doctor doc = database.deserialize(doctorLoginEmailField.getText(), doctorLoginPassField.getText(), "src/doctor.bin");
     		if(doc != null)
     		{
@@ -412,6 +445,7 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify                     
@@ -440,6 +474,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField patientLoginPassField;
     private javax.swing.JLabel patientLoginPassLabel;
     private javax.swing.JButton patientLoginSubmitButton;
-    private Serialize database = new Serialize();
+    private ArrayList<Doctor> docList;
     // End of variables declaration                   
 }
