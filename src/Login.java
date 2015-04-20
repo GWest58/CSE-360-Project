@@ -330,7 +330,10 @@ public class Login extends javax.swing.JFrame {
     }                                                        
 
     private void patientLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                         
-        // TODO add your handling code here:
+        patientLoginErrorLabel.setText("");
+        if(!patientLoginEmailField.getText().equals("")){
+        	
+        }
     }                                                        
 
     private void doctorLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {     
