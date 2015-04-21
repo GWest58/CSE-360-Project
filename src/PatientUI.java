@@ -5,6 +5,7 @@
 
 // test changes
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -872,12 +873,34 @@ public class PatientUI extends javax.swing.JFrame {
     
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient){
     	int count = 0;
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        						docList.remove(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
     	if(!editEmail.getText().equals("") && !editEmail.getText().equals("Enter new email address here")){
     		if(isEmail(editEmail.getText())){
 	    		 String newEmail = editEmail.getText();	
 	    	     patientEmail.setText(newEmail);
 	    	     editEmail.setText("");
-	    	     patient.setEmail(newEmail); // I hope this actually changes the patient field when we return to UI
+	    	     temp.getPatientList().get(patientIndex).setEmail(newEmail);
     		}
     		else{
     			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid email.");
@@ -893,7 +916,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newPhone= editPhone.getText();	
     		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
    	     	editPhone.setText("");
-   	     	patient.setPhoneNumber(newPhone); // I hope this actually changes the patient variable when we return
+   	     	temp.getPatientList().get(patientIndex).setEmail(newPhone);// I hope this actually changes the patient variable when we return
     		}
     		else{
     			count++;
@@ -909,7 +932,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newStreet = editStreet.getText();
     		streetAddr.setText(newStreet);
     		editStreet.setText("");
-    		patient.setStreetAddress(newStreet);
+    		temp.getPatientList().get(patientIndex).setStreetAddress(newStreet);
     	}
     	else 
     		count++;
@@ -918,7 +941,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newCityState = editCityState.getText();
     		cityStateAddr.setText(newCityState);
     		editCityState.setText("");
-    		patient.setCityStateAddress(newCityState);
+    		temp.getPatientList().get(patientIndex).setCityStateAddress(newCityState);
     	}
     	else
     		count++;
@@ -927,7 +950,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newPharName = editPharName.getText();
     		pharName.setText(newPharName);
     		editPharName.setText("");
-    		patient.getPharmacy().changeName(newPharName);
+    		temp.getPatientList().get(patientIndex).getPharmacy().changeName(newPharName);
     	}
     	else
     		count++;
@@ -936,7 +959,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newPharCity = editPharCity.getText();
     		pharCityState.setText(newPharCity);
     		editPharCity.setText("");
-    		patient.getPharmacy().changeAddr(newPharCity);
+    		temp.getPatientList().get(patientIndex).getPharmacy().changeAddr(newPharCity);
     	}
     	else
     		count++;
@@ -946,7 +969,7 @@ public class PatientUI extends javax.swing.JFrame {
         		String newPhone= editPharPhone.getText();	
         		pharPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
        	     	editPharPhone.setText("");
-       	     	patient.getPharmacy().changePhone(newPhone);
+       	     	temp.getPatientList().get(patientIndex).getPharmacy().changePhone(newPhone);
         		}
         		else{
         			count++;
@@ -961,6 +984,11 @@ public class PatientUI extends javax.swing.JFrame {
     		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter new profile information in their respective text fields.");
     	else
     		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Profile information changed.");
+    
+    	
+    	docList.add(temp);
+     	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
+     													//new information
     	
     	
     }
@@ -1103,5 +1131,6 @@ public class PatientUI extends javax.swing.JFrame {
     private javax.swing.JTextArea prescriptionSummary;
     private javax.swing.JLabel providerName;
     private javax.swing.JLabel streetAddr;
+    private ArrayList<Doctor> docList;
     // End of variables declaration                   
 }
