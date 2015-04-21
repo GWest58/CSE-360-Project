@@ -67,7 +67,8 @@ public class PatientUI extends javax.swing.JFrame {
         
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel3.setText("Symptom History");
-
+        
+      
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -94,7 +95,12 @@ public class PatientUI extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pain", "Shortness of Breath", "Wellbeing", "Anxiety", "Tiredness", "Depression", "Appetite", "Nausea", "Drowsiness", "Other" }));
         jComboBox1.setToolTipText("");
-
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tableActionPerformed(evt, patient);
+            }
+        });
+        
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Select a symptom from the drop-down menu to view its previous ratings.");
 
@@ -1040,6 +1046,47 @@ public class PatientUI extends javax.swing.JFrame {
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
      													//new information
     	
+    	
+    }
+    
+    private void tableActionPerformed(java.awt.event.ActionEvent evt, Patient patient){
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	
+    	
+    	Object[][] data;
+    	data = new Object[temp.getPatientList().get(patientIndex).getSymptoms().size()/10][temp.getPatientList().get(patientIndex).getSymptoms().size()/10];
+    	
+    	for(int i = 0; i < temp.getPatientList().get(patientIndex).getSymptoms().size()/10; i++){
+    		for(int j = 0; j < temp.getPatientList().get(patientIndex).getSymptoms().size(); j++){
+    			if(temp.getPatientList().get(patientIndex).getSymptoms().get(j).getName().equals((String)jComboBox1.getSelectedItem())){
+    				data[i][0] = temp.getPatientList().get(patientIndex).getSymptoms().get(j).getDate();
+    				data[i][1] = temp.getPatientList().get(patientIndex).getSymptoms().get(j).getLevel();
+    			}
+    		}
+    	}
+    	String[] columnNames = {"Date", "Rating"};
+    	jTable1.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
+              
     	
     }
     
