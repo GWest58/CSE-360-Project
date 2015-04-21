@@ -92,7 +92,7 @@ public class DoctorUI extends javax.swing.JFrame {
         patientConfirmField = new javax.swing.JPasswordField();
         patientRemoveButton = new javax.swing.JButton();
         patientAddButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        editPatientCancelButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
@@ -448,7 +448,7 @@ public class DoctorUI extends javax.swing.JFrame {
         patientRemoveButton.setToolTipText("Only Requires Name and Email fields to be filled");
         patientRemoveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                patientRemoveButtonActionPerformed(evt);
+                patientRemoveButtonActionPerformed(evt, doc);
             }
         });
 
@@ -456,15 +456,15 @@ public class DoctorUI extends javax.swing.JFrame {
         patientAddButton.setText("Add Patient");
         patientAddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                patientAddButtonActionPerformed(evt);
+                patientAddButtonActionPerformed(evt, doc);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        jButton1.setText("Cancel");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        editPatientCancelButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        editPatientCancelButton.setText("Cancel");
+        editPatientCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                editPatientCancelButtonActionPerformed(evt);
             }
         });
 
@@ -515,11 +515,11 @@ public class DoctorUI extends javax.swing.JFrame {
                 .addGap(344, 344, 344))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EditPatientPageLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(editPatientCancelButton)
                 .addGap(466, 466, 466))
         );
 
-        EditPatientPageLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, patientAddButton, patientRemoveButton});
+        EditPatientPageLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {editPatientCancelButton, patientAddButton, patientRemoveButton});
 
         EditPatientPageLayout.setVerticalGroup(
             EditPatientPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -566,11 +566,11 @@ public class DoctorUI extends javax.swing.JFrame {
                     .addComponent(patientRemoveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(patientAddButton))
                 .addGap(33, 33, 33)
-                .addComponent(jButton1)
+                .addComponent(editPatientCancelButton)
                 .addContainerGap(85, Short.MAX_VALUE))
         );
 
-        EditPatientPageLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, patientAddButton, patientRemoveButton});
+        EditPatientPageLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {editPatientCancelButton, patientAddButton, patientRemoveButton});
 
         getContentPane().add(EditPatientPage, "card3");
 
@@ -649,10 +649,7 @@ public class DoctorUI extends javax.swing.JFrame {
     	
     	docList.add(doc);
     	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
-    													//new information
-    	
-    	
-    	
+    													//new information	
     }                                                  
 
     private void editPatientButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
@@ -672,15 +669,58 @@ public class DoctorUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                                    
 
-    private void patientRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        // TODO add your handling code here:
-    }                                                   
+    private void patientRemoveButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {                                                    
+    	docList = Serialize.deserialize("src/doctor.bin");
+        for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(doc.getEmail()) 
+        			&& docList.get(i).getPassword().equals(doc.getPassword()))
+        	{
+        		docList.remove(i);
+        		break;
+        	}
+        }
+        
+       for(int j = 0; j < doc.getPatientList().size(); j++)
+       {
+    	   if(doc.getPatientList().get(j).getname().equalsIgnoreCase(patientNameField.getText())
+    			   && doc.getPatientList().get(j).getEmail().equalsIgnoreCase(patientEmailField.getText()))
+    			   {
+    				   doc.getPatientList().remove(j);
+    			   }
+       }
+        
+       docList.add(doc);
+    	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
+    													//new information	
+       		 					
+   }             
+                                                    
 
-    private void patientAddButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
+    private void patientAddButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {                                                 
+    	 docList = Serialize.deserialize("src/doctor.bin");
+         for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+         {
+         	if(docList.get(i).getEmail().equalsIgnoreCase(doc.getEmail()) 
+         			&& docList.get(i).getPassword().equals(doc.getPassword()))
+         	{
+         		docList.remove(i);
+         		break;
+         	}
+         }
+         
+         Pharmacy pharm = new Pharmacy("Grant's Drug Store", "0123 W. Healing Ln. Tempe, AZ, 85281", "623521455");
+         doc.getPatientList().add(new Patient(patientNameField.getText(), patientEmailField.getText(), patientPhoneField.getText(),
+        		 					patientStreetField.getText(), patientCityStateField.getText(), patientPassField.getText(),
+        		 					pharm, doc));
+         
+        docList.add(doc);
+     	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
+     													//new information	
+        		 					
     }                                                
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void editPatientCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         EditPatientPage.setVisible(false);
         DoctorUIMain.setVisible(true);
     }                                        
@@ -756,7 +796,7 @@ public class DoctorUI extends javax.swing.JFrame {
     private javax.swing.JButton editPatientButton;
     private javax.swing.JLabel editPatientPageHeader;
     private javax.swing.JPanel editProfileTab;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton editPatientCancelButton;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
