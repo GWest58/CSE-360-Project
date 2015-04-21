@@ -701,7 +701,12 @@ public class DoctorUI extends javax.swing.JFrame {
                                                     
 
     private void patientAddButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {                                                 
-    	 docList = Serialize.deserialize("src/doctor.bin");
+    	 if(!patientNameField.getText().equals("") && !patientEmailField.getText().equals("") && !patientPhoneField.getText().equals("")
+    			&& !patientStreetField.getText().equals("") && !patientCityStateField.getText().equals("") && !patientPassField.getText().equals("")
+    			&& !patientConfirmField.getText().equals(""))
+    	 { 
+        		 				
+    	docList = Serialize.deserialize("src/doctor.bin");
          for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
          {
          	if(docList.get(i).getEmail().equalsIgnoreCase(doc.getEmail()) 
@@ -717,17 +722,80 @@ public class DoctorUI extends javax.swing.JFrame {
         		 					defaultPharm, doc));
          
         docList.add(doc);
+        nonSevereListModel.addElement(doc.getPatientList().get(doc.getPatientList().size() - 1).getname());
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
-     													//new information	
+     													//new information
+     	EditPatientPage.setVisible(false);
+     	DoctorUIMain.setVisible(true);
+     	javax.swing.JOptionPane.showMessageDialog(DoctorUIMain, "Patient successfully registered!");
      	
-        		 					
+    	 }
+    	 else
+    	 {
+    		 javax.swing.JOptionPane.showMessageDialog(EditPatientPage, "Please make sure that each field is completed before submitting.");
+    	 }
     }                                                
 
-    private void editPatientCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void editPatientCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    	patientNameField.setText("");
+    	patientEmailField.setText("");
+    	patientPhoneField.setText("");
+		patientStreetField.setText("");
+		patientCityStateField.setText("");
+		patientPassField.setText("");
+		patientConfirmField.setText("");
         EditPatientPage.setVisible(false);
         DoctorUIMain.setVisible(true);
+        
     }                                        
 
+    public boolean isEmail(String check){
+    	int count = 0;
+    	for(int i = 0; i < check.length(); i++){
+    		if(check.substring(i, i+1).compareTo("@") == 0)
+    			count++;
+    	}
+    	
+    	if(count == 1){
+    		if(check.length() <= 10)
+    			return false;
+    		else{
+	    		if(check.substring(check.length()-4, check.length()).compareTo(".com") == 0 ||
+	    				check.substring(check.length()-4, check.length()).compareTo(".net") == 0 ||
+	    				check.substring(check.length()-4, check.length()).compareTo(".org") == 0||
+	    				check.substring(check.length()-4, check.length()).compareTo("edu") == 0 ||
+	    				check.substring(check.length()-4, check.length()).compareTo(".gov") == 0 ||
+	    				check.substring(check.length()-4, check.length()).compareTo(".mil") == 0 ||
+	    				check.substring(check.length()-4, check.length()).compareTo(".int") == 0)
+	    					return true;
+	    		else
+	    			return false;
+    		}
+    	}
+    	else
+    		return false;
+    }
+    
+    public boolean isPhone(String check){
+    	if(check.length() != 10)
+    		return false;
+    	else{
+    		for(int i = 0; i < check.length(); i++){
+    			if(!check.substring(i, i+1).equals("0") &&
+    					!check.substring(i, i+1).equals("1") &&
+    					!check.substring(i, i+1).equals("2") &&
+    					!check.substring(i, i+1).equals("3") &&
+    					!check.substring(i, i+1).equals("4") &&
+    					!check.substring(i, i+1).equals("5") &&
+    					!check.substring(i, i+1).equals("6") &&
+    					!check.substring(i, i+1).equals("7") &&
+    					!check.substring(i, i+1).equals("8") &&
+    					!check.substring(i, i+1).equals("9"))
+    				return false;    					
+    		}
+    		return true;
+    	}
+    }
     /**
      * @param args the command line arguments
      */
@@ -827,6 +895,8 @@ public class DoctorUI extends javax.swing.JFrame {
     private javax.swing.JList severePatientList;
     private javax.swing.JPanel viewPatientListTab;                
     private DefaultListModel nonSevereListModel = new DefaultListModel();
+    private DefaultListModel mildlySevereListModel = new DefaultListModel();
+    private DefaultListModel SevereListModel = new DefaultListModel();
     private ArrayList<Doctor> docList; 
     private Pharmacy defaultPharm = new Pharmacy("Grant's Drug Store", "0123 W. Healing Ln. Tempe, AZ, 85281", "623521455");
 }
