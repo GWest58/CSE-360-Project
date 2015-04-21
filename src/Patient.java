@@ -42,6 +42,10 @@ public class Patient extends User {
 		symptomList.add(newSymptom);
 	}
 	
+	public int getThreshold(int index){
+		return thresholds[index];
+	}
+	
 	public void setThreshold(int newThresholds[]){
 		thresholds = newThresholds;
 	}

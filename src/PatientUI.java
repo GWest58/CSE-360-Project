@@ -185,7 +185,7 @@ public class PatientUI extends javax.swing.JFrame {
         submitButton.setText("SUBMIT");
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
+                submitButtonActionPerformed(evt, patient);
             }
         });
 
