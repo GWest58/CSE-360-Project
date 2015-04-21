@@ -332,6 +332,7 @@ public class Login extends javax.swing.JFrame {
     private void patientLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                         
 
         boolean knowsEmail = false;
+        boolean knowsDoctor = false;
     	patientLoginErrorLabel.setText("");
         // Patient Email and Doctor fields cannot be empty
         if(!patientLoginEmailField.getText().equals("") && !patientLoginDoctorField.getText().equals("")){
@@ -342,6 +343,8 @@ public class Login extends javax.swing.JFrame {
         		// searches for the doctor the patient identified to therefore search for the patient
         		for(int i = 0; i < docList.size(); i++){
         			if(docList.get(i).getname().equalsIgnoreCase(patientLoginDoctorField.getText())){
+        				knowsDoctor = true;
+        				patientLoginDoctorField.setEditable(false);
         				for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
         					// if doctor's patient matches email and password, then open patient gui
         					if(docList.get(i).getPatientList().get(j).getEmail().equalsIgnoreCase(
@@ -363,14 +366,16 @@ public class Login extends javax.swing.JFrame {
         				}
         			}
         		}
-        		
-        		if(!knowsEmail && patientCount < 5)
-    				patientLoginErrorLabel.setText("Email and password entered is incorrect");
+        		if(!knowsEmail && !knowsDoctor && patientCount < 5)
+        			javax.swing.JOptionPane.showMessageDialog(login_patient, "Email, doctor, and password entered incorrectly. Please try again.");
+        		else if(!knowsEmail && knowsDoctor && patientCount < 5)
+        			javax.swing.JOptionPane.showMessageDialog(login_patient, "Email and password entered incorrectly. Please try again.");
         		else if(knowsEmail && patientCount < 5)
-        			patientLoginErrorLabel.setText("Email correct. Password entered incorrectly");
-        		else if(patientCount >= 5){
-        			patientLoginErrorLabel.setText("Please call your doctor to recover email or password");  
-        		}
+        			javax.swing.JOptionPane.showMessageDialog(login_patient, "Email correct. Password entered incorrectly.");
+        		else if(patientCount >= 5)
+        			javax.swing.JOptionPane.showMessageDialog(login_patient, "Please call your doctor to recover email or password.");
+
+        		
         		
 				patientLoginPassField.setText(""); //clears the pass field
 				patientCount++;
@@ -403,6 +408,7 @@ public class Login extends javax.swing.JFrame {
     							docUI.setVisible(true);
     							this.setVisible(false);
     							this.dispose();
+    							secret = false;
     						}
     				else if(count < 5 && docList.get(i).getEmail().equalsIgnoreCase(doctorLoginEmailField.getText())){
     					knowsEmail = true;
@@ -427,9 +433,9 @@ public class Login extends javax.swing.JFrame {
     				}
     				
     			}
-    			//doctor is not found, display error to user
+    			//doctor is not found, display error to use
     			if(!knowsEmail && secret)
-    				javax.swing.JOptionPane.showMessageDialog(login_doctor, "Email or password entered incorrectly. Please try again.");
+    				javax.swing.JOptionPane.showMessageDialog(login_doctor, "Email and password entered incorrectly. Please try again.");
     			else if(knowsEmail && count < 5)
     				javax.swing.JOptionPane.showMessageDialog(login_doctor, "Correct email but incorrect password. Please enter another password.");
     			
