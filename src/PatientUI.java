@@ -972,7 +972,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newPhone= editPhone.getText();	
     		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
    	     	editPhone.setText("");
-   	     	temp.getPatientList().get(patientIndex).setEmail(newPhone);// I hope this actually changes the patient variable when we return
+   	     	temp.getPatientList().get(patientIndex).setPhoneNumber(newPhone);// I hope this actually changes the patient variable when we return
     		}
     		else{
     			count++;
