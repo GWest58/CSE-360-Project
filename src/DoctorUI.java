@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -93,7 +94,11 @@ public class DoctorUI extends javax.swing.JFrame {
         patientRemoveButton = new javax.swing.JButton();
         patientAddButton = new javax.swing.JButton();
         editPatientCancelButton = new javax.swing.JButton();
-
+        
+        for(int i = 0; i < doc.getPatientList().size(); i++)
+        {
+        	listModel.addElement(doc.getPatientList().get(i).getname());
+        }
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
@@ -103,11 +108,7 @@ public class DoctorUI extends javax.swing.JFrame {
 
         nonSeverePatientList.setBackground(new java.awt.Color(51, 204, 0));
         nonSeverePatientList.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        nonSeverePatientList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        nonSeverePatientList.setModel(listModel);
         nonSeverePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 nonSeverePatientListValueChanged(evt);
@@ -717,6 +718,7 @@ public class DoctorUI extends javax.swing.JFrame {
         docList.add(doc);
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
      													//new information	
+     	
         		 					
     }                                                
 
