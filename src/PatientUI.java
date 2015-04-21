@@ -70,10 +70,10 @@ public class PatientUI extends javax.swing.JFrame {
         
       
         showSymptoms.setEditable(false);
-        showSymptoms.setColumns(40);
+        showSymptoms.setColumns(30);
         showSymptoms.setRows(5);
         showSymptoms.setLineWrap(false);
-        
+        showSymptoms.setFont(new java.awt.Font("Tahoma", 0, 16));
         jScrollPane1.setViewportView(showSymptoms);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -399,10 +399,10 @@ public class PatientUI extends javax.swing.JFrame {
         patientSex.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         patientSex.setText("Male"); */
 
-        emailHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        emailHeader.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         emailHeader.setText("Email:");
 
-        patientEmail.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        patientEmail.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         patientEmail.setText(patient.getEmail());
 
         editEmail.setText("Enter new email address here");
@@ -421,10 +421,10 @@ public class PatientUI extends javax.swing.JFrame {
             }
         });
 
-        phoneHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        phoneHeader.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         phoneHeader.setText("Phone Number:");
 
-        patientPhone.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        patientPhone.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         patientPhone.setText("(" + patient.getPhoneNumber().substring(0, 3) + ") " +
         		patient.getPhoneNumber().substring(3, 6) + "-" + 
         		patient.getPhoneNumber().substring(6, patient.getPhoneNumber().length()));
@@ -443,10 +443,10 @@ public class PatientUI extends javax.swing.JFrame {
             }
         });
 
-        addressHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        addressHeader.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         addressHeader.setText("Address:");
 
-        streetAddr.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        streetAddr.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         streetAddr.setText(patient.getStreetAddress());
 
         editStreet.setText("Enter new street address here");
@@ -463,7 +463,7 @@ public class PatientUI extends javax.swing.JFrame {
             }
         });
 
-        cityStateAddr.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        cityStateAddr.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         cityStateAddr.setText(patient.getCityStateAddress());
 
         editCityState.setText("Enter new city, state zip here");
@@ -481,16 +481,16 @@ public class PatientUI extends javax.swing.JFrame {
             }
         });
 
-        pharHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        pharHeader.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         pharHeader.setText("Pharmacy:");
 
-        pharName.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        pharName.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         pharName.setText(patient.getPharmacy().getName());
 
-        pharCityState.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        pharCityState.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         pharCityState.setText(patient.getPharmacy().getAddress());
 
-        pharPhone.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        pharPhone.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         pharPhone.setText("(" + patient.getPharmacy().getPhone().substring(0, 3) + ") " +
         		patient.getPharmacy().getPhone().substring(3, 6) + "-" + 
         		patient.getPharmacy().getPhone().substring(6, patient.getPharmacy().getPhone().length()));
@@ -540,7 +540,7 @@ public class PatientUI extends javax.swing.JFrame {
             }
         });
 
-        editInfoButton.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        editInfoButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         editInfoButton.setText("Edit");
         editInfoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -652,49 +652,44 @@ public class PatientUI extends javax.swing.JFrame {
                     .addComponent(editPharPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
-
+        
+    
+        
         PatientTabbedPane.addTab("Patient Information", patientInfoPanel);
 
         dateReceivedHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         dateReceivedHeader.setText("Date Received: ");
         
-        ArrayList<String> dates = new ArrayList<String>();
-        
-        // for TESTING- IT WORKS! :D
-        patient.addMessage("04/19/2015 Hey, call me. My phone number is 623-555-5555");
-        patient.addMessage("04/20/2015 Hey, I think you're pregnant. Call me.");
-     
-        // adds the dates to the dates combo box
-        for(int i = 0; i < patient.getMessageList().size(); i++){
-        	dates.add(patient.getMessageList().get(i).substring(0, 11));
-        }
+        setMessageDates(patient);
                
-        messageDates.setModel(new javax.swing.DefaultComboBoxModel(dates.toArray()));
+     
         messageDates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 messageDatesActionPerformed(evt, patient);
             }
         });
 
-        messageHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        messageHeader.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         messageHeader.setText("Message:");
         
         messages.setEditable(false);
-        messages.setColumns(20);
+        messages.setColumns(40);
         messages.setRows(5);
+        messages.setFont(new java.awt.Font("Tahoma", 0, 14));
         messages.setLineWrap(true);
-        if(patient.getMessageList().size() > 0)
-        	messages.append(patient.getMessageList().get(0).substring(11, patient.getMessageList().get(0).length()));
-       
+      
         JScrollPane3.setViewportView(messages);
 
-        prescriptionHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        prescriptionHeader.setText("Prescription Summary:");
+        prescriptionHeader.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        prescriptionHeader.setText("Latest Prescription");
 
-        prescriptionSummary.setColumns(20);
+        prescriptionSummary.setColumns(40);
         prescriptionSummary.setRows(5);
+        prescriptionSummary.setFont(new java.awt.Font("Tahoma", 0, 14));
         jScrollPane2.setViewportView(prescriptionSummary);
-
+        
+        setPrescriptions(patient);
+        
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -1082,6 +1077,87 @@ public class PatientUI extends javax.swing.JFrame {
     	
     }
     
+    private void setMessageDates(Patient patient){
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	messages.setText(null);
+    	// reads in patients
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	 ArrayList<String> dates = new ArrayList<String>();
+         
+         // adds the dates to the dates combo box starting with a blank one
+         dates.add("");
+         
+         if(temp.getPatientList().get(patientIndex).getMessageList().size() > 0){
+	         for(int i = 0; i < temp.getPatientList().get(patientIndex).getMessageList().size(); i++){
+	         	dates.add(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring(0, 11));
+	         }
+         }
+         else
+        	 messages.append("No messages found.");
+         
+         messageDates.setModel(new javax.swing.DefaultComboBoxModel(dates.toArray()));
+         
+         
+    }
+    
+    private void setPrescriptions(Patient patient){
+    	prescriptionSummary.setText(null); // initialize to empty
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	
+    	// reads in patients
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	int size = temp.getPatientList().get(patientIndex).getPharmacy().getPrescriptions().size();
+    	
+    	if(size > 0){
+	    	prescriptionSummary.append("Latest prescription:\n");
+	    	prescriptionSummary.append("At " + temp.getPatientList().get(patientIndex).getPharmacy().getName() +
+	    			" in " + temp.getPatientList().get(patientIndex).getPharmacy().getAddress() + ", " + 
+	    			temp.getPatientList().get(patientIndex).getPharmacy().getPrescriptions().get(size -1).
+	    			getName() + " has been filed with " + temp.getPatientList().get(patientIndex).getPharmacy().
+	    			getPrescriptions().get(size-1).getFrequency() + " frequency and " +
+	    			temp.getPatientList().get(patientIndex).getPharmacy().getPrescriptions().get(size-1).getDose() +
+	    			" doses\n");
+    	}
+    	else
+    		prescriptionSummary.append("No prescriptions found. Please request your doctor to file a prescription.");
+    }
+    
     private void editEmailActionPerformed(java.awt.event.ActionEvent evt) {                                          
     }                                         
 
@@ -1109,15 +1185,40 @@ public class PatientUI extends javax.swing.JFrame {
     }                                             
 
     private void messageDatesActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                             
-        String selectedDate = (String) messageDates.getSelectedItem();
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	
+    	// reads in patients
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }    	
+    	
+    	String selectedDate = (String) messageDates.getSelectedItem();
         messages.setText(null);
         
-        for(int i = 0; i < patient.getMessageList().size(); i++){
-        	if(selectedDate.compareTo(patient.getMessageList().get(i).substring(0, 11)) == 0){
-        		messages.append(patient.getMessageList().get(i).substring(11, patient.getMessageList().get(i).length()));
-        	}
+	        for(int i = 0; i < temp.getPatientList().get(patientIndex).getMessageList().size(); i++){
+	        	if(selectedDate.compareTo(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring(0, 11)) == 0){
+	        		messages.append(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring
+	        				(11, temp.getPatientList().get(patientIndex).getMessageList().get(i).length()));
+	        	}
+	        }
         }
-    }                                            
+        
+                                               
 
     /**
      * @param args the command line arguments
