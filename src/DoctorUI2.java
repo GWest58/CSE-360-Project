@@ -62,14 +62,20 @@ public class DoctorUI2 extends javax.swing.JFrame {
         patientPhoneLbl = new javax.swing.JLabel();
         patientAddressLbl = new javax.swing.JLabel();
         editPasswordLbl = new javax.swing.JLabel();
-        editCityLbl = new javax.swing.JLabel();
-        editCityField = new javax.swing.JTextField();
         confirmPasswordEditField = new javax.swing.JTextField();
         confirmPasswordEditLbl = new javax.swing.JLabel();
         pharmacyNameLbl = new javax.swing.JLabel();
         pharmacyAddrLbl = new javax.swing.JLabel();
         editPharmacyNameTxtF = new javax.swing.JTextField();
         editPharmacyAddrTxtF = new javax.swing.JTextField();
+        currentNameLbl = new javax.swing.JLabel();
+        currentEmailLbl = new javax.swing.JLabel();
+        currentPhoneLbl = new javax.swing.JLabel();
+        addrLbl1 = new javax.swing.JLabel();
+        addrLbl2 = new javax.swing.JLabel();
+        currentPharmacyNameLbl = new javax.swing.JLabel();
+        currentPharmAddrLbl = new javax.swing.JLabel();
+        currentPasswordLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,53 +117,44 @@ public class DoctorUI2 extends javax.swing.JFrame {
             .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(phoneNumLbl)
                     .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
                         .addGroup(viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
-                                .addComponent(symptomLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ratingLbl))
-                            .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
-                                .addComponent(symptonListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ratingListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
-                                .addGap(80, 80, 80)
-                                .addComponent(dateLbl))
-                            .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(symptonListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(symptomLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
-                        .addComponent(phoneNumLbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(phoneNumPlaceHoldLbl)))
-                .addContainerGap(316, Short.MAX_VALUE))
+                        .addComponent(ratingLbl)
+                        .addGap(88, 88, 88)
+                        .addComponent(dateLbl))
+                    .addComponent(phoneNumPlaceHoldLbl)
+                    .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
+                        .addComponent(ratingListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(538, Short.MAX_VALUE))
         );
         viewSubmissionsTabLayout.setVerticalGroup(
             viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(symptomLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ratingLbl)
+                    .addComponent(dateLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(dateLbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(viewSubmissionsTabLayout.createSequentialGroup()
-                        .addGroup(viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(symptomLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ratingLbl))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(symptonListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ratingListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
+                    .addGroup(viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(symptonListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ratingListPane, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addGroup(viewSubmissionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneNumLbl)
                     .addComponent(phoneNumPlaceHoldLbl))
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         doctorUI2TabbedPane.addTab("View Submissions", viewSubmissionsTab);
@@ -183,35 +180,34 @@ public class DoctorUI2 extends javax.swing.JFrame {
         filePrescriptionsTabLayout.setHorizontalGroup(
             filePrescriptionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(filePrescriptionsTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(filePrescriptionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(35, 35, 35)
+                .addGroup(filePrescriptionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(prescriptionSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(filePrescriptionsTabLayout.createSequentialGroup()
-                        .addGroup(filePrescriptionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(prescriptionFreqTxtF, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prescriptionNameTxtF, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(prescriptionDoseTxtF, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
-                        .addComponent(pharmInfoTxtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(72, 72, 72))
-                    .addGroup(filePrescriptionsTabLayout.createSequentialGroup()
-                        .addComponent(prescriptionSubmitBtn)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(filePrescriptionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(filePrescriptionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(prescriptionDoseTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(prescriptionNameTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(prescriptionFreqTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(174, 174, 174)
+                        .addComponent(pharmInfoTxtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(348, Short.MAX_VALUE))
         );
         filePrescriptionsTabLayout.setVerticalGroup(
             filePrescriptionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(filePrescriptionsTabLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(43, 43, 43)
                 .addGroup(filePrescriptionsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pharmInfoTxtArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(filePrescriptionsTabLayout.createSequentialGroup()
                         .addComponent(prescriptionNameTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(prescriptionDoseTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(11, 11, 11)
-                .addComponent(prescriptionFreqTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65)
-                .addComponent(prescriptionSubmitBtn)
-                .addContainerGap(141, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(prescriptionDoseTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(prescriptionFreqTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pharmInfoTxtArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(56, 56, 56)
+                .addComponent(prescriptionSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(159, Short.MAX_VALUE))
         );
 
         doctorUI2TabbedPane.addTab("File Prescriptions", filePrescriptionsTab);
@@ -228,22 +224,19 @@ public class DoctorUI2 extends javax.swing.JFrame {
             contactPatientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contactPatientTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(messageTxtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
+                .addComponent(messageTxtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99)
                 .addComponent(sendMsgBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
         contactPatientTabLayout.setVerticalGroup(
             contactPatientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contactPatientTabLayout.createSequentialGroup()
-                .addGroup(contactPatientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contactPatientTabLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(sendMsgBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(contactPatientTabLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(messageTxtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(contactPatientTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(sendMsgBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(messageTxtArea, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
 
         doctorUI2TabbedPane.addTab("Contact Patient", contactPatientTab);
@@ -285,15 +278,10 @@ public class DoctorUI2 extends javax.swing.JFrame {
         patientPhoneLbl.setText("Phone:");
 
         patientAddressLbl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        patientAddressLbl.setText("Street:");
+        patientAddressLbl.setText("Address:");
 
         editPasswordLbl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         editPasswordLbl.setText("Password:");
-
-        editCityLbl.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        editCityLbl.setText("City:");
-
-        editCityField.setText("City");
 
         confirmPasswordEditField.setText("Confirm Password");
 
@@ -310,96 +298,129 @@ public class DoctorUI2 extends javax.swing.JFrame {
 
         editPharmacyAddrTxtF.setText("Pharmacy Address");
 
+        currentNameLbl.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        currentNameLbl.setText("Nizar Kury");
+
+        currentEmailLbl.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        currentEmailLbl.setText("nkury@asu.edu");
+
+        currentPhoneLbl.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        currentPhoneLbl.setText("6265652645");
+
+        addrLbl1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        addrLbl1.setText("1901 N. 104th Ave.");
+
+        addrLbl2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        addrLbl2.setText("Avondale, AZ 85392");
+
+        currentPharmacyNameLbl.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        currentPharmacyNameLbl.setText("Walgreens");
+
+        currentPharmAddrLbl.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        currentPharmAddrLbl.setText("Avondale, AZ 85392");
+
+        currentPasswordLbl.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        currentPasswordLbl.setText("sundevils92");
+
         javax.swing.GroupLayout editPatientInfoTabLayout = new javax.swing.GroupLayout(editPatientInfoTab);
         editPatientInfoTab.setLayout(editPatientInfoTabLayout);
         editPatientInfoTabLayout.setHorizontalGroup(
             editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editPatientInfoTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPatientInfoTabLayout.createSequentialGroup()
-                        .addComponent(confirmPasswordEditLbl)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(confirmPasswordEditField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
-                        .addComponent(editPatientSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(editPatientSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(122, 122, 122))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPatientInfoTabLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pharmacyNameLbl)
+                    .addComponent(pharmacyAddrLbl)
+                    .addComponent(editPasswordLbl)
+                    .addComponent(confirmPasswordEditLbl)
+                    .addComponent(patientAddressLbl)
+                    .addComponent(patientPhoneLbl)
+                    .addComponent(patientEmailLbl)
+                    .addComponent(patientNameLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(editPatientInfoTabLayout.createSequentialGroup()
-                        .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(editPatientNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(editPatientEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(editPatientInfoTabLayout.createSequentialGroup()
-                                .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPatientInfoTabLayout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(pharmacyNameLbl))
-                                    .addGroup(editPatientInfoTabLayout.createSequentialGroup()
-                                        .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(patientAddressLbl)
-                                            .addComponent(patientEmailLbl)
-                                            .addComponent(patientPhoneLbl)
-                                            .addComponent(patientNameLbl)
-                                            .addComponent(editCityLbl)
-                                            .addComponent(editPasswordLbl)
-                                            .addComponent(pharmacyAddrLbl))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18)
-                                .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(editPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(editPharmacyNameTxtF)
-                                        .addComponent(editPharmacyAddrTxtF)
-                                        .addComponent(editCityField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(editPatientAddressField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(editPatientPhoneField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(351, 351, 351))))
+                        .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(currentNameLbl)
+                            .addComponent(currentEmailLbl))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editPatientEmailField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(editPatientNameField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(editPatientInfoTabLayout.createSequentialGroup()
+                        .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(currentPhoneLbl)
+                            .addComponent(addrLbl1)
+                            .addComponent(currentPharmacyNameLbl)
+                            .addComponent(currentPharmAddrLbl)
+                            .addComponent(currentPasswordLbl))
+                        .addGap(125, 125, 125)
+                        .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(editPasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(editPharmacyNameTxtF)
+                                .addComponent(editPharmacyAddrTxtF)
+                                .addComponent(editPatientAddressField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(editPatientPhoneField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(confirmPasswordEditField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(addrLbl2))
+                .addGap(351, 351, 351))
         );
         editPatientInfoTabLayout.setVerticalGroup(
             editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editPatientInfoTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(currentNameLbl)
                     .addComponent(editPatientNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(patientNameLbl))
                 .addGap(18, 18, 18)
                 .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(patientEmailLbl)
-                    .addComponent(editPatientEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(editPatientEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(currentEmailLbl)
+                    .addComponent(patientEmailLbl))
                 .addGap(18, 18, 18)
                 .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(patientPhoneLbl)
-                    .addComponent(editPatientPhoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(editPatientPhoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(currentPhoneLbl))
                 .addGap(18, 18, 18)
                 .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(patientAddressLbl)
-                    .addComponent(editPatientAddressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(editPatientAddressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addrLbl1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(addrLbl2)
+                .addGap(31, 31, 31)
                 .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(editCityLbl)
-                    .addComponent(editCityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(editPharmacyNameTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pharmacyNameLbl))
+                    .addComponent(pharmacyNameLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(currentPharmacyNameLbl))
                 .addGap(18, 18, 18)
                 .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(pharmacyAddrLbl)
-                    .addComponent(editPharmacyAddrTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(editPharmacyAddrTxtF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(currentPharmAddrLbl))
                 .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(editPatientInfoTabLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(editPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(editPatientSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45))
                     .addGroup(editPatientInfoTabLayout.createSequentialGroup()
-                        .addComponent(editPasswordLbl)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(editPatientSubmitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(confirmPasswordEditLbl)
-                        .addComponent(confirmPasswordEditField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(editPasswordLbl)
+                            .addComponent(editPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(currentPasswordLbl))
+                        .addGap(18, 18, 18)
+                        .addGroup(editPatientInfoTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(confirmPasswordEditLbl)
+                            .addComponent(confirmPasswordEditField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(71, Short.MAX_VALUE))))
         );
 
         doctorUI2TabbedPane.addTab("Edit Patient Profile", editPatientInfoTab);
@@ -410,8 +431,8 @@ public class DoctorUI2 extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(doctorUI2TabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addComponent(doctorUI2TabbedPane)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,6 +458,10 @@ public class DoctorUI2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
+    private void editPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        // TODO add your handling code here:
+    }                                                 
+
     private void editPatientPhoneFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                      
         // TODO add your handling code here:
     }                                                     
@@ -444,10 +469,6 @@ public class DoctorUI2 extends javax.swing.JFrame {
     private void editPatientNameFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
     }                                                    
-
-    private void editPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
-    }                                                 
 
     /**
      * @param args the command line arguments
@@ -485,14 +506,20 @@ public class DoctorUI2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
+    private javax.swing.JLabel addrLbl1;
+    private javax.swing.JLabel addrLbl2;
     private javax.swing.JTextField confirmPasswordEditField;
     private javax.swing.JLabel confirmPasswordEditLbl;
     private javax.swing.JPanel contactPatientTab;
+    private javax.swing.JLabel currentEmailLbl;
+    private javax.swing.JLabel currentNameLbl;
+    private javax.swing.JLabel currentPasswordLbl;
+    private javax.swing.JLabel currentPharmAddrLbl;
+    private javax.swing.JLabel currentPharmacyNameLbl;
+    private javax.swing.JLabel currentPhoneLbl;
     private javax.swing.JComboBox dateComboBox;
     private javax.swing.JLabel dateLbl;
     private javax.swing.JTabbedPane doctorUI2TabbedPane;
-    private javax.swing.JTextField editCityField;
-    private javax.swing.JLabel editCityLbl;
     private javax.swing.JTextField editPasswordField;
     private javax.swing.JLabel editPasswordLbl;
     private javax.swing.JTextField editPatientAddressField;
