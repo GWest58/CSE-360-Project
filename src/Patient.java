@@ -37,4 +37,26 @@ public class Patient extends User {
 		Symptom newSymptom = new Symptom(symptomName, symptomLevel, symptomDate);
 		symptomList.add(newSymptom);
 	}
+	
+	double calcStdDev(){//NEW
+		double sum=0;
+		double mean;
+		double sigma = 0.0;
+		double var, stddev;
+		
+		for(int e: symptomList){
+			sum += e; 
+		}
+		
+		mean = sum / levelList.size();
+		
+		for(int e: levelList){
+			sigma += Math.pow((Math.abs(mean-e)), 2);
+		}
+		
+		var = sigma / (double)levelList.size();
+		
+		stddev = Math.sqrt(var);
+		return stddev;
+	}
 }
