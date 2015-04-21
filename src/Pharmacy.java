@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Pharmacy{
+public class Pharmacy implements Serializable{
 
 	public static final int MAX_PRESCRIPTIONS = 20;
 	

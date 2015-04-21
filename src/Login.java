@@ -347,9 +347,10 @@ public class Login extends javax.swing.JFrame {
         				patientLoginDoctorField.setEditable(false);
         				for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
         					// if doctor's patient matches email and password, then open patient gui
+        					System.out.println(docList.get(i).getPatientList().get(j).getEmail());
         					if(docList.get(i).getPatientList().get(j).getEmail().equalsIgnoreCase(
         							patientLoginEmailField.getText()) && docList.get(i).getPatientList().
-        							get(j).getPassword().equals(patientLoginPassField)){
+        							get(j).getPassword().equals(patientLoginPassField.getText())){
 		        						Patient pat = docList.get(i).getPatientList().get(j);
 		    							PatientUI patUI = new PatientUI(pat);
 		    							patUI.setVisible(true);
@@ -375,7 +376,6 @@ public class Login extends javax.swing.JFrame {
         		else if(patientCount >= 5)
         			javax.swing.JOptionPane.showMessageDialog(login_patient, "Please call your doctor to recover email or password.");
 
-        		
         		
 				patientLoginPassField.setText(""); //clears the pass field
 				patientCount++;
