@@ -871,53 +871,7 @@ public class PatientUI extends javax.swing.JFrame {
    }
         
     // function for checking validity of email in the editButtonActionPerformed method
-    public boolean isEmail(String check){
-    	int count = 0;
-    	for(int i = 0; i < check.length(); i++){
-    		if(check.substring(i, i+1).compareTo("@") == 0)
-    			count++;
-    	}
-    	
-    	if(count == 1){
-    		if(check.length() <= 10)
-    			return false;
-    		else{
-	    		if(check.substring(check.length()-4, check.length()).compareTo(".com") == 0 ||
-	    				check.substring(check.length()-4, check.length()).compareTo(".net") == 0 ||
-	    				check.substring(check.length()-4, check.length()).compareTo(".org") == 0||
-	    				check.substring(check.length()-4, check.length()).compareTo("edu") == 0 ||
-	    				check.substring(check.length()-4, check.length()).compareTo(".gov") == 0 ||
-	    				check.substring(check.length()-4, check.length()).compareTo(".mil") == 0 ||
-	    				check.substring(check.length()-4, check.length()).compareTo(".int") == 0)
-	    					return true;
-	    		else
-	    			return false;
-    		}
-    	}
-    	else
-    		return false;
-    }
-    
-    public boolean isPhone(String check){
-    	if(check.length() != 10)
-    		return false;
-    	else{
-    		for(int i = 0; i < check.length(); i++){
-    			if(!check.substring(i, i+1).equals("0") &&
-    					!check.substring(i, i+1).equals("1") &&
-    					!check.substring(i, i+1).equals("2") &&
-    					!check.substring(i, i+1).equals("3") &&
-    					!check.substring(i, i+1).equals("4") &&
-    					!check.substring(i, i+1).equals("5") &&
-    					!check.substring(i, i+1).equals("6") &&
-    					!check.substring(i, i+1).equals("7") &&
-    					!check.substring(i, i+1).equals("8") &&
-    					!check.substring(i, i+1).equals("9"))
-    				return false;    					
-    		}
-    		return true;
-    	}
-    }
+  
     
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient){
     	int count = 0;
@@ -944,7 +898,7 @@ public class PatientUI extends javax.swing.JFrame {
         }
     	
     	if(!editEmail.getText().equals("") && !editEmail.getText().equals("Enter new email address here")){
-    		if(isEmail(editEmail.getText())){
+    		if(Validator.isEmail(editEmail.getText())){
 	    		 String newEmail = editEmail.getText();	
 	    	     patientEmail.setText(newEmail);
 	    	     editEmail.setText("");
@@ -960,7 +914,7 @@ public class PatientUI extends javax.swing.JFrame {
     		count++;
     	
     	if(!editPhone.getText().equals("") && !editPhone.getText().equals("Enter new phone number here")){
-    		if(isPhone(editPhone.getText())){
+    		if(Validator.isPhone(editPhone.getText())){
     		String newPhone= editPhone.getText();	
     		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
    	     	editPhone.setText("");
@@ -1013,7 +967,7 @@ public class PatientUI extends javax.swing.JFrame {
     		count++;
     	
     	if(!editPharPhone.getText().equals("") && !editPharPhone.getText().equals("Enter new pharmacy phone number")){
-    		if(isPhone(editPharPhone.getText())){
+    		if(Validator.isPhone(editPharPhone.getText())){
         		String newPhone= editPharPhone.getText();	
         		pharPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
        	     	editPharPhone.setText("");
