@@ -68,7 +68,7 @@ public class PatientUI extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel3.setText("Symptom History");
         
-      
+      /*
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -87,7 +87,7 @@ public class PatientUI extends javax.swing.JFrame {
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-        });
+        });*/
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -840,7 +840,18 @@ public class PatientUI extends javax.swing.JFrame {
         		temp.getPatientList().get(patientIndex).newSymptom("Appetite", appetiteRate, today);
         		temp.getPatientList().get(patientIndex).newSymptom("Drowsiness", drowsinessRate, today);
         		temp.getPatientList().get(patientIndex).newSymptom("Other", otherRate, today); 
-                    	
+        		JOptionPane.showMessageDialog(jScrollPane1, "Symptoms submitted! Please log in another day to input more symptom ratings.");//, "error", JOptionPane.ERROR_MESSAGE);
+        	    painSlider.setValue(0);
+        	    shortnessOfBreathSlider.setValue(0);
+        	    wellbeingSlider.setValue(0);
+        	    anxietySlider.setValue(0);
+        	    tirednessSlider.setValue(0);
+        	    depressionSlider.setValue(0);
+        	    nauseaSlider.setValue(0);
+        	    appetiteSlider.setValue(0);
+        	    drowsinessSlider.setValue(0);
+        	    otherSlider.setValue(0);
+        	 
         	}
         	else if (!checkVal(painRate)){
         		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Pain between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
@@ -1040,8 +1051,8 @@ public class PatientUI extends javax.swing.JFrame {
     		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter new profile information in their respective text fields.");
     	else
     		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Profile information changed.");
-    
     	
+    
     	docList.add(temp);
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
      													//new information
