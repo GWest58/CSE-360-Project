@@ -37,6 +37,10 @@ public class Patient extends User {
 		messageList.add(message);
 	}
 	
+	public ArrayList<Symptom> getSymptoms(){
+		return symptomList;
+	}
+	
 	public void newSymptom(String symptomName, int symptomLevel, String symptomDate){
 		Symptom newSymptom = new Symptom(symptomName, symptomLevel, symptomDate);
 		symptomList.add(newSymptom);
