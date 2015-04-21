@@ -8,7 +8,9 @@
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.*;
-public class Symptom {
+import java.io.Serializable;
+
+public class Symptom implements Serializable {
 	String name;
 	int level;
 	String date;
