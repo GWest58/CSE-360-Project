@@ -382,6 +382,7 @@ public class Login extends javax.swing.JFrame {
 
     private void doctorLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {     
     	boolean knowsEmail = false;
+    	boolean secret = true;
     	doctorLoginErrorLabel.setText("");	//clears the error label
     	if(!doctorLoginEmailField.getText().equals(""))	//if there is an email entered in the email field
         {
@@ -409,24 +410,28 @@ public class Login extends javax.swing.JFrame {
     					break;
     				}
     				else if(count >= 5 && docList.get(i).getEmail().equalsIgnoreCase(doctorLoginEmailField.getText())){
-    					doctorLoginErrorLabel.setText("Enter answer to secret question as password\n" +
-    							docList.get(i).getSecret()); // I haven't figured out how to properly format this
-    					if(docList.get(i).getPassword().equals(doctorLoginPassField.getText()) ||
+    						if(docList.get(i).getPassword().equals(doctorLoginPassField.getText()) ||
     							docList.get(i).getAnswer().equalsIgnoreCase(doctorLoginPassField.getText())){
     						Doctor doc = docList.get(i);
 							DoctorUI docUI = new DoctorUI(doc);
 							docUI.setVisible(true);
 							this.setVisible(false);
 							this.dispose();
+							secret = false;
     					}
+    						else{
+    							javax.swing.JOptionPane.showMessageDialog(login_doctor, "Too many failed attempts. As an alternative,"
+    	    							+ " enter the answer to the following secret question in the password field:\n" + docList.get(i).getSecret());
+    						secret = false;
+    						}
     				}
     				
     			}
     			//doctor is not found, display error to user
-    			if(!knowsEmail && count < 5)
-    				doctorLoginErrorLabel.setText("Email and password entered is incorrect");
+    			if(!knowsEmail && secret)
+    				javax.swing.JOptionPane.showMessageDialog(login_doctor, "Email or password entered incorrectly. Please try again.");
     			else if(knowsEmail && count < 5)
-    				doctorLoginErrorLabel.setText("Correct email. Password entered incorrectly");
+    				javax.swing.JOptionPane.showMessageDialog(login_doctor, "Correct email but incorrect password. Please enter another password.");
     			
 				doctorLoginPassField.setText(""); //clears the pass field
 				count++;
