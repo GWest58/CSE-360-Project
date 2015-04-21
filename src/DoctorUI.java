@@ -705,7 +705,29 @@ public class DoctorUI extends javax.swing.JFrame {
     			&& !patientStreetField.getText().equals("") && !patientCityStateField.getText().equals("") && !patientPassField.getText().equals("")
     			&& !patientConfirmField.getText().equals(""))
     	 { 
-        		 				
+   
+    	 if(!Validator.isEmail(patientEmailField.getText()))
+    	 {
+    		 patientEmailField.setText("");
+    		 javax.swing.JOptionPane.showMessageDialog(EditPatientPage, "Please enter a valid email");
+    		 
+    	 }
+    	 
+    	 else if(!Validator.isPhone(patientPhoneField.getText()))
+    	 {
+    		 patientPhoneField.setText("");
+    		 javax.swing.JOptionPane.showMessageDialog(EditPatientPage, "Please enter a valid phone number");
+    		 
+    	 }
+    	 else if(!patientPassField.getText().equals(patientConfirmField.getText()))
+     	 {
+    		patientPassField.setText("");
+   			patientConfirmField.setText("");
+     		javax.swing.JOptionPane.showMessageDialog(EditPatientPage, "The password fields do not match");
+  			
+     	 }	 
+    	 else
+    	 {
     	docList = Serialize.deserialize("src/doctor.bin");
          for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
          {
@@ -721,7 +743,6 @@ public class DoctorUI extends javax.swing.JFrame {
         		 					patientStreetField.getText(), patientCityStateField.getText(), patientPassField.getText(),
         		 					defaultPharm, doc));
          
-        docList.add(doc);
         nonSevereListModel.addElement(doc.getPatientList().get(doc.getPatientList().size() - 1).getname());
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
      													//new information
@@ -729,11 +750,13 @@ public class DoctorUI extends javax.swing.JFrame {
      	DoctorUIMain.setVisible(true);
      	javax.swing.JOptionPane.showMessageDialog(DoctorUIMain, "Patient successfully registered!");
      	
+     	docList.add(doc);
+    	 	}
     	 }
-    	 else
-    	 {
-    		 javax.swing.JOptionPane.showMessageDialog(EditPatientPage, "Please make sure that each field is completed before submitting.");
-    	 }
+     	else
+     	{
+     		javax.swing.JOptionPane.showMessageDialog(EditPatientPage, "Please make sure that each field is completed before submitting.");
+     	}
     }                                                
 
     private void editPatientCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {

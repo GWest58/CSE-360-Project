@@ -15,7 +15,7 @@ public class Validator {
 		    		if(check.substring(check.length()-4, check.length()).compareTo(".com") == 0 ||
 		    				check.substring(check.length()-4, check.length()).compareTo(".net") == 0 ||
 		    				check.substring(check.length()-4, check.length()).compareTo(".org") == 0||
-		    				check.substring(check.length()-4, check.length()).compareTo("edu") == 0 ||
+		    				check.substring(check.length()-4, check.length()).compareTo(".edu") == 0 ||
 		    				check.substring(check.length()-4, check.length()).compareTo(".gov") == 0 ||
 		    				check.substring(check.length()-4, check.length()).compareTo(".mil") == 0 ||
 		    				check.substring(check.length()-4, check.length()).compareTo(".int") == 0)
