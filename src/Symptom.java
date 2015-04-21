@@ -12,8 +12,6 @@ public class Symptom {
 	String name;
 	int level;
 	String date;
-	int threshhold;
-	ArrayList<Integer> levelList =  new ArrayList<Integer>(); //NEW
 	int stddev;//NEW
 	
 	//constructor
