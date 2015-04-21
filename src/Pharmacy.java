@@ -1,9 +1,6 @@
 import java.io.Serializable;
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
 
->>>>>>> 6456ade9ae41c4a71b1715c91603abed1669519a
 public class Pharmacy implements Serializable{
 
 	public static final int MAX_PRESCRIPTIONS = 20;
