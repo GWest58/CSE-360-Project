@@ -95,10 +95,12 @@ public class DoctorUI extends javax.swing.JFrame {
         patientAddButton = new javax.swing.JButton();
         editPatientCancelButton = new javax.swing.JButton();
         
+        //adds the patients to the corresponding J lists
         for(int i = 0; i < doc.getPatientList().size(); i++)
         {
-        	listModel.addElement(doc.getPatientList().get(i).getname());
+        	nonSevereListModel.addElement(doc.getPatientList().get(i).getname());
         }
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
@@ -108,7 +110,7 @@ public class DoctorUI extends javax.swing.JFrame {
 
         nonSeverePatientList.setBackground(new java.awt.Color(51, 204, 0));
         nonSeverePatientList.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        nonSeverePatientList.setModel(listModel);
+        nonSeverePatientList.setModel(nonSevereListModel);
         nonSeverePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 nonSeverePatientListValueChanged(evt);
@@ -710,10 +712,9 @@ public class DoctorUI extends javax.swing.JFrame {
          	}
          }
          
-         Pharmacy pharm = new Pharmacy("Grant's Drug Store", "0123 W. Healing Ln. Tempe, AZ, 85281", "623521455");
          doc.getPatientList().add(new Patient(patientNameField.getText(), patientEmailField.getText(), patientPhoneField.getText(),
         		 					patientStreetField.getText(), patientCityStateField.getText(), patientPassField.getText(),
-        		 					pharm, doc));
+        		 					defaultPharm, doc));
          
         docList.add(doc);
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
@@ -824,9 +825,9 @@ public class DoctorUI extends javax.swing.JFrame {
     private javax.swing.JTextField patientStreetField;
     private javax.swing.JLabel severePatientLabel;
     private javax.swing.JList severePatientList;
-    private javax.swing.JPanel viewPatientListTab;
-    // End of variables declaration                   
- private DefaultListModel listModel = new DefaultListModel();
+    private javax.swing.JPanel viewPatientListTab;                
+    private DefaultListModel nonSevereListModel = new DefaultListModel();
     private ArrayList<Doctor> docList; 
+    private Pharmacy defaultPharm = new Pharmacy("Grant's Drug Store", "0123 W. Healing Ln. Tempe, AZ, 85281", "623521455");
 }
 
