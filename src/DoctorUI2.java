@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,8 +15,8 @@ public class DoctorUI2 extends javax.swing.JFrame {
     /**
      * Creates new form DoctorUI2
      */
-    public DoctorUI2() {
-        initComponents();
+    public DoctorUI2(Patient patient) {
+        initComponents(patient);
     }
 
     /**
@@ -24,7 +26,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
+    private void initComponents(Patient patient) {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         viewSumbissionsTab = new javax.swing.JPanel();
@@ -112,6 +114,8 @@ public class DoctorUI2 extends javax.swing.JFrame {
         contactPatientInfoHeader.setText("Patient Contact Information");
 
         symptomDates.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        setSymptomDates(patient);
+        
         symptomDates.setModel(new javax.swing.DefaultComboBoxModel());
         symptomDates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -613,7 +617,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
     }                                                          
 
     private void symptomDatesActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
+        
     }                                            
 
     private void filePrescriptionButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
@@ -664,15 +668,56 @@ public class DoctorUI2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                                   
 
+    private void setSymptomDates(Patient patient){
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	
+    	// reads in patients
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	 ArrayList<String> dates = new ArrayList<String>();
+         
+         // adds the dates to the dates combo box starting with a blank one
+         dates.add("");
+         
+         if(temp.getPatientList().get(patientIndex).getSymptoms().size() > 0){
+	         for(int i = 0; i < temp.getPatientList().get(patientIndex).getSymptoms().size(); i+=10){
+	         	dates.add(temp.getPatientList().get(patientIndex).getSymptoms().get(i).getDate());
+	         }
+         }         
+         else
+        	 viewSymptomsTextArea.append("No symptoms found.");
+         
+        symptomDates.setModel(new javax.swing.DefaultComboBoxModel(dates.toArray()));
+         
+         
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+    /*
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -689,15 +734,13 @@ public class DoctorUI2 extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DoctorUI2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
+    
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DoctorUI2().setVisible(true);
             }
         });
-    }
+    } */
 
     // Variables declaration - do not modify                     
     private javax.swing.JLabel addressHeader;
@@ -759,5 +802,6 @@ public class DoctorUI2 extends javax.swing.JFrame {
     private javax.swing.JButton viewSymptomsBackButton;
     private javax.swing.JLabel viewSymptomsHeader;
     private javax.swing.JTextArea viewSymptomsTextArea;
+    private ArrayList<Doctor> docList;
     // End of variables declaration                   
 }
