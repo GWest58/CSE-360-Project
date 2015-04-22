@@ -101,6 +101,7 @@ public class DoctorUI extends javax.swing.JFrame {
         	nonSevereListModel.addElement(doc.getPatientList().get(i).getname());
         }
         
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.CardLayout());
 
@@ -672,8 +673,11 @@ public class DoctorUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                                    
 
-    private void patientRemoveButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {                                                    
+    private void patientRemoveButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {  
+    if(!patientNameField.getText().equals("") && !patientEmailField.getText().equals(""))
+   	   {
     	docList = Serialize.deserialize("src/doctor.bin");
+    	boolean removed = false;
         for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
         {
         	if(docList.get(i).getEmail().equalsIgnoreCase(doc.getEmail()) 
@@ -690,14 +694,46 @@ public class DoctorUI extends javax.swing.JFrame {
     			   && doc.getPatientList().get(j).getEmail().equalsIgnoreCase(patientEmailField.getText()))
     			   {
     				   doc.getPatientList().remove(j);
+    				   removed = true;
     			   }
+
+    	   }
+       if(removed)
+       {
+    	patientNameField.setText("");
+       	patientEmailField.setText("");
+       	patientPhoneField.setText("");
+   		patientStreetField.setText("");
+   		patientCityStateField.setText("");
+   		patientPassField.setText("");
+   		patientConfirmField.setText("");
+   		nonSevereListModel.clear();
+   		
+   	 for(int i = 0; i < doc.getPatientList().size(); i++)
+     {
+     	nonSevereListModel.addElement(doc.getPatientList().get(i).getname());
+     }
+   	 
+       EditPatientPage.setVisible(false);
+       DoctorUIMain.setVisible(true);
+       javax.swing.JOptionPane.showMessageDialog(DoctorUIMain, "Patient successfully removed!");
+   	   }
+    else
+    {
+    	javax.swing.JOptionPane.showMessageDialog(DoctorUIMain, "Patient does not exist.");
+    }
+       docList.add(doc);							/*re adds the doc to the doc list with
+														new information	*/
+       Serialize.serialize(docList, "src/doctor.bin");
+   	   }
+       else
+       {
+    	   javax.swing.JOptionPane.showMessageDialog(EditPatientPage, "Please enter a name and email of a patient to remove");
        }
-        
-       docList.add(doc);
-    	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
-    													//new information	
-       		 					
-   }             
+    	   
+    	   
+   }    
+    
                                                     
 
     private void patientAddButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {                                                 
@@ -746,9 +782,16 @@ public class DoctorUI extends javax.swing.JFrame {
         nonSevereListModel.addElement(doc.getPatientList().get(doc.getPatientList().size() - 1).getname());
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
      													//new information
+     	patientNameField.setText("");
+    	patientEmailField.setText("");
+    	patientPhoneField.setText("");
+		patientStreetField.setText("");
+		patientCityStateField.setText("");
+		patientPassField.setText("");
+		patientConfirmField.setText("");
      	EditPatientPage.setVisible(false);
      	DoctorUIMain.setVisible(true);
-     	javax.swing.JOptionPane.showMessageDialog(DoctorUIMain, "Patient successfully registered!");
+     	javax.swing.JOptionPane.showMessageDialog(DoctorUIMain, "Patient successfully added!");
      	
      	docList.add(doc);
     	 	}
