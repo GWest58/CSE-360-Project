@@ -471,7 +471,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         editButton.setPreferredSize(new java.awt.Dimension(114, 38));
         editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editButtonActionPerformed(evt);
+                editButtonActionPerformed(evt, patient);
             }
         });
         
@@ -764,9 +764,129 @@ public class DoctorUI2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                          
 
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                           
+    	int count = 0;
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        						docList.remove(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	if(!editPatientEmail.getText().equals("") && !editPatientEmail.getText().equals("Enter new email address here")){
+    		if(Validator.isEmail(patientEmail.getText())){
+	    		 String newEmail = editPatientEmail.getText();
+	    		 System.out.println(newEmail);
+	    	     patientEmail.setText(newEmail);
+	    	     editPatientEmail.setText("");
+	    	     temp.getPatientList().get(patientIndex).setEmail(newEmail);
+    		}
+    		else{
+    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid email.");
+    			patientEmail.setText("");
+    			count++;
+    		}
+    	}
+    	else
+    		count++;
+    	/*
+    	if(!editPhone.getText().equals("") && !editPhone.getText().equals("Enter new phone number here")){
+    		if(Validator.isPhone(editPhone.getText())){
+    		String newPhone= editPhone.getText();	
+    		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
+   	     	editPhone.setText("");
+   	     	temp.getPatientList().get(patientIndex).setPhoneNumber(newPhone);// I hope this actually changes the patient variable when we return
+    		}
+    		else{
+    			count++;
+    			editPhone.setText("");
+    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid phone number in the form of XXXXXXXXXX with no spaces");
+    		}
+    			
+   	     }
+    	else
+    		count++;
+    	
+    	if(!editStreet.getText().equals("") && !editStreet.getText().equals("Enter new street address here")){
+    		String newStreet = editStreet.getText();
+    		streetAddr.setText(newStreet);
+    		editStreet.setText("");
+    		temp.getPatientList().get(patientIndex).setStreetAddress(newStreet);
+    	}
+    	else 
+    		count++;
+    	
+    	if(!editCityState.getText().equals("") && !editCityState.getText().equals("Enter new city, state zip here")){
+    		String newCityState = editCityState.getText();
+    		cityStateAddr.setText(newCityState);
+    		editCityState.setText("");
+    		temp.getPatientList().get(patientIndex).setCityStateAddress(newCityState);
+    	}
+    	else
+    		count++;
+    	
+    	if(!editPharName.getText().equals("") && !editPharName.getText().equals("Enter new pharmacy name")){
+    		String newPharName = editPharName.getText();
+    		pharName.setText(newPharName);
+    		editPharName.setText("");
+    		temp.getPatientList().get(patientIndex).getPharmacy().changeName(newPharName);
+    	}
+    	else
+    		count++;
+    	
+    	if(!editPharCity.getText().equals("") && !editPharCity.getText().equals("Enter new pharmacy city, state")){
+    		String newPharCity = editPharCity.getText();
+    		pharCityState.setText(newPharCity);
+    		editPharCity.setText("");
+    		temp.getPatientList().get(patientIndex).getPharmacy().changeAddr(newPharCity);
+    	}
+    	else
+    		count++;
+    	
+    	if(!editPharPhone.getText().equals("") && !editPharPhone.getText().equals("Enter new pharmacy phone number")){
+    		if(Validator.isPhone(editPharPhone.getText())){
+        		String newPhone= editPharPhone.getText();	
+        		pharPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
+       	     	editPharPhone.setText("");
+       	     	temp.getPatientList().get(patientIndex).getPharmacy().changePhone(newPhone);
+        		}
+        		else{
+        			count++;
+        			editPharPhone.setText("");
+        			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid pharmacy phone number in the form of XXXXXXXXXX with no spaces");
+        		}
+    	}
+    	else
+    		count++;
+    	*/
+    	
+    	
+    	if(count == 7)
+    		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter new profile information in their respective text fields.");
+    	else
+    		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Profile information changed.");
+    	
+    
+    	docList.add(temp);
+     	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
+     													//new information
+    	
+    }
 
     private void editPatientInfoBackButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                          
     	   DoctorUI ui = new DoctorUI(patient.getDoctor());
