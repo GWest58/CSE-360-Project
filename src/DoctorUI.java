@@ -680,7 +680,11 @@ public class DoctorUI extends javax.swing.JFrame {
     }                                                 
 
     private void nonSeverePatientListValueChanged(javax.swing.event.ListSelectionEvent evt) {                                                  
-        // TODO add your handling code here:
+        DoctorUI2 test = new DoctorUI2();
+        test.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+        
     }                                                 
 
     private void severePatientListValueChanged(javax.swing.event.ListSelectionEvent evt) {                                               
