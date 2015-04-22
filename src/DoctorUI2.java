@@ -496,6 +496,58 @@ public class DoctorUI2 extends javax.swing.JFrame {
         	source.removeFocusListener(this);
         	}});
         
+        editPatientCity.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        editPatientEmail.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        editPatientName.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        editPatientPharName.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        editPatientPharPhone.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        editPatientPhone.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        editPatientStreet.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        editPharAddress.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
 
         javax.swing.GroupLayout editPatientInfoTabLayout = new javax.swing.GroupLayout(editPatientInfoTab);
         editPatientInfoTab.setLayout(editPatientInfoTabLayout);
