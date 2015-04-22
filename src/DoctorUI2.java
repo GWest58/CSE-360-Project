@@ -95,7 +95,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         viewSymptomsBackButton.setName(""); // NOI18N
         viewSymptomsBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewSymptomsBackButtonActionPerformed(evt);
+                viewSymptomsBackButtonActionPerformed(evt, patient);
             }
         });
 
@@ -180,7 +180,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         filePrescriptionsBackButton.setPreferredSize(new java.awt.Dimension(114, 38));
         filePrescriptionsBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filePrescriptionsBackButtonActionPerformed(evt);
+                filePrescriptionsBackButtonActionPerformed(evt, patient);
             }
         });
 
@@ -324,7 +324,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         contactPatientBackButton.setPreferredSize(new java.awt.Dimension(114, 38));
         contactPatientBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                contactPatientBackButtonActionPerformed(evt);
+                contactPatientBackButtonActionPerformed(evt, patient);
             }
         });
 
@@ -416,7 +416,6 @@ public class DoctorUI2 extends javax.swing.JFrame {
                 editPatientCityActionPerformed(evt);
             }
         });
-
         editPatientPharName.setText("Enter new pharmacy name here");
         editPatientPharName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -458,7 +457,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         editPatientInfoBackButton.setPreferredSize(new java.awt.Dimension(114, 38));
         editPatientInfoBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editPatientInfoBackButtonActionPerformed(evt);
+                editPatientInfoBackButtonActionPerformed(evt, patient);
             }
         });
 
@@ -600,12 +599,19 @@ public class DoctorUI2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void viewSymptomsBackButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        // TODO add your handling code here:
+    private void viewSymptomsBackButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                       
+       DoctorUI ui = new DoctorUI(patient.getDoctor());
+       ui.setVisible(true);
+       this.setVisible(false);
+       this.dispose();
+       
     }                                                      
 
-    private void filePrescriptionsBackButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                            
-        // TODO add your handling code here:
+    private void filePrescriptionsBackButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                            
+    	   DoctorUI ui = new DoctorUI(patient.getDoctor());
+           ui.setVisible(true);
+           this.setVisible(false);
+           this.dispose();
     }                                                           
 
     private void enterFrequencyTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                        
@@ -632,8 +638,11 @@ public class DoctorUI2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                                 
 
-    private void contactPatientBackButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                         
-        // TODO add your handling code here:
+    private void contactPatientBackButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                         
+    	   DoctorUI ui = new DoctorUI(patient.getDoctor());
+           ui.setVisible(true);
+           this.setVisible(false);
+           this.dispose();
     }                                                        
 
     private void editPatientCityActionPerformed(java.awt.event.ActionEvent evt) {                                                
@@ -648,8 +657,11 @@ public class DoctorUI2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                          
 
-    private void editPatientInfoBackButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                          
-        // TODO add your handling code here:
+    private void editPatientInfoBackButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                          
+    	   DoctorUI ui = new DoctorUI(patient.getDoctor());
+           ui.setVisible(true);
+           this.setVisible(false);
+           this.dispose();
     }                                                         
 
     private void passField1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
