@@ -483,7 +483,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         editButton.setPreferredSize(new java.awt.Dimension(114, 38));
         editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editButtonActionPerformed(evt);
+                editButtonActionPerformed(evt, patient);
             }
         });
         
@@ -842,9 +842,159 @@ public class DoctorUI2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                          
 
-    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                           
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	boolean changed = false;
+    	
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        						docList.remove(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	if(!editPatientEmail.getText().equals("") && !editPatientEmail.getText().equals("Enter new patient email here")){
+    		if(Validator.isEmail(editPatientEmail.getText())){
+	    		 String newEmail = editPatientEmail.getText();
+	    		 System.out.println(newEmail);
+	    	     patientEmail.setText(newEmail);
+	    	     editPatientEmail.setText("");
+	    	     temp.getPatientList().get(patientIndex).setEmail(newEmail);
+	    	     changed = true;
+    		}
+    		else{
+    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid email.");
+    			editPatientEmail.setText("");
+    			
+    		}
+    	}
+    	
+    	
+    	if(!editPatientPhone.getText().equals("") && !editPatientPhone.getText().equals("Enter new phone number here")){
+    		if(Validator.isPhone(editPatientPhone.getText())){
+    		String newPhone= editPatientPhone.getText();	
+    		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
+   	     	editPatientPhone.setText("");
+   	     	temp.getPatientList().get(patientIndex).setPhoneNumber(newPhone);// I hope this actually changes the patient variable when we return
+   	     	changed = true;
+    		}
+    		
+    		else
+    		{
+    			editPatientPhone.setText("");
+    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid phone number in the form of XXXXXXXXXX with no spaces");
+    		}
+    			
+   	     }
+    	
+    	if(!editPatientName.getText().equals("") && !editPatientName.getText().equals("Enter new patient name here")){
+    		String newName = editPatientName.getText();
+    		patientName.setText(newName);
+    		editPatientName.setText("");
+    		temp.getPatientList().get(patientIndex).setName(newName);
+    		changed = true;
+    	}
+    	
+    	if(!editPatientStreet.getText().equals("") && !editPatientStreet.getText().equals("Enter new patient street address here")){
+    		String newStreet = editPatientStreet.getText();
+    		patientStreet.setText(newStreet);
+    		editPatientStreet.setText("");
+    		temp.getPatientList().get(patientIndex).setStreetAddress(newStreet);
+    		changed = true;
+    	}
+    	
+    	
+    	if(!editPatientCity.getText().equals("") && !editPatientCity.getText().equals("Enter new patient city, state, and zip here")){
+    		String newCityState = editPatientCity.getText();
+    		patientCity.setText(newCityState);
+    		editPatientCity.setText("");
+    		temp.getPatientList().get(patientIndex).setCityStateAddress(newCityState);
+    		changed = true;
+    	}
+    	
+    	
+    	if(!editPatientPharName.getText().equals("") && !editPatientPharName.getText().equals("Enter new pharmacy name here")){
+    		String newPharName = editPatientPharName.getText();
+    		patientPharName.setText(newPharName);
+    		editPatientPharName.setText("");
+    		temp.getPatientList().get(patientIndex).getPharmacy().changeName(newPharName);
+    		changed = true;
+    	}
+    	
+    	
+    	if(!editPharAddress.getText().equals("") && !editPharAddress.getText().equals("Enter new pharmacy address here")){
+    		String newPharCity = editPharAddress.getText();
+    		patientPharAddr.setText(newPharCity);
+    		editPharAddress.setText("");
+    		temp.getPatientList().get(patientIndex).getPharmacy().changeAddr(newPharCity);
+    		changed = true;
+    	}
+    	
+    	
+    	if(!editPatientPharPhone.getText().equals("") && !editPatientPharPhone.getText().equals("Enter new pharmacy phone number here")){
+    		if(Validator.isPhone(editPatientPharPhone.getText())){
+        		String newPhone= editPatientPharPhone.getText();	
+        		patientPharPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
+       	     	editPatientPharPhone.setText("");
+       	     	temp.getPatientList().get(patientIndex).getPharmacy().changePhone(newPhone);
+       	     	changed = true;
+        		}
+        		else{
+        			editPatientPharPhone.setText("");
+        			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid pharmacy phone number in the form of XXXXXXXXXX with no spaces");
+        		}
+    	}
+    	if(!passField1.getText().equals(""))
+    	{
+    		if(passField1.getText().equals(passField2.getText()))
+    		{
+    			String newPass = passField1.getText();
+    			patientPassword.setText(newPass);
+    			temp.getPatientList().get(patientIndex).setPassword(newPass);
+    			passField1.setText("");
+    			passField2.setText("");
+    			changed = true;
+    		}
+    		else
+    		{
+    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "The passwords do not match");
+    		
+    		}
+    	}
+    	
+    	if(passField1.getText().equals("") && !passField2.getText().equals(""))
+    	{
+    		passField2.setText("");
+    		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "To edit password, please complete both password fields");
+    	}
+    	
+    	
+    	
+    	if(changed)
+    	{
+    		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Profile information changed.");
+    		changed = false;
+    				
+    	}
+    
+    	docList.add(temp);
+     	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
+     													//new information
+    	
+    }
 
     private void editPatientInfoBackButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                          
     	   DoctorUI ui = new DoctorUI(patient.getDoctor());
