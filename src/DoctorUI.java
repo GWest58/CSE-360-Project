@@ -139,7 +139,7 @@ public class DoctorUI extends javax.swing.JFrame {
         nonSeverePatientList.setModel(nonSevereListModel);
         nonSeverePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                nonSeverePatientListValueChanged(evt);
+                nonSeverePatientListValueChanged(evt, doc);
             }
         });
         jScrollPane1.setViewportView(nonSeverePatientList);
@@ -679,8 +679,17 @@ public class DoctorUI extends javax.swing.JFrame {
         EditPatientPage.setVisible(true);
     }                                                 
 
-    private void nonSeverePatientListValueChanged(javax.swing.event.ListSelectionEvent evt) {                                                  
-        DoctorUI2 test = new DoctorUI2();
+    private void nonSeverePatientListValueChanged(javax.swing.event.ListSelectionEvent evt, Doctor doc) {                                                  
+        String selectedPatientName = (String)nonSeverePatientList.getSelectedValue();
+        Patient selectedPatient = null;
+        for(int i = 0; i < doc.getPatientList().size(); i++){
+        	if(doc.getPatientList().get(i).getname().equals(selectedPatientName)){
+        		selectedPatient = doc.getPatientList().get(i);
+        		break;
+        	}
+        }
+        
+    	DoctorUI2 test = new DoctorUI2(selectedPatient);
         test.setVisible(true);
         this.setVisible(false);
         this.dispose();
