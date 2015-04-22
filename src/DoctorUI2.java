@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+=======
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+>>>>>>> origin/master
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
+
+import javax.swing.JTextField;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -94,6 +101,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         editButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        
 
         viewSymptomsBackButton.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         viewSymptomsBackButton.setText("Go Back to List");
@@ -242,7 +250,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         filePrescriptionButton.setText("File Prescription");
         filePrescriptionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filePrescriptionButtonActionPerformed(evt);
+                filePrescriptionButtonActionPerformed(evt, patient);
             }
         });
 
@@ -390,31 +398,31 @@ public class DoctorUI2 extends javax.swing.JFrame {
         editPatientName.setText("Enter new patient name here");
 
         patientName.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientName.setText("<name>");
+        patientName.setText(patient.getname());
 
         patientEmail.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientEmail.setText("<email>");
+        patientEmail.setText(patient.getEmail());
 
         patientPhone.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientPhone.setText("<phone>");
-
+        patientPhone.setText(patient.getPhoneNumber());
+        
         patientStreet.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientStreet.setText("<street>");
+        patientStreet.setText(patient.getStreetAddress());
 
         patientCity.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientCity.setText("<city/state>");
+        patientCity.setText(patient.getCityStateAddress());
 
         patientPharName.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientPharName.setText("<phar name>");
+        patientPharName.setText(patient.getPharmacy().getName());
 
         patientPharAddr.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientPharAddr.setText("<phar address>");
+        patientPharAddr.setText(patient.getPharmacy().getAddress());
 
         patientPharPhone.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientPharPhone.setText("<phar phone>");
+        patientPharPhone.setText(patient.getPharmacy().getPhone());
 
         patientPassword.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientPassword.setText("<password>");
+        patientPassword.setText(patient.getPassword());
 
         editPatientEmail.setText("Enter new patient email here");
 
@@ -457,7 +465,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
 
         confirmHeader.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         confirmHeader.setText("Confirm Password:");
-
+ 
         passField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passField2ActionPerformed(evt);
@@ -481,6 +489,80 @@ public class DoctorUI2 extends javax.swing.JFrame {
                 editButtonActionPerformed(evt);
             }
         });
+        
+        enterPrescriptionTextField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        enterFrequencyTextField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        enterDoseTextField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        editPatientCity.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        editPatientEmail.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        editPatientName.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        editPatientPharName.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        editPatientPharPhone.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        editPatientPhone.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        editPatientStreet.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        editPharAddress.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
 
         javax.swing.GroupLayout editPatientInfoTabLayout = new javax.swing.GroupLayout(editPatientInfoTab);
         editPatientInfoTab.setLayout(editPatientInfoTabLayout);
@@ -624,7 +706,10 @@ public class DoctorUI2 extends javax.swing.JFrame {
            ui.setVisible(true);
            this.setVisible(false);
            this.dispose();
-    }                                                           
+    }       
+    
+   
+    
 
     private void enterFrequencyTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                        
         // TODO add your handling code here:
@@ -672,8 +757,37 @@ public class DoctorUI2 extends javax.swing.JFrame {
         
                                            
 
-    private void filePrescriptionButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
-        // TODO add your handling code here:
+    private void filePrescriptionButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                       
+        if(!enterFrequencyTextField.getText().equals("") && !enterPrescriptionTextField.getText().equals("")
+        		&& !enterDoseTextField.getText().equals(""))
+        {
+        	docList = Serialize.deserialize("src/doctor.bin");
+        	Doctor doc = patient.getDoctor();
+        	
+        	for(int i = 0; i < docList.size(); i++)
+        	{
+        		if(doc.getname().equals(docList.get(i).getname()) && doc.getEmail().equals(docList.get(i).getEmail()))
+        				{
+        			docList.remove(i);
+        			break;
+        				}
+        	}
+        	for(int j = 0; j < doc.getPatientList().size(); j++)
+        	{
+        		if(patient.getname().equals(doc.getPatientList().get(j).getname())
+        				&& patient.getEmail().equals(doc.getPatientList().get(j).getEmail()))
+        		{
+        			doc.getPatientList().get(j).getPharmacy().newPrescription(enterPrescriptionTextField.getText(), 
+                			Integer.parseInt(enterFrequencyTextField.getText()), Integer.parseInt(enterDoseTextField.getText()));
+        		
+        		}
+        			
+        	}
+        	docList.add(doc);
+        	Serialize.serialize(docList, "src/doctor.bin");
+        	javax.swing.JOptionPane.showMessageDialog(filePrescriptionPanel, "Prescription added successfully!");
+        	
+        }
     }                                                      
 
     private void enterDoseTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                   
@@ -756,7 +870,9 @@ public class DoctorUI2 extends javax.swing.JFrame {
 
     private void editPatientPharNameActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         // TODO add your handling code here:
-    }                                                   
+    }
+    
+   
 
     private void setSymptomDates(Patient patient){
     	int patientIndex = 0;
