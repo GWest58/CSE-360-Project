@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-=======
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
->>>>>>> origin/master
 import java.util.ArrayList;
 import java.util.Date;
 
