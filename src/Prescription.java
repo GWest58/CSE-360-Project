@@ -1,13 +1,15 @@
-public class Prescription{
+import java.io.Serializable;
+
+public class Prescription implements Serializable{
   
 	private String name;
 	private int frequency;
 	private int dose;
 	
-	public Prescription(String nm, int freq, int dose){
+	public Prescription(String nm, int freq, int dos){
 		name = nm;
 		frequency = freq;
-		dose = dose;
+		dose = dos;
 	}//constructor
 	
 	public String getName(){
