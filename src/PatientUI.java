@@ -32,7 +32,7 @@ public class PatientUI extends javax.swing.JFrame {
         symptomHistoryTab = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        showSymptoms = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
@@ -68,32 +68,18 @@ public class PatientUI extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel3.setText("Symptom History");
         
-      /*
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Date", "Rating"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });*/
-        jScrollPane1.setViewportView(jTable1);
+      
+        showSymptoms.setEditable(false);
+        showSymptoms.setColumns(40);
+        showSymptoms.setRows(5);
+        showSymptoms.setLineWrap(false);
+        
+        jScrollPane1.setViewportView(showSymptoms);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Select Symptom");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pain", "Shortness of Breath", "Wellbeing", "Anxiety", "Tiredness", "Depression", "Appetite", "Nausea", "Drowsiness", "Other" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] {" ", "Pain", "Shortness of Breath", "Wellbeing", "Anxiety", "Tiredness", "Depression", "Appetite", "Nausea", "Drowsiness", "Other" }));
         jComboBox1.setToolTipText("");
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1063,6 +1049,7 @@ public class PatientUI extends javax.swing.JFrame {
     private void tableActionPerformed(java.awt.event.ActionEvent evt, Patient patient){
     	int patientIndex = 0;
     	Doctor temp = null;
+    	showSymptoms.setText(""); // initialize text to being empty
     	
     	docList = Serialize.deserialize("src/doctor.bin");
     	
@@ -1082,22 +1069,16 @@ public class PatientUI extends javax.swing.JFrame {
         	}
         }
     	
+    	for(int i = 0; i < temp.getPatientList().get(patientIndex).getSymptoms().size(); i++){
+	    	// if symptom name is equal to the one in the combo box, then append symptoms to it
+    		if(temp.getPatientList().get(patientIndex).getSymptoms().get(i).getName().equals
+	    		((String)jComboBox1.getSelectedItem())){
+	    			showSymptoms.append("On " + temp.getPatientList().get(patientIndex).getSymptoms().get(i).getDate()
+	    					+ ", the symptom was rated " + temp.getPatientList().get(patientIndex).getSymptoms().get(i).getLevel()
+	    					+ "\n");
+	    	}
     	
-    	
-    	Object[][] data;
-    	data = new Object[temp.getPatientList().get(patientIndex).getSymptoms().size()/10][temp.getPatientList().get(patientIndex).getSymptoms().size()/10];
-    	
-    	for(int i = 0; i < temp.getPatientList().get(patientIndex).getSymptoms().size()/10; i++){
-    		for(int j = 0; j < temp.getPatientList().get(patientIndex).getSymptoms().size(); j++){
-    			if(temp.getPatientList().get(patientIndex).getSymptoms().get(j).getName().equals((String)jComboBox1.getSelectedItem())){
-    				data[i][0] = temp.getPatientList().get(patientIndex).getSymptoms().get(j).getDate();
-    				data[i][1] = temp.getPatientList().get(patientIndex).getSymptoms().get(j).getLevel();
-    			}
-    		}
     	}
-    	String[] columnNames = {"Date", "Rating"};
-    	jTable1.setModel(new javax.swing.table.DefaultTableModel(data, columnNames));
-              
     	
     }
     
@@ -1190,7 +1171,7 @@ public class PatientUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea showSymptoms;
     private javax.swing.JLabel nauseaLabel;
     private javax.swing.JSlider nauseaSlider;
     private javax.swing.JLabel otherLabel;
