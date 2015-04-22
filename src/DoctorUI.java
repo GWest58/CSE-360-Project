@@ -105,6 +105,7 @@ public class DoctorUI extends javax.swing.JFrame {
         Date date = new Date();
         today = dateFormat.format(date);
         
+        System.out.println(today);
         for(int i = 0; i < doc.getPatientList().size(); i++)
         {
         	Patient temp = doc.getPatientList().get(i);
@@ -143,26 +144,26 @@ public class DoctorUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(nonSeverePatientList);
 
-        mildlySeverePatientList.setBackground(new java.awt.Color(255, 0, 0));
-        mildlySeverePatientList.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        mildlySeverePatientList.setModel(mildlySevereListModel);
+        severePatientList.setBackground(new java.awt.Color(255, 0, 0));
+        severePatientList.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        severePatientList.setModel(severeListModel);
           
-        mildlySeverePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        severePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 mildlySeverePatientListValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(mildlySeverePatientList);
+        jScrollPane2.setViewportView(severePatientList);
 
-        severePatientList.setBackground(new java.awt.Color(255, 255, 0));
-        severePatientList.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        severePatientList.setModel(severeListModel);
-        severePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        mildlySeverePatientList.setBackground(new java.awt.Color(255, 255, 0));
+        mildlySeverePatientList.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        mildlySeverePatientList.setModel(mildlySevereListModel);
+        mildlySeverePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 severePatientListValueChanged(evt);
             }
         });
-        jScrollPane3.setViewportView(severePatientList);
+        jScrollPane3.setViewportView(mildlySeverePatientList);
 
         editPatientButton.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         editPatientButton.setText("Edit Patient List");
