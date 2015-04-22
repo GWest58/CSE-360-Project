@@ -1,4 +1,9 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -101,6 +106,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
 
         viewSymptomsTextArea.setColumns(20);
         viewSymptomsTextArea.setRows(5);
+        viewSymptomsTextArea.setEditable(false);
         jScrollPane1.setViewportView(viewSymptomsTextArea);
 
         viewSymptomsHeader.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -108,6 +114,8 @@ public class DoctorUI2 extends javax.swing.JFrame {
 
         contactPatientTextArea.setColumns(20);
         contactPatientTextArea.setRows(5);
+        contactPatientTextArea.setEditable(false);
+        setContactInfo(patient);
         jScrollPane2.setViewportView(contactPatientTextArea);
 
         contactPatientInfoHeader.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
@@ -116,10 +124,10 @@ public class DoctorUI2 extends javax.swing.JFrame {
         symptomDates.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         setSymptomDates(patient);
         
-        symptomDates.setModel(new javax.swing.DefaultComboBoxModel());
+     
         symptomDates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                symptomDatesActionPerformed(evt);
+                symptomDatesActionPerformed(evt, patient);
             }
         });
 
@@ -225,6 +233,9 @@ public class DoctorUI2 extends javax.swing.JFrame {
 
         patientPharInfoTextArea.setColumns(20);
         patientPharInfoTextArea.setRows(5);
+        patientPharInfoTextArea.setEditable(false);
+        patientPharInfoTextArea.setFont(new java.awt.Font("Times New Roman", 0, 14));
+        setPharInfo(patient);
         jScrollPane3.setViewportView(patientPharInfoTextArea);
 
         filePrescriptionButton.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
@@ -309,13 +320,14 @@ public class DoctorUI2 extends javax.swing.JFrame {
 
         chatBoxTextArea.setColumns(20);
         chatBoxTextArea.setRows(5);
+        chatBoxTextArea.setLineWrap(true);
         jScrollPane4.setViewportView(chatBoxTextArea);
 
         sendMessageButton.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         sendMessageButton.setText("Send Message");
         sendMessageButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendMessageButtonActionPerformed(evt);
+                sendMessageButtonActionPerformed(evt, patient);
             }
         });
 
@@ -622,9 +634,43 @@ public class DoctorUI2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                                          
 
-    private void symptomDatesActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void symptomDatesActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                             
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	viewSymptomsTextArea.setText(""); // initialize text to being empty
+    	
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	for(int i = 0; i < temp.getPatientList().get(patientIndex).getSymptoms().size(); i++){
+	    	// if symptom name is equal to the one in the combo box, then append symptoms to it
+    		if(temp.getPatientList().get(patientIndex).getSymptoms().get(i).getDate().equals
+	    		((String)symptomDates.getSelectedItem())){
+	    			viewSymptomsTextArea.append(temp.getPatientList().get(patientIndex).getSymptoms().get(i).getName()
+	    					+ ": " + temp.getPatientList().get(patientIndex).getSymptoms().get(i).getLevel()
+	    					+ "\n");
+	    	}
+    	
+    	}
+    	
+    }
         
-    }                                            
+                                           
 
     private void filePrescriptionButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                       
         // TODO add your handling code here:
@@ -634,8 +680,40 @@ public class DoctorUI2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }                                                  
 
-    private void sendMessageButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
+    private void sendMessageButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                  
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        						docList.remove(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        //check if submitting symptoms within specified time frame???
+        Date date = new Date();
+        String today = dateFormat.format(date);
+    	String message = today + " " + chatBoxTextArea.getText();
+    	temp.getPatientList().get(patientIndex).addMessage(message);
+    	chatBoxTextArea.setText(null);
+    	JOptionPane.showMessageDialog(jScrollPane1, "Message successfully sent on " + today);//, "error", JOptionPane.ERROR_MESSAGE);
+        
+    	docList.add(temp);
+    	Serialize.serialize(docList, "src/doctor.bin"); // writes to doctor file
     }                                                 
 
     private void contactPatientBackButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                         
@@ -717,8 +795,71 @@ public class DoctorUI2 extends javax.swing.JFrame {
         	 viewSymptomsTextArea.append("No symptoms found.");
          
         symptomDates.setModel(new javax.swing.DefaultComboBoxModel(dates.toArray()));
+        symptomDates.setFont(new java.awt.Font("Times New Roman", 0, 14));
          
-         
+    }
+    
+    private void setContactInfo(Patient patient){
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	contactPatientTextArea.setText(null);
+    	// reads in patients
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	contactPatientTextArea.append("Email: " + temp.getPatientList().get(patientIndex).getEmail() + "\n" +
+    								  "Phone Number: (" + temp.getPatientList().get(patientIndex).getPhoneNumber().
+    								  substring(0, 3) + ") " + temp.getPatientList().get(patientIndex).getPhoneNumber().
+    								  substring(3, 6) + "-" + temp.getPatientList().get(patientIndex).getPhoneNumber().
+    								  substring(6, temp.getPatientList().get(patientIndex).getPhoneNumber().length()) + 
+    								  "\n");
+    	contactPatientTextArea.setFont(new java.awt.Font("Times New Roman", 0, 16));
+    	
+    }
+    
+    private void setPharInfo(Patient patient){
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	patientPharInfoTextArea.setText(null);
+    	// reads in patients
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	patientPharInfoTextArea.append("Pharmacy Name: " + temp.getPatientList().get(patientIndex).getPharmacy().
+    									getName() + "\nPharmacy Address: " + 
+    									temp.getPatientList().get(patientIndex).getPharmacy().getAddress() + 
+    									"\nPharmacy Phone Number: " + temp.getPatientList().get(patientIndex).getPhoneNumber());
+    	patientPharInfoTextArea.setFont(new java.awt.Font("Times New Roman", 0, 16));
     }
     /**
      * @param args the command line arguments
