@@ -1,4 +1,7 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
@@ -15,7 +18,8 @@ import javax.swing.ListModel;
  */
 public class DoctorUI extends javax.swing.JFrame {
 
-    /**
+    //private static final int[]  = null;
+	/**
      * Creates new form DoctorUI
      */
     public DoctorUI(Doctor doc) {
@@ -96,9 +100,29 @@ public class DoctorUI extends javax.swing.JFrame {
         editPatientCancelButton = new javax.swing.JButton();
         
         //adds the patients to the corresponding J lists
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        //check if submitting symptoms within specified time frame???
+        Date date = new Date();
+        today = dateFormat.format(date);
+        
         for(int i = 0; i < doc.getPatientList().size(); i++)
         {
-        	nonSevereListModel.addElement(doc.getPatientList().get(i).getname());
+        	Patient temp = doc.getPatientList().get(i);
+        	
+        	if(temp.isProblematic(today))
+        	{
+        		if(temp.isSeverelyProblematic(today))
+        		{
+        			severeListModel.addElement(temp.getname());
+        		}
+        		
+        		else
+        		{
+        			mildlySevereListModel.addElement(temp.getname());
+        		}
+        	}
+        	else
+        		nonSevereListModel.addElement(temp.getname());
         }
         
         
@@ -121,11 +145,8 @@ public class DoctorUI extends javax.swing.JFrame {
 
         mildlySeverePatientList.setBackground(new java.awt.Color(255, 0, 0));
         mildlySeverePatientList.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        mildlySeverePatientList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        mildlySeverePatientList.setModel(mildlySevereListModel);
+          
         mildlySeverePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 mildlySeverePatientListValueChanged(evt);
@@ -135,11 +156,7 @@ public class DoctorUI extends javax.swing.JFrame {
 
         severePatientList.setBackground(new java.awt.Color(255, 255, 0));
         severePatientList.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        severePatientList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        severePatientList.setModel(severeListModel);
         severePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 severePatientListValueChanged(evt);
@@ -707,13 +724,30 @@ public class DoctorUI extends javax.swing.JFrame {
    		patientCityStateField.setText("");
    		patientPassField.setText("");
    		patientConfirmField.setText("");
-   		nonSevereListModel.clear();
    		
-   	 for(int i = 0; i < doc.getPatientList().size(); i++)
-     {
-     	nonSevereListModel.addElement(doc.getPatientList().get(i).getname());
-     }
-   	 
+   		nonSevereListModel.clear();
+   		mildlySevereListModel.clear();
+   		severeListModel.clear();
+   		
+   	  for(int i = 0; i < doc.getPatientList().size(); i++)
+      {
+      	Patient temp = doc.getPatientList().get(i);
+      	
+      	if(temp.isProblematic(today))
+      	{
+      		if(temp.isSeverelyProblematic(today))
+      		{
+      			severeListModel.addElement(temp.getname());
+      		}
+      		
+      		else
+      		{
+      			mildlySevereListModel.addElement(temp.getname());
+      		}
+      	}
+      	else
+      		nonSevereListModel.addElement(temp.getname());
+      }
        EditPatientPage.setVisible(false);
        DoctorUIMain.setVisible(true);
        javax.swing.JOptionPane.showMessageDialog(DoctorUIMain, "Patient successfully removed!");
@@ -778,8 +812,11 @@ public class DoctorUI extends javax.swing.JFrame {
          doc.getPatientList().add(new Patient(patientNameField.getText(), patientEmailField.getText(), patientPhoneField.getText(),
         		 					patientStreetField.getText(), patientCityStateField.getText(), patientPassField.getText(),
         		 					defaultPharm, doc));
+         doc.getPatientList().get(doc.getPatientList().size() - 1).setThreshold(thresholdArray);
          
         nonSevereListModel.addElement(doc.getPatientList().get(doc.getPatientList().size() - 1).getname());
+        docList.add(doc);
+     	
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
      													//new information
      	patientNameField.setText("");
@@ -793,7 +830,7 @@ public class DoctorUI extends javax.swing.JFrame {
      	DoctorUIMain.setVisible(true);
      	javax.swing.JOptionPane.showMessageDialog(DoctorUIMain, "Patient successfully added!");
      	
-     	docList.add(doc);
+     	
     	 	}
     	 }
      	else
@@ -916,8 +953,10 @@ public class DoctorUI extends javax.swing.JFrame {
     private javax.swing.JPanel viewPatientListTab;                
     private DefaultListModel nonSevereListModel = new DefaultListModel();
     private DefaultListModel mildlySevereListModel = new DefaultListModel();
-    private DefaultListModel SevereListModel = new DefaultListModel();
+    private DefaultListModel severeListModel = new DefaultListModel();
     private ArrayList<Doctor> docList; 
     private Pharmacy defaultPharm = new Pharmacy("Grant's Drug Store", "0123 W. Healing Ln. Tempe, AZ, 85281", "623521455");
+    private String today;
+    private int thresholdArray[] = {1,1,1,1,1,1,1,1,1,1};
 }
 
