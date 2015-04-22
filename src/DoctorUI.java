@@ -962,6 +962,6 @@ public class DoctorUI extends javax.swing.JFrame {
     private ArrayList<Doctor> docList; 
     private Pharmacy defaultPharm = new Pharmacy("Grant's Drug Store", "0123 W. Healing Ln. Tempe, AZ, 85281", "623521455");
     private String today;
-    private int thresholdArray[] = {1,1,1,1,1,1,1,1,1,1};
+    private int thresholdArray[] = {6,6,6,6,6,6,6,6,6,6};
 }
 
