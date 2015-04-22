@@ -1059,9 +1059,16 @@ public class PatientUI extends javax.swing.JFrame {
          // adds the dates to the dates combo box starting with a blank one
          dates.add("");
          
+         boolean dateDoesntExist;
          if(temp.getPatientList().get(patientIndex).getMessageList().size() > 0){
 	         for(int i = 0; i < temp.getPatientList().get(patientIndex).getMessageList().size(); i++){
-	         	dates.add(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring(0, 11));
+	        	 dateDoesntExist = true;
+	         	for(int j = 0; j < dates.size(); j++){
+	         		if(dates.get(j).equals(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring(0, 11)))
+	         			dateDoesntExist = false;	         	
+	         	}
+	         	if(dateDoesntExist)
+	         		dates.add(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring(0, 11));
 	         }
          }
          else
@@ -1166,8 +1173,8 @@ public class PatientUI extends javax.swing.JFrame {
         
 	        for(int i = 0; i < temp.getPatientList().get(patientIndex).getMessageList().size(); i++){
 	        	if(selectedDate.compareTo(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring(0, 11)) == 0){
-	        		messages.append(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring
-	        				(11, temp.getPatientList().get(patientIndex).getMessageList().get(i).length()));
+	        		messages.append("MESSAGE: " + temp.getPatientList().get(patientIndex).getMessageList().get(i).substring
+	        				(11, temp.getPatientList().get(patientIndex).getMessageList().get(i).length()) + "\n\n");
 	        	}
 	        }
         }
