@@ -1016,7 +1016,8 @@ public class DoctorUI2 extends javax.swing.JFrame {
     	docList.add(temp);
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
      													//new information
- 
+     	setContactInfo(patient);
+     	setPharInfo(patient);
     }
 
     private void editPatientInfoBackButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                          
