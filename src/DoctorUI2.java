@@ -883,7 +883,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
     	}
     	
     	
-    	if(!editPatientPhone.getText().equals("") && !editPatientPhone.getText().equals("Enter new phone number here")){
+    	if(!editPatientPhone.getText().equals("") && !editPatientPhone.getText().equals("Enter new patient phone number here")){
     		if(Validator.isPhone(editPatientPhone.getText())){
     		String newPhone= editPatientPhone.getText();	
     		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
