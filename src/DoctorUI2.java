@@ -881,7 +881,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
 	    	     //temp.getPatientList().get(patientIndex).setEmail(newEmail);
 	    	     temp.getPatientList().remove(patientIndex);
 	    	     patient.setEmail(newEmail);
-	    	     temp.getPatientList().add(patient);
+	    	     temp.getPatientList().add(patientIndex, patient);
 	    	     changed = true;
     		}
     		else{
@@ -891,13 +891,14 @@ public class DoctorUI2 extends javax.swing.JFrame {
     		}
     	}
     	
-    	
     	if(!editPatientPhone.getText().equals("") && !editPatientPhone.getText().equals("Enter new patient phone number here")){
     		if(Validator.isPhone(editPatientPhone.getText())){
     		String newPhone= editPatientPhone.getText();	
     		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
    	     	editPatientPhone.setText("");
-   	     	temp.getPatientList().get(patientIndex).setPhoneNumber(newPhone);
+	   	     temp.getPatientList().remove(patientIndex);
+		     patient.setPhoneNumber(newPhone);
+		     temp.getPatientList().add(patientIndex, patient);
    	     	changed = true;
     		}
     		
@@ -913,7 +914,9 @@ public class DoctorUI2 extends javax.swing.JFrame {
     		String newName = editPatientName.getText();
     		patientName.setText(newName);
     		editPatientName.setText("");
-    		temp.getPatientList().get(patientIndex).setName(newName);
+    		temp.getPatientList().remove(patientIndex);
+	   	    patient.setName(newName);
+	   	    temp.getPatientList().add(patientIndex, patient);
     		changed = true;
     	}
     	
@@ -921,44 +924,50 @@ public class DoctorUI2 extends javax.swing.JFrame {
     		String newStreet = editPatientStreet.getText();
     		patientStreet.setText(newStreet);
     		editPatientStreet.setText("");
-    		temp.getPatientList().get(patientIndex).setStreetAddress(newStreet);
+    		temp.getPatientList().remove(patientIndex);
+	   	    patient.setStreetAddress(newStreet);
+	   	    temp.getPatientList().add(patientIndex, patient);
     		changed = true;
     	}
-    	
     	
     	if(!editPatientCity.getText().equals("") && !editPatientCity.getText().equals("Enter new patient city, state, and zip here")){
     		String newCityState = editPatientCity.getText();
     		patientCity.setText(newCityState);
     		editPatientCity.setText("");
-    		temp.getPatientList().get(patientIndex).setCityStateAddress(newCityState);
+    		temp.getPatientList().remove(patientIndex);
+	   	    patient.setCityStateAddress(newCityState);
+	   	    temp.getPatientList().add(patientIndex, patient);
     		changed = true;
     	}
-    	
     	
     	if(!editPatientPharName.getText().equals("") && !editPatientPharName.getText().equals("Enter new pharmacy name here")){
     		String newPharName = editPatientPharName.getText();
     		patientPharName.setText(newPharName);
     		editPatientPharName.setText("");
-    		temp.getPatientList().get(patientIndex).getPharmacy().changeName(newPharName);
+    		temp.getPatientList().remove(patientIndex);
+    		patient.getPharmacy().changeName(newPharName);
+   	     	temp.getPatientList().add(patientIndex, patient);
     		changed = true;
     	}
-    	
     	
     	if(!editPharAddress.getText().equals("") && !editPharAddress.getText().equals("Enter new pharmacy address here")){
     		String newPharCity = editPharAddress.getText();
     		patientPharAddr.setText(newPharCity);
     		editPharAddress.setText("");
-    		temp.getPatientList().get(patientIndex).getPharmacy().changeAddr(newPharCity);
+    		temp.getPatientList().remove(patientIndex);
+    		patient.getPharmacy().changeAddr(newPharCity);
+    		temp.getPatientList().add(patientIndex, patient);
     		changed = true;
     	}
-    	
     	
     	if(!editPatientPharPhone.getText().equals("") && !editPatientPharPhone.getText().equals("Enter new pharmacy phone number here")){
     		if(Validator.isPhone(editPatientPharPhone.getText())){
         		String newPhone= editPatientPharPhone.getText();	
         		patientPharPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
        	     	editPatientPharPhone.setText("");
-       	     	temp.getPatientList().get(patientIndex).getPharmacy().changePhone(newPhone);
+	       	    temp.getPatientList().remove(patientIndex);
+	     		patient.getPharmacy().changePhone(newPhone);
+	     		temp.getPatientList().add(patientIndex, patient);;
        	     	changed = true;
         		}
         		else{
@@ -966,6 +975,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid pharmacy phone number in the form of XXXXXXXXXX with no spaces");
         		}
     	}
+    	
     	if(!passField1.getText().equals(""))
     	{
     		if(passField1.getText().equals(passField2.getText()))
@@ -974,7 +984,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
     			patientPassword.setText(newPass);
     			  temp.getPatientList().remove(patientIndex);
  	    	     patient.setPassword(newPass);
- 	    	     temp.getPatientList().add(patient);
+ 	    	     temp.getPatientList().add(patientIndex, patient);
  	    	     changed = true;
     			passField1.setText("");
     			passField2.setText("");
@@ -1006,10 +1016,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
     	docList.add(temp);
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
      													//new information
-    	viewSumbissionsTab.repaint();			// repaint the panels?
-    	filePrescriptionPanel.repaint();		// repaint the panels?
-    	contactPatientTextArea.repaint();
-    	patientPharInfoTextArea.repaint();
+ 
     }
 
     private void editPatientInfoBackButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                          
