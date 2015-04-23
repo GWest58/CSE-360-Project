@@ -872,7 +872,10 @@ public class DoctorUI2 extends javax.swing.JFrame {
 	    		 System.out.println(newEmail);
 	    	     patientEmail.setText(newEmail);
 	    	     editPatientEmail.setText("");
-	    	     temp.getPatientList().get(patientIndex).setEmail(newEmail);
+	    	     //temp.getPatientList().get(patientIndex).setEmail(newEmail);
+	    	     temp.getPatientList().remove(patientIndex);
+	    	     patient.setEmail(newEmail);
+	    	     temp.getPatientList().add(patient);
 	    	     changed = true;
     		}
     		else{
@@ -963,7 +966,10 @@ public class DoctorUI2 extends javax.swing.JFrame {
     		{
     			String newPass = passField1.getText();
     			patientPassword.setText(newPass);
-    			temp.getPatientList().get(patientIndex).setPassword(newPass);
+    			  temp.getPatientList().remove(patientIndex);
+ 	    	     patient.setPassword(newPass);
+ 	    	     temp.getPatientList().add(patient);
+ 	    	     changed = true;
     			passField1.setText("");
     			passField2.setText("");
     			changed = true;
