@@ -1127,7 +1127,11 @@ public class DoctorUI2 extends javax.swing.JFrame {
     	patientPharInfoTextArea.append("Pharmacy Name: " + temp.getPatientList().get(patientIndex).getPharmacy().
     									getName() + "\nPharmacy Address: " + 
     									temp.getPatientList().get(patientIndex).getPharmacy().getAddress() + 
-    									"\nPharmacy Phone Number: " + temp.getPatientList().get(patientIndex).getPhoneNumber());
+    									"\nPharmacy Phone Number: " + "(" + temp.getPatientList().get(patientIndex).getPharmacy().getPhone().
+      								  substring(0, 3) + ") " + temp.getPatientList().get(patientIndex).getPharmacy().getPhone().
+      								  substring(3, 6) + "-" + temp.getPatientList().get(patientIndex).getPharmacy().getPhone().
+      								  substring(6, temp.getPatientList().get(patientIndex).getPharmacy().getPhone().length()) + 
+      								  "\n");
     	patientPharInfoTextArea.setFont(new java.awt.Font("Times New Roman", 0, 16));
     }
     /**
