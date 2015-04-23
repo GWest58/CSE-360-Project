@@ -902,7 +902,9 @@ public class PatientUI extends javax.swing.JFrame {
 	    		 String newEmail = editEmail.getText();	
 	    	     patientEmail.setText(newEmail);
 	    	     editEmail.setText("");
-	    	     temp.getPatientList().get(patientIndex).setEmail(newEmail);
+	    	     temp.getPatientList().remove(patientIndex);
+	    	     patient.setEmail(newEmail);
+	    	     temp.getPatientList().add(patientIndex, patient);
     		}
     		else{
     			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid email.");

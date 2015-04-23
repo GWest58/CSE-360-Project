@@ -878,7 +878,6 @@ public class DoctorUI2 extends javax.swing.JFrame {
 	    		 System.out.println(newEmail);
 	    	     patientEmail.setText(newEmail);
 	    	     editPatientEmail.setText("");
-	    	     //temp.getPatientList().get(patientIndex).setEmail(newEmail);
 	    	     temp.getPatientList().remove(patientIndex);
 	    	     patient.setEmail(newEmail);
 	    	     temp.getPatientList().add(patientIndex, patient);
