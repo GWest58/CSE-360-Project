@@ -919,9 +919,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newPhone= editPhone.getText();	
     		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
    	     	editPhone.setText("");
-	   	    temp.getPatientList().remove(patientIndex);
-		    patient.setPhoneNumber(newPhone);
-		    temp.getPatientList().add(patientIndex, patient);
+   	     	temp.getPatientList().get(patientIndex).setPhoneNumber(newPhone);
 		    change = true;
 		    }
     		else{
@@ -935,9 +933,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newStreet = editStreet.getText();
     		streetAddr.setText(newStreet);
     		editStreet.setText("");
-    		temp.getPatientList().remove(patientIndex);
-	    	patient.setStreetAddress(newStreet);
-	    	temp.getPatientList().add(patientIndex, patient);
+    		temp.getPatientList().get(patientIndex).setStreetAddress(newStreet);;
 	    	change = true;
     	}
     	
@@ -945,9 +941,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newCityState = editCityState.getText();
     		cityStateAddr.setText(newCityState);
     		editCityState.setText("");
-    		temp.getPatientList().remove(patientIndex);
-	    	patient.setCityStateAddress(newCityState);
-	    	temp.getPatientList().add(patientIndex, patient);
+    		temp.getPatientList().get(patientIndex).setCityStateAddress(newCityState);
 	    	change = true;
     	}
     
@@ -955,9 +949,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newPharName = editPharName.getText();
     		pharName.setText(newPharName);
     		editPharName.setText("");
-    		temp.getPatientList().remove(patientIndex);
-    		patient.getPharmacy().changeName(newPharName);
-	    	temp.getPatientList().add(patientIndex, patient);
+    		temp.getPatientList().get(patientIndex).getPharmacy().changeName(newPharName);
 	    	change = true;
     	}
     	
@@ -965,9 +957,7 @@ public class PatientUI extends javax.swing.JFrame {
     		String newPharCity = editPharCity.getText();
     		pharCityState.setText(newPharCity);
     		editPharCity.setText("");
-    		temp.getPatientList().remove(patientIndex);
-    		patient.getPharmacy().changeAddr(newPharCity);
-	    	temp.getPatientList().add(patientIndex, patient);
+    		temp.getPatientList().get(patientIndex).getPharmacy().changeAddr(newPharCity);
 	    	change = true;
     	}
     	
@@ -976,9 +966,7 @@ public class PatientUI extends javax.swing.JFrame {
         		String newPhone= editPharPhone.getText();	
         		pharPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
        	     	editPharPhone.setText("");
-	       	    temp.getPatientList().remove(patientIndex);
-	     		patient.getPharmacy().changePhone(newPhone);
-	 	    	temp.getPatientList().add(patientIndex, patient);
+       	     	temp.getPatientList().get(patientIndex).getPharmacy().changePhone(newPhone);
 	 	    	change = true;
         		}
         		else{
