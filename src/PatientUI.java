@@ -906,10 +906,8 @@ public class PatientUI extends javax.swing.JFrame {
 	    	     temp.getPatientList().remove(patientIndex);
 	    	     patient.setEmail(newEmail);
 	    	     temp.getPatientList().add(patientIndex, patient);
-<<<<<<< HEAD
-=======
 	    	     change = true;
->>>>>>> origin/master
+
     		}
     		else{
     			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid email.");
