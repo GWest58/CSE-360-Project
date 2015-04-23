@@ -1108,12 +1108,12 @@ public class PatientUI extends javax.swing.JFrame {
     	if(size > 0){
 	    	prescriptionSummary.append("Latest prescription:\n");
 	    	prescriptionSummary.append("At " + temp.getPatientList().get(patientIndex).getPharmacy().getName() +
-	    			" in " + temp.getPatientList().get(patientIndex).getPharmacy().getAddress() + ", " + 
+	    			" in " + temp.getPatientList().get(patientIndex).getPharmacy().getAddress() + ",\n" + 
 	    			temp.getPatientList().get(patientIndex).getPharmacy().getPrescriptions().get(size -1).
-	    			getName() + " has been filed with " + temp.getPatientList().get(patientIndex).getPharmacy().
-	    			getPrescriptions().get(size-1).getFrequency() + " frequency and " +
+	    			getName() + " has been filed " + temp.getPatientList().get(patientIndex).getPharmacy().
+	    			getPrescriptions().get(size-1).getFrequency() + " times and in " +
 	    			temp.getPatientList().get(patientIndex).getPharmacy().getPrescriptions().get(size-1).getDose() +
-	    			" doses\n");
+	    			" mg doses each\n");
     	}
     	else
     		prescriptionSummary.append("No prescriptions found. Please request your doctor to file a prescription.");

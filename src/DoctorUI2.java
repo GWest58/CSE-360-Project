@@ -401,7 +401,9 @@ public class DoctorUI2 extends javax.swing.JFrame {
         patientEmail.setText(patient.getEmail());
 
         patientPhone.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientPhone.setText(patient.getPhoneNumber());
+        patientPhone.setText("(" + patient.getPhoneNumber().substring(0, 3) + ") " +
+        		patient.getPhoneNumber().substring(3, 6) + "-" + 
+        		patient.getPhoneNumber().substring(6, patient.getPhoneNumber().length()));
         
         patientStreet.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         patientStreet.setText(patient.getStreetAddress());
@@ -416,8 +418,9 @@ public class DoctorUI2 extends javax.swing.JFrame {
         patientPharAddr.setText(patient.getPharmacy().getAddress());
 
         patientPharPhone.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        patientPharPhone.setText(patient.getPharmacy().getPhone());
-
+        patientPharPhone.setText("(" + patient.getPharmacy().getPhone().substring(0, 3) + ") " +
+        		patient.getPharmacy().getPhone().substring(3, 6) + "-" + 
+        		patient.getPharmacy().getPhone().substring(6, patient.getPharmacy().getPhone().length()));
         patientPassword.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         patientPassword.setText(patient.getPassword());
 
@@ -447,8 +450,8 @@ public class DoctorUI2 extends javax.swing.JFrame {
             }
         });
 
-        editPatientPharPhone.setText("Enter new pharmacy phone number here");
-        editPatientPharPhone.addActionListener(new java.awt.event.ActionListener() {
+       editPatientPharPhone.setText("Enter new pharmacy phone number here");
+       editPatientPharPhone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editPatientPharPhoneActionPerformed(evt);
             }
@@ -782,6 +785,9 @@ public class DoctorUI2 extends javax.swing.JFrame {
         	}
         	docList.add(doc);
         	Serialize.serialize(docList, "src/doctor.bin");
+        	enterFrequencyTextField.setText("");
+        	enterPrescriptionTextField.setText("");
+        	enterDoseTextField.setText("");
         	javax.swing.JOptionPane.showMessageDialog(filePrescriptionPanel, "Prescription added successfully!");
         	
         }
@@ -891,7 +897,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
     		String newPhone= editPatientPhone.getText();	
     		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
    	     	editPatientPhone.setText("");
-   	     	temp.getPatientList().get(patientIndex).setPhoneNumber(newPhone);// I hope this actually changes the patient variable when we return
+   	     	temp.getPatientList().get(patientIndex).setPhoneNumber(newPhone);
    	     	changed = true;
     		}
     		
@@ -996,15 +1002,19 @@ public class DoctorUI2 extends javax.swing.JFrame {
     				
     	}
     
+    	
     	docList.add(temp);
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
      													//new information
-    	
+    	viewSumbissionsTab.repaint();			// repaint the panels?
+    	filePrescriptionPanel.repaint();		// repaint the panels?
+    	contactPatientTextArea.repaint();
+    	patientPharInfoTextArea.repaint();
     }
 
     private void editPatientInfoBackButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                          
     	   DoctorUI ui = new DoctorUI(patient.getDoctor());
-           ui.setVisible(true);
+    	   ui.setVisible(true);
            this.setVisible(false);
            this.dispose();
     }                                                         

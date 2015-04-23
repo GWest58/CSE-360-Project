@@ -403,6 +403,7 @@ public class Login extends javax.swing.JFrame {
     			//info to find a match
     			for(int i = 0; i < docList.size(); i++)	
     			{
+    				
     				if(docList.get(i).getEmail().equalsIgnoreCase(doctorLoginEmailField.getText()) 
     						&& docList.get(i).getPassword().equals(doctorLoginPassField.getText()))
     						{
@@ -433,6 +434,7 @@ public class Login extends javax.swing.JFrame {
     							javax.swing.JOptionPane.showMessageDialog(login_doctor, "Too many failed attempts. As an alternative,"
     	    							+ " enter the answer to the following secret question in the password field:\n" + docList.get(i).getSecret());
     						secret = false;
+    						System.out.println(docList.get(i).getAnswer());
     						}
     				}
     				

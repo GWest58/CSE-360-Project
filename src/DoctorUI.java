@@ -1,9 +1,12 @@
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JTextField;
 import javax.swing.ListModel;
 
 /*
@@ -150,7 +153,7 @@ public class DoctorUI extends javax.swing.JFrame {
           
         severePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                mildlySeverePatientListValueChanged(evt);
+                mildlySeverePatientListValueChanged(evt, doc);
             }
         });
         jScrollPane2.setViewportView(severePatientList);
@@ -160,7 +163,7 @@ public class DoctorUI extends javax.swing.JFrame {
         mildlySeverePatientList.setModel(mildlySevereListModel);
         mildlySeverePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                severePatientListValueChanged(evt);
+                severePatientListValueChanged(evt, doc);
             }
         });
         jScrollPane3.setViewportView(mildlySeverePatientList);
@@ -286,9 +289,11 @@ public class DoctorUI extends javax.swing.JFrame {
         doctorCurrentEmail.setText(doc.getEmail());
 
         doctorCurrentStreetAddress.setText(doc.getStreetAddress());
-
-        doctorCurrentPhone.setText(doc.getPhoneNumber());
-
+        
+        doctorCurrentPhone.setText("(" + doc.getPhoneNumber().substring(0, 3) + 
+        		") " + doc.getPhoneNumber().substring(3, 6) + "-" + doc.getPhoneNumber().
+        		substring(6, doc.getPhoneNumber().length()));
+  
         doctorCurrentHospital.setText(doc.getHospital());
 
         doctorCurrentSecret.setText(doc.getSecret());
@@ -297,6 +302,73 @@ public class DoctorUI extends javax.swing.JFrame {
 
         doctorCurrentCityStateAddress.setText(doc.getCityStateAddress());
 
+        // ADDING TEXT TO TEXTFIELDS CAUSES THE TEXTFIELDS TO CHANGE SIZE AND POSITION
+        /*
+        doctorNameField.setText("Enter new name here");
+        doctorNameField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        doctorEmailField.setText("Enter new email address here");
+        doctorEmailField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        doctorPhoneField.setText("Enter new phone number here");
+        doctorPhoneField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        doctorStreetField.setText("Enter new street address here");
+        doctorStreetField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        doctorCityStateField.setText("Enter new city, state, and zip here");
+        doctorCityStateField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        doctorHospitalField.setText("Enter new hospital name here");
+        doctorHospitalField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        doctorSecretField.setText("Enter new secret question here");
+        doctorSecretField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        
+        doctorAnswerField.setText("Enter new secret question answer here");
+        doctorAnswerField.addFocusListener(new FocusAdapter() {
+        	public void focusGained(FocusEvent e){
+        	JTextField source = (JTextField)e.getComponent();
+        	source.setText("");
+        	source.removeFocusListener(this);
+        	}});
+        */
+        
         javax.swing.GroupLayout editProfileTabLayout = new javax.swing.GroupLayout(editProfileTab);
         editProfileTab.setLayout(editProfileTabLayout);
         editProfileTabLayout.setHorizontalGroup(
@@ -600,7 +672,9 @@ public class DoctorUI extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void doctorSubmitButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {                                                   
-        docList = Serialize.deserialize("src/doctor.bin");
+        boolean changed = false;
+    	
+    	docList = Serialize.deserialize("src/doctor.bin");
         for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
         {
         	if(docList.get(i).getEmail().equalsIgnoreCase(doc.getEmail()) 
@@ -610,63 +684,115 @@ public class DoctorUI extends javax.swing.JFrame {
         		break;
         	}
         }
-        if(!(doctorNameField.getText().equals("")))
-    	{
-    		doc.setName(doctorNameField.getText());
+        
+        if(!doctorEmailField.getText().equals("") && !doctorEmailField.getText().equals("Enter new patient email here")){
+    		if(Validator.isEmail(doctorEmailField.getText())){
+	    		 String newEmail = doctorEmailField.getText();
+	    	     doctorCurrentEmail.setText(newEmail);
+	    	     doctorEmailField.setText("");
+	    	     //temp.getPatientList().get(patientIndex).setEmail(newEmail);
+	    	     doc.setEmail(newEmail);
+	    	     changed = true;
+    		}
+    		else{
+    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid email.");
+    			doctorEmailField.setText("");    			
+    		}
+    	}    	
+    	
+    	if(!doctorPhoneField.getText().equals("") && !doctorPhoneField.getText().equals("Enter new patient phone number here")){
+    		if(Validator.isPhone(doctorPhoneField.getText())){
+    		String newPhone= doctorPhoneField.getText();	
+    		doctorCurrentPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
+   	     	doctorPhoneField.setText("");
+   	     	doc.setPhoneNumber(newPhone);
+   	     	changed = true;
+    		}
+    		
+    		else
+    		{
+    			doctorPhoneField.setText("");
+    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid phone number in the form of XXXXXXXXXX with no spaces");
+    		}
+    			
+   	     }
+    	
+    	if(!doctorNameField.getText().equals("") && !doctorNameField.getText().equals("Enter new patient name here")){
+    		String newName = doctorNameField.getText();
+    		doctorCurrentName.setText(newName);
     		doctorNameField.setText("");
-    		doctorCurrentName.setText(doc.getname());
+    		doc.setName(newName);
+    		changed = true;
     	}
-    	if(!(doctorEmailField.getText().equals("")))
-    	{
-    		doc.setEmail(doctorEmailField.getText());
-    		doctorEmailField.setText("");
-    		doctorCurrentEmail.setText(doc.getEmail());
-    	}
-    	if(!(doctorStreetField.getText().equals("")))
-    	{
-    		doc.setStreetAddress(doctorStreetField.getText());
+    	
+    	if(!doctorStreetField.getText().equals("") && !doctorStreetField.getText().equals("Enter new patient street address here")){
+    		String newStreet = doctorStreetField.getText();
+    		doctorCurrentStreetAddress.setText(newStreet);
     		doctorStreetField.setText("");
-    		doctorCurrentStreetAddress.setText(doc.getStreetAddress());
+    		doc.setStreetAddress(newStreet);
+    		changed = true;
     	}
-    	if(!(doctorCityStateField.getText().equals("")))
-    	{
-    		doc.setCityStateAddress(doctorCityStateField.getText());
+    	
+    	
+    	if(!doctorCityStateField.getText().equals("") && !doctorCityStateField.getText().equals("Enter new patient city, state, and zip here")){
+    		String newCityState = doctorCityStateField.getText();
+    		doctorCurrentCityStateAddress.setText(newCityState);
     		doctorCityStateField.setText("");
-    		doctorCurrentCityStateAddress.setText(doc.getCityStateAddress());
+    		doc.setCityStateAddress(newCityState);
+    		changed = true;
     	}
-    	if(!(doctorPhoneField.getText().equals("")))
-    	{
-    		doc.setPhoneNumber(doctorPhoneField.getText());
-    		doctorPhoneField.setText("");
-    		doctorCurrentPhone.setText(doc.getPhoneNumber());
-    	}
-    	if(!(doctorHospitalField.getText().equals("")))
-    	{
-    		doc.setHospital(doctorHospitalField.getText());
+    	
+    	if(!doctorHospitalField.getText().equals("") && !doctorHospitalField.getText().equals("Enter new pharmacy name here")){
+    		String newHospital = doctorHospitalField.getText();
+    		doctorCurrentHospital.setText(newHospital);
     		doctorHospitalField.setText("");
-    		doctorCurrentHospital.setText(doc.getHospital());
+    		doc.setHospital(newHospital);
+    		changed = true;
     	}
-    	if(!(doctorSecretField.getText().equals("")))
-    	{
-    		doc.setSecret(doctorSecretField.getText());
+    	
+    	
+    	if(!doctorSecretField.getText().equals("") && !doctorSecretField.getText().equals("Enter new pharmacy address here")){
+    		String newSecret = doctorSecretField.getText();
+    		doctorCurrentSecret.setText(newSecret);
     		doctorSecretField.setText("");
-    		doctorCurrentSecret.setText(doc.getSecret());
+    		doc.setSecret(newSecret);
+    		changed = true;
     	}
-    	if(!(doctorAnswerField.getText().equals("")))
-    	{
-    		doc.setAnswer(doctorAnswerField.getText());
-    		doctorAnswerField.setText("");
-    		doctorCurrentAnswer.setText(doc.getAnswer());
+    	
+    	
+    	if(!doctorAnswerField.getText().equals("") && !doctorAnswerField.getText().equals("Enter new pharmacy phone number here")){
+        		String newAnswer= doctorAnswerField.getText();	
+        		doctorCurrentAnswer.setText(newAnswer);
+       	     	doctorAnswerField.setText("");
+       	     	doc.setAnswer(newAnswer);
+       	     	changed = true;
     	}
+    	
     	if(!(doctorPassField.getText().equals("")))
     	{
-    		if(doctorPassField.getText().equals(doctorConfirmField.getText()))
-    		{
-    			doc.setPassword(doctorPassField.getText());
-                        
-    		}
-                doctorPassField.setText("");
-                doctorConfirmField.setText("");
+    		
+	    		if(doctorPassField.getText().equals(doctorConfirmField.getText()))
+	    		{
+	    			String newPass = doctorPassField.getText();
+	    			doc.setPassword(newPass);
+	    		     doctorPassField.setText("");
+		             doctorConfirmField.setText("");
+	                changed = true;
+	    		}
+	    		else
+	    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "The passwords do not match");
+    		
+	       if(doctorPassField.getText().equals("") && !doctorConfirmField.getText().equals("")){
+	    	   doctorConfirmField.setText("");
+	    	   javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "To edit password, please complete both password fields");
+	       }   		
+    			
+    	}
+    	
+    	if(changed)
+    	{
+    		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Profile information changed.");
+    		changed = false;    				
     	}
     	
     	docList.add(doc);
@@ -696,12 +822,36 @@ public class DoctorUI extends javax.swing.JFrame {
         
     }                                                 
 
-    private void severePatientListValueChanged(javax.swing.event.ListSelectionEvent evt) {                                               
-        // TODO add your handling code here:
+    private void severePatientListValueChanged(javax.swing.event.ListSelectionEvent evt, Doctor doc) {                                               
+    	 String selectedPatientName = (String)severePatientList.getSelectedValue();
+         Patient selectedPatient = null;
+         for(int i = 0; i < doc.getPatientList().size(); i++){
+         	if(doc.getPatientList().get(i).getname().equals(selectedPatientName)){
+         		selectedPatient = doc.getPatientList().get(i);
+         		break;
+         	}
+         }
+         
+     	DoctorUI2 test = new DoctorUI2(selectedPatient);
+         test.setVisible(true);
+         this.setVisible(false);
+         this.dispose();
     }                                              
 
-    private void mildlySeverePatientListValueChanged(javax.swing.event.ListSelectionEvent evt) {                                                     
-        // TODO add your handling code here:
+    private void mildlySeverePatientListValueChanged(javax.swing.event.ListSelectionEvent evt, Doctor doc) {                                                     
+    	 String selectedPatientName = (String) mildlySeverePatientList.getSelectedValue();
+         Patient selectedPatient = null;
+         for(int i = 0; i < doc.getPatientList().size(); i++){
+         	if(doc.getPatientList().get(i).getname().equals(selectedPatientName)){
+         		selectedPatient = doc.getPatientList().get(i);
+         		break;
+         	}
+         }
+         
+     	DoctorUI2 test = new DoctorUI2(selectedPatient);
+         test.setVisible(true);
+         this.setVisible(false);
+         this.dispose();
     }                                                    
 
     private void patientRemoveButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {  
@@ -969,7 +1119,7 @@ public class DoctorUI extends javax.swing.JFrame {
     private DefaultListModel mildlySevereListModel = new DefaultListModel();
     private DefaultListModel severeListModel = new DefaultListModel();
     private ArrayList<Doctor> docList; 
-    private Pharmacy defaultPharm = new Pharmacy("Grant's Drug Store", "0123 W. Healing Ln. Tempe, AZ, 85281", "623521455");
+    private Pharmacy defaultPharm = new Pharmacy("Grant's Drug Store", "0123 W. Healing Ln. Tempe, AZ, 85281", "6235214555");
     private String today;
     private int thresholdArray[] = {6,6,6,6,6,6,6,6,6,6};
 }
