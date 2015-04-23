@@ -153,7 +153,7 @@ public class DoctorUI extends javax.swing.JFrame {
           
         severePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                mildlySeverePatientListValueChanged(evt, doc);
+                severePatientListValueChanged(evt, doc);
             }
         });
         jScrollPane2.setViewportView(severePatientList);
@@ -163,7 +163,7 @@ public class DoctorUI extends javax.swing.JFrame {
         mildlySeverePatientList.setModel(mildlySevereListModel);
         mildlySeverePatientList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                severePatientListValueChanged(evt, doc);
+                mildlySeverePatientListValueChanged(evt, doc);
             }
         });
         jScrollPane3.setViewportView(mildlySeverePatientList);
@@ -822,8 +822,8 @@ public class DoctorUI extends javax.swing.JFrame {
         
     }                                                 
 
-    private void severePatientListValueChanged(javax.swing.event.ListSelectionEvent evt, Doctor doc) {                                               
-    	 String selectedPatientName = (String)severePatientList.getSelectedValue();
+    private void mildlySeverePatientListValueChanged(javax.swing.event.ListSelectionEvent evt, Doctor doc) {                                               
+    	 String selectedPatientName = (String)mildlySeverePatientList.getSelectedValue();
          Patient selectedPatient = null;
          for(int i = 0; i < doc.getPatientList().size(); i++){
          	if(doc.getPatientList().get(i).getname().equals(selectedPatientName)){
@@ -838,8 +838,8 @@ public class DoctorUI extends javax.swing.JFrame {
          this.dispose();
     }                                              
 
-    private void mildlySeverePatientListValueChanged(javax.swing.event.ListSelectionEvent evt, Doctor doc) {                                                     
-    	 String selectedPatientName = (String) mildlySeverePatientList.getSelectedValue();
+    private void severePatientListValueChanged(javax.swing.event.ListSelectionEvent evt, Doctor doc) {                                                     
+    	 String selectedPatientName = (String) severePatientList.getSelectedValue();
          Patient selectedPatient = null;
          for(int i = 0; i < doc.getPatientList().size(); i++){
          	if(doc.getPatientList().get(i).getname().equals(selectedPatientName)){
