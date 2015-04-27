@@ -301,73 +301,6 @@ public class DoctorUI extends javax.swing.JFrame {
         doctorCurrentAnswer.setText(doc.getAnswer());
 
         doctorCurrentCityStateAddress.setText(doc.getCityStateAddress());
-
-        // ADDING TEXT TO TEXTFIELDS CAUSES THE TEXTFIELDS TO CHANGE SIZE AND POSITION
-        /*
-        doctorNameField.setText("Enter new name here");
-        doctorNameField.addFocusListener(new FocusAdapter() {
-        	public void focusGained(FocusEvent e){
-        	JTextField source = (JTextField)e.getComponent();
-        	source.setText("");
-        	source.removeFocusListener(this);
-        	}});
-        
-        doctorEmailField.setText("Enter new email address here");
-        doctorEmailField.addFocusListener(new FocusAdapter() {
-        	public void focusGained(FocusEvent e){
-        	JTextField source = (JTextField)e.getComponent();
-        	source.setText("");
-        	source.removeFocusListener(this);
-        	}});
-        
-        doctorPhoneField.setText("Enter new phone number here");
-        doctorPhoneField.addFocusListener(new FocusAdapter() {
-        	public void focusGained(FocusEvent e){
-        	JTextField source = (JTextField)e.getComponent();
-        	source.setText("");
-        	source.removeFocusListener(this);
-        	}});
-        
-        doctorStreetField.setText("Enter new street address here");
-        doctorStreetField.addFocusListener(new FocusAdapter() {
-        	public void focusGained(FocusEvent e){
-        	JTextField source = (JTextField)e.getComponent();
-        	source.setText("");
-        	source.removeFocusListener(this);
-        	}});
-        
-        doctorCityStateField.setText("Enter new city, state, and zip here");
-        doctorCityStateField.addFocusListener(new FocusAdapter() {
-        	public void focusGained(FocusEvent e){
-        	JTextField source = (JTextField)e.getComponent();
-        	source.setText("");
-        	source.removeFocusListener(this);
-        	}});
-        
-        doctorHospitalField.setText("Enter new hospital name here");
-        doctorHospitalField.addFocusListener(new FocusAdapter() {
-        	public void focusGained(FocusEvent e){
-        	JTextField source = (JTextField)e.getComponent();
-        	source.setText("");
-        	source.removeFocusListener(this);
-        	}});
-        
-        doctorSecretField.setText("Enter new secret question here");
-        doctorSecretField.addFocusListener(new FocusAdapter() {
-        	public void focusGained(FocusEvent e){
-        	JTextField source = (JTextField)e.getComponent();
-        	source.setText("");
-        	source.removeFocusListener(this);
-        	}});
-        
-        doctorAnswerField.setText("Enter new secret question answer here");
-        doctorAnswerField.addFocusListener(new FocusAdapter() {
-        	public void focusGained(FocusEvent e){
-        	JTextField source = (JTextField)e.getComponent();
-        	source.setText("");
-        	source.removeFocusListener(this);
-        	}});
-        */
         
         javax.swing.GroupLayout editProfileTabLayout = new javax.swing.GroupLayout(editProfileTab);
         editProfileTab.setLayout(editProfileTabLayout);
@@ -669,6 +602,14 @@ public class DoctorUI extends javax.swing.JFrame {
         getContentPane().add(EditPatientPage, "card3");
 
         pack();
+        
+        if(nonSevereListModel.isEmpty()){
+        	javax.swing.JOptionPane.showMessageDialog(DoctorUIMain, "Welcome to the Efferent Patient Care System!\n\n"
+        			+ "We see you don't have any patients loaded up into your Patient List.\nIn order to start seeing patients"
+        			+ " appear on your screen, you will need to register them first.\n Clicking on \"Edit Patient List\" and"
+        			+ " filling out the appropriate fields and clicking \"Add Patient\" would be the best way to start.\n\n"
+        			+ "Thank you for using the Efferent Patient Care System.\nWe hope to provide you the extra convenience.");
+        }
     }// </editor-fold>                        
 
     private void doctorSubmitButtonActionPerformed(java.awt.event.ActionEvent evt, Doctor doc) {                                                   
@@ -950,7 +891,7 @@ public class DoctorUI extends javax.swing.JFrame {
     	 else if(!Validator.isPhone(patientPhoneField.getText()))
     	 {
     		 patientPhoneField.setText("");
-    		 javax.swing.JOptionPane.showMessageDialog(EditPatientPage, "Please enter a valid phone number");
+    		 javax.swing.JOptionPane.showMessageDialog(EditPatientPage, "Please enter a valid phone number in the form of XXXXXXXXXX (i.e. 6235552455)");
     		 
     	 }
     	 else if(!patientPassField.getText().equals(patientConfirmField.getText()))

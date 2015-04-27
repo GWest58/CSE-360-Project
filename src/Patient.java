@@ -50,6 +50,18 @@ public class Patient extends User {
 		symptomList = newList;
 	}
 	
+	public boolean isSymptomListEmpty(){
+		return symptomList.size() <= 0;		
+	}
+	
+	public boolean checkDate(String date){
+		for(int i = 0; i < symptomList.size(); i++){
+			if(symptomList.get(i).getDate().equals(date))
+				return true;
+		}
+		return false;
+	}
+	
 	public void newMessageList(ArrayList<String> newList){
 		messageList = newList;
 	}
