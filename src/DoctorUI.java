@@ -603,7 +603,7 @@ public class DoctorUI extends javax.swing.JFrame {
 
         pack();
         
-        if(nonSevereListModel.isEmpty()){
+        if(nonSevereListModel.isEmpty() && mildlySevereListModel.isEmpty() && severeListModel.isEmpty()){
         	javax.swing.JOptionPane.showMessageDialog(DoctorUIMain, "Welcome to the Efferent Patient Care System!\n\n"
         			+ "We see you don't have any patients loaded up into your Patient List.\nIn order to start seeing patients"
         			+ " appear on your screen, you will need to register them first.\n Clicking on \"Edit Patient List\" and"
