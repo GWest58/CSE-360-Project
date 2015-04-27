@@ -878,7 +878,6 @@ public class DoctorUI2 extends javax.swing.JFrame {
 	    		 System.out.println(newEmail);
 	    	     patientEmail.setText(newEmail);
 	    	     editPatientEmail.setText("");
-	    	     //temp.getPatientList().get(patientIndex).setEmail(newEmail);
 	    	     temp.getPatientList().remove(patientIndex);
 	    	     patient.setEmail(newEmail);
 	    	     temp.getPatientList().add(patientIndex, patient);
@@ -1108,7 +1107,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         		}
         	}
         }
-    	
+    	// adds patient information to the contact patient text area
     	contactPatientTextArea.append("Email: " + temp.getPatientList().get(patientIndex).getEmail() + "\n" +
     								  "Phone Number: (" + temp.getPatientList().get(patientIndex).getPhoneNumber().
     								  substring(0, 3) + ") " + temp.getPatientList().get(patientIndex).getPhoneNumber().
@@ -1116,7 +1115,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
     								  substring(6, temp.getPatientList().get(patientIndex).getPhoneNumber().length()) + 
     								  "\n");
     	contactPatientTextArea.setFont(new java.awt.Font("Times New Roman", 0, 16));
-    	
+ 
     }
     
     private void setPharInfo(Patient patient){

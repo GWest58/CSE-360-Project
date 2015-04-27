@@ -877,6 +877,7 @@ public class PatientUI extends javax.swing.JFrame {
     	int count = 0;
     	int patientIndex = 0;
     	Doctor temp = null;
+    	boolean change = false;
     	
     	docList = Serialize.deserialize("src/doctor.bin");
     	
@@ -905,68 +906,61 @@ public class PatientUI extends javax.swing.JFrame {
 	    	     temp.getPatientList().remove(patientIndex);
 	    	     patient.setEmail(newEmail);
 	    	     temp.getPatientList().add(patientIndex, patient);
+	    	     change = true;
+
     		}
     		else{
     			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid email.");
     			editEmail.setText("");
-    			count++;
     		}
     	}
-    	else
-    		count++;
     	
     	if(!editPhone.getText().equals("") && !editPhone.getText().equals("Enter new phone number here")){
     		if(Validator.isPhone(editPhone.getText())){
     		String newPhone= editPhone.getText();	
     		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
    	     	editPhone.setText("");
-   	     	temp.getPatientList().get(patientIndex).setPhoneNumber(newPhone);// I hope this actually changes the patient variable when we return
-    		}
+   	     	temp.getPatientList().get(patientIndex).setPhoneNumber(newPhone);
+		    change = true;
+		    }
     		else{
-    			count++;
     			editPhone.setText("");
     			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid phone number in the form of XXXXXXXXXX with no spaces");
     		}
     			
    	     }
-    	else
-    		count++;
     	
     	if(!editStreet.getText().equals("") && !editStreet.getText().equals("Enter new street address here")){
     		String newStreet = editStreet.getText();
     		streetAddr.setText(newStreet);
     		editStreet.setText("");
-    		temp.getPatientList().get(patientIndex).setStreetAddress(newStreet);
+    		temp.getPatientList().get(patientIndex).setStreetAddress(newStreet);;
+	    	change = true;
     	}
-    	else 
-    		count++;
     	
     	if(!editCityState.getText().equals("") && !editCityState.getText().equals("Enter new city, state zip here")){
     		String newCityState = editCityState.getText();
     		cityStateAddr.setText(newCityState);
     		editCityState.setText("");
     		temp.getPatientList().get(patientIndex).setCityStateAddress(newCityState);
+	    	change = true;
     	}
-    	else
-    		count++;
-    	
+    
     	if(!editPharName.getText().equals("") && !editPharName.getText().equals("Enter new pharmacy name")){
     		String newPharName = editPharName.getText();
     		pharName.setText(newPharName);
     		editPharName.setText("");
     		temp.getPatientList().get(patientIndex).getPharmacy().changeName(newPharName);
+	    	change = true;
     	}
-    	else
-    		count++;
     	
     	if(!editPharCity.getText().equals("") && !editPharCity.getText().equals("Enter new pharmacy city, state")){
     		String newPharCity = editPharCity.getText();
     		pharCityState.setText(newPharCity);
     		editPharCity.setText("");
     		temp.getPatientList().get(patientIndex).getPharmacy().changeAddr(newPharCity);
+	    	change = true;
     	}
-    	else
-    		count++;
     	
     	if(!editPharPhone.getText().equals("") && !editPharPhone.getText().equals("Enter new pharmacy phone number")){
     		if(Validator.isPhone(editPharPhone.getText())){
@@ -974,17 +968,15 @@ public class PatientUI extends javax.swing.JFrame {
         		pharPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
        	     	editPharPhone.setText("");
        	     	temp.getPatientList().get(patientIndex).getPharmacy().changePhone(newPhone);
+	 	    	change = true;
         		}
         		else{
-        			count++;
         			editPharPhone.setText("");
         			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid pharmacy phone number in the form of XXXXXXXXXX with no spaces");
         		}
     	}
-    	else
-    		count++;
     	
-    	if(count == 7)
+    	if(!change)
     		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter new profile information in their respective text fields.");
     	else
     		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Profile information changed.");
@@ -992,9 +984,7 @@ public class PatientUI extends javax.swing.JFrame {
     
     	docList.add(temp);
      	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
-     													//new information
-    	
-    	
+     													//new information    	
     }
     
     private void tableActionPerformed(java.awt.event.ActionEvent evt, Patient patient){
