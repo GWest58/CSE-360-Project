@@ -46,6 +46,10 @@ public class Patient extends User {
 		symptomList.add(newSymptom);
 	}
 	
+	public void newSymptomList(ArrayList<Symptom> newList){
+		symptomList = newList;
+	}
+	
 	public int getThreshold(int index){
 		return thresholds[index];
 	}
