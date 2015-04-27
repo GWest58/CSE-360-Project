@@ -68,7 +68,44 @@ public class PatientUI extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel3.setText("Symptom History");
         
-      
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        //check if submitting symptoms within specified time frame???
+        Date date = new Date();
+        String today = dateFormat.format(date);
+        
+        if(patient.isSymptomListEmpty()){
+   		 javax.swing.JOptionPane.showMessageDialog(submitSymptomsTab, "Welcome to the Efferent Patient Care System!\n\n"
+   		 		+ "We see you haven't submitted any symptoms yet and would love to get you started.\n"
+   		 		+ "When you first open up the Efferent Patient Care System, you will be greeted with several sliders."
+   		 		+ "Rate these symptoms from 1 to 10, 1 being the lowest feeling of that symptom while 10 being the highest.\n"
+   		 		+ "You can only submit symptoms once per day and they will be sent to your corresponding doctor.\n"
+   		 		+ "To see your assigned doctor, go to the \"Patient Information\" tab. You can alter any of your profile information here as well.\n"
+   		 		+ "In the \"Messages\" tab, you can see recent doctor messages and prescriptions.\n\n"
+   		 		+ "Thank you for using the Efferent Patient Care System. We hope to provide you extra convenience.");
+        }
+        
+        if(!patient.checkDate(today)){
+        	javax.swing.JOptionPane.showMessageDialog(submitSymptomsTab, "Welcome to the Efferent Patient Care System!\n\n"
+       		 		+ "We see you haven't submitted any symptoms today and would like to remind you what each symptom entails:\n\n"
+       		 		+ "Pain- do you feel any sharp or sudden aches or intense physical discomfort?\n"
+       		 		+ "Shortness of Breath- is it hard to breathe right now?\n"
+       		 		+ "Wellbeing- do you feel weak, feeble, and overall down in the dumps?\n"
+       		 		+ "Anxiety- do you feel overly jittery or stressful?\n"
+       		 		+ "Tiredness- do you feel constantly tired despite resting?\n"
+       		 		+ "Depression- do you feel isolated and lonely like the whole world is against you?\n"
+       		 		+ "Nausea- how likely will you vomit in the next thirty minutes?\n"
+       		 		+ "Appetite- do you have a constant urge to eat and are never satisfied afterwards?\n"
+       		 		+ "Drowsiness- do you constantly feel sleepy?\n"
+       		 		+ "Other- if there are other symptoms that you are feeling that are not listed here,\n\tplease rate it and notify your doctor afterwards\n\n"
+       		 		+ "We hope you have an easy time using the Efferent Patient Care System.");
+        }
+        else
+        	javax.swing.JOptionPane.showMessageDialog(submitSymptomsTab, "We see you have already inputted symptoms for the day.\n"
+        			+ "Please log back in tomorrow to input more symptoms.\n"
+        			+ "If there is an emergency, please call your doctor right away or 9-1-1.\n"
+        			+ "You can still view your recent symptom history, edit profile information, or view doctor messages and prescriptions.\n\n"
+        			+ "Thank you for using the Efferent Patient Care System!");
+        
         showSymptoms.setEditable(false);
         showSymptoms.setColumns(30);
         showSymptoms.setRows(5);
@@ -189,10 +226,8 @@ public class PatientUI extends javax.swing.JFrame {
         // if any one of the symptoms in the patient is already inputted for today, button is disabled.
         // Otherwise, button is enabled.
         
-        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        //check if submitting symptoms within specified time frame???
-        Date date = new Date();
-        String today = dateFormat.format(date);
+ 
+       
         boolean buttonEnabled = true;
         for(int i = 0; i < patient.getSymptoms().size(); i++){
         	if(patient.getSymptoms().get(i).getDate().equals(today)){
@@ -938,7 +973,7 @@ public class PatientUI extends javax.swing.JFrame {
 		    }
     		else{
     			editPhone.setText("");
-    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid phone number in the form of XXXXXXXXXX with no spaces");
+    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid phone number in the form of XXXXXXXXXX with no spaces\n(i.e. 6235552455)");
     		}
     			
    	     }
@@ -985,7 +1020,7 @@ public class PatientUI extends javax.swing.JFrame {
         		}
         		else{
         			editPharPhone.setText("");
-        			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid pharmacy phone number in the form of XXXXXXXXXX with no spaces");
+        			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid pharmacy phone number in the form of XXXXXXXXXX with no spaces\n(i.e. 6235552455)");
         		}
     	}
     	
