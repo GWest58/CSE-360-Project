@@ -50,6 +50,10 @@ public class Patient extends User {
 		symptomList = newList;
 	}
 	
+	public void newMessageList(ArrayList<String> newList){
+		messageList = newList;
+	}
+	
 	public int getThreshold(int index){
 		return thresholds[index];
 	}
