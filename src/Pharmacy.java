@@ -48,7 +48,7 @@ public class Pharmacy implements Serializable{
 	}
 	
 	// adds a new prescription by taking in the information as a parameter such as name, frequency, and dose.
-	public void newPrescription(String name, int frequency, int dose){
+	public void newPrescription(String name, int frequency, double dose){
 		Prescription newPrescription = new Prescription(name, frequency, dose);
 		prescriptionList.add(newPrescription);
 		
