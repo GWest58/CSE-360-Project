@@ -825,7 +825,8 @@ public class DoctorUI2 extends javax.swing.JFrame {
         Date date = new Date();
         String today = dateFormat.format(date);
     	String message = today + " " + chatBoxTextArea.getText();
-    	temp.getPatientList().get(patientIndex).addMessage(message);
+    	patient.addMessage(message);
+    	temp.getPatientList().get(patientIndex).newMessageList(patient.getMessageList());
     	chatBoxTextArea.setText(null);
     	JOptionPane.showMessageDialog(jScrollPane1, "Message successfully sent on " + today);//, "error", JOptionPane.ERROR_MESSAGE);
         

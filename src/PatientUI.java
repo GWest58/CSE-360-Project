@@ -811,6 +811,19 @@ public class PatientUI extends javax.swing.JFrame {
         		submitButton.setEnabled(false);
         	
         		//add new symptoms to pt's symptom list
+        		patient.newSymptom("Pain", painRate, today);
+        		patient.newSymptom("Shortness of Breath", shortnessOfBreathRate, today);
+        		patient.newSymptom("Wellbeing", wellbeingRate, today);
+        		patient.newSymptom("Anxiety", anxietyRate, today);
+        		patient.newSymptom("Tiredness", tirednessRate, today);
+        		patient.newSymptom("Depression", depressionRate, today);
+        		patient.newSymptom("Nausea", nauseaRate, today);
+        		patient.newSymptom("Appetite", appetiteRate, today);
+        		patient.newSymptom("Drowsiness", drowsinessRate, today);
+        		patient.newSymptom("Other", otherRate, today); 
+        		temp.getPatientList().get(patientIndex).newSymptomList(patient.getSymptoms());
+        		
+        		/*
         		temp.getPatientList().get(patientIndex).newSymptom("Pain", painRate, today);
         		temp.getPatientList().get(patientIndex).newSymptom("Shortness of Breath", shortnessOfBreathRate, today);
         		temp.getPatientList().get(patientIndex).newSymptom("Wellbeing", wellbeingRate, today);
@@ -820,7 +833,7 @@ public class PatientUI extends javax.swing.JFrame {
         		temp.getPatientList().get(patientIndex).newSymptom("Nausea", nauseaRate, today);
         		temp.getPatientList().get(patientIndex).newSymptom("Appetite", appetiteRate, today);
         		temp.getPatientList().get(patientIndex).newSymptom("Drowsiness", drowsinessRate, today);
-        		temp.getPatientList().get(patientIndex).newSymptom("Other", otherRate, today); 
+        		temp.getPatientList().get(patientIndex).newSymptom("Other", otherRate, today); */
         		JOptionPane.showMessageDialog(jScrollPane1, "Symptoms submitted! Please log in another day to input more symptom ratings.");//, "error", JOptionPane.ERROR_MESSAGE);
         	    painSlider.setValue(0);
         	    shortnessOfBreathSlider.setValue(0);
