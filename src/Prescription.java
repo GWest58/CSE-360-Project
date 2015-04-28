@@ -1,6 +1,6 @@
 import java.io.Serializable;
 
-// class responsible for holding the information of a prescription
+// class responsible for holding the information of a prescription with its accessor and mutator methods
 public class Prescription implements Serializable{
   
 	private String name;
