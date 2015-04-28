@@ -10,6 +10,8 @@ import java.lang.Math;
 import java.util.*;
 import java.io.Serializable;
 
+// the Symptoms class implements serializable because when a patient submits their symptoms, it must
+// save the symptoms in the serializable file as well
 public class Symptom implements Serializable {
 	String name;
 	int level;
