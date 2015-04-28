@@ -111,9 +111,18 @@ public class Patient extends User {
 			}
 		}
 		else{ //calc standard deviation
+			
+			// calc mean of symptomList levels
+
+			int sum = 0;
+			for(int i = 0; i < symptomList.size(); i++){
+				sum += symptomList.get(i).getLevel();
+			}
+			double mean = (double)sum/symptomList.size();
+
 			for(int i = 0; i < symptomList.size(); i++){
 				if(symptomList.get(i).getDate().equalsIgnoreCase(date)){
-					if (symptomList.get(i).getLevel() >= 2*calcStdDev())
+					if (symptomList.get(i).getLevel() >= mean + 2*calcStdDev())
 						return true;
 				}
 			}
@@ -133,9 +142,17 @@ public class Patient extends User {
 			}
 		}
 		else{ //calc standard deviation
+			
+			// calculate the mean of symptomList levels
+			int sum = 0;
+			for(int i = 0; i < symptomList.size(); i++){
+				sum += symptomList.get(i).getLevel();
+			}
+			double mean = (double)sum/symptomList.size();
+			
 			for(int i = 0; i < symptomList.size(); i++){
 				if(symptomList.get(i).getDate().equalsIgnoreCase(date)){
-					if (symptomList.get(i).getLevel() >= 3*calcStdDev())
+					if (symptomList.get(i).getLevel() >= mean + 3*calcStdDev())
 						return true;
 				}
 			}
