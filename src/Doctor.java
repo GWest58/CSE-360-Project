@@ -56,13 +56,13 @@ public class Doctor extends User {
     {
         secretAnswer = changeAnswer;
     }
-}
+
     
  
    
    
 //main method for resetting the doctor file if needed (just run this file)
-/*public static void main(String args[])
+public static void main(String args[])
 {
 	 Doctor Grant = new Doctor("Grant West", "GrantMD@health.net", "6230005211", "0000 W Cure St.", "Tempe, AZ, 85281",  "catsrcool", "Software Hospital", "What is your mother's maiden name?", "Micham");
 	 Doctor Nizar = new Doctor("Nizar Kury", "NizarMD@health.net", "6231111234", "9999 S Health Dr.", "Tempe, AZ, 85281", "ilovemonkeys", "Software Hospital", "Who was your childhood hero?", "Batman" );
@@ -81,7 +81,7 @@ public class Doctor extends User {
 	}
 }
 }
-*/
+
 		 
 
 
