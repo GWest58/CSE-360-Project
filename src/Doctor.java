@@ -56,52 +56,12 @@ public class Doctor extends User {
     {
         secretAnswer = changeAnswer;
     }
-    
-    
-    
-    /*
-    public void writeToFile()
-    {
-    	 String fileName = "doctor.bin";
-         try{
-         	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(fileName));
-				os.writeObject(this);
-				os.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch(IOException e) {
-				e.printStackTrace();
 
-         }
-    }
     
-    public Doctor readFromFile()
-    {
-    	String fileName = "doctor.bin";
-    	Doctor doc = null;
-    	try {
-			ObjectInputStream is = new ObjectInputStream(new FileInputStream(fileName));
-			try {
-				doc = (Doctor)is.readObject();
-			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				doc = null;
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	return doc;
-    }
-    */
+ 
    
    
-
+//main method for resetting the doctor file if needed (just run this file)
 public static void main(String args[])
 {
 	 Doctor Grant = new Doctor("Grant West", "GrantMD@health.net", "6230005211", "0000 W Cure St.", "Tempe, AZ, 85281",  "catsrcool", "Software Hospital", "What is your mother's maiden name?", "Micham");
