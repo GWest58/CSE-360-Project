@@ -19,6 +19,7 @@ public class Pharmacy implements Serializable{
 		prescriptionList = new ArrayList<Prescription>();
 	}
 	
+	//accessor methods
 	public String getName(){
 		return name;
 	}
@@ -35,6 +36,7 @@ public class Pharmacy implements Serializable{
 		return prescriptionList;
 	}
 	
+	//mutator methods
 	public void changeName(String newName){
 		name = newName;
 	}
