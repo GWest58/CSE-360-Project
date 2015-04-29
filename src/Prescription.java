@@ -13,6 +13,7 @@ public class Prescription implements Serializable{
 		dose = dos;
 	}//constructor
 	
+	//accessor methods
 	public String getName(){
 		return name;
 	}
@@ -25,6 +26,7 @@ public class Prescription implements Serializable{
 		return dose;
 	}
 	
+	//mutator methods
 	public void changeName(String nm){
 		name = nm;
 	}
