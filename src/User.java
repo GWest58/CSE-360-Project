@@ -38,7 +38,8 @@ public class User implements Serializable {
 		this.cityStateAddress = csAddress;
 		this.password=password;
 	}
-//getter methods for each var	
+	
+	//accessor methods for each var	
 	public String getname(){
 		return name;
 	}
@@ -63,7 +64,8 @@ public class User implements Serializable {
 	public String getPassword(){
 		return password;
 	}
-//setter methods for each var	
+	
+	//setter methods for each var	
 	public void setName(String name){
 		this.name=name;
 	}
@@ -88,7 +90,8 @@ public class User implements Serializable {
 	public void setPassword(String password){
 		this.password=password;
 	}
-//this is where we get the user object from the text file	
+	
+	//this is where we get the user object from the text file	
 	public User getUser(){
 		User user = null;
 		try{

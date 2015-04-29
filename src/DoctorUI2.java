@@ -777,9 +777,19 @@ public class DoctorUI2 extends javax.swing.JFrame {
         		if(patient.getname().equals(doc.getPatientList().get(j).getname())
         				&& patient.getEmail().equals(doc.getPatientList().get(j).getEmail()))
         		{
-        			doc.getPatientList().get(j).getPharmacy().newPrescription(enterPrescriptionTextField.getText(), 
-                			Integer.parseInt(enterFrequencyTextField.getText()), Integer.parseInt(enterDoseTextField.getText()));
-        		
+        			String name;
+        			int frequency;
+        			double dose;
+        			try{
+        				name = enterPrescriptionTextField.getText();
+        				frequency = Integer.parseInt(enterFrequencyTextField.getText());
+        				dose = Double.parseDouble(enterDoseTextField.getText());
+        				doc.getPatientList().get(j).getPharmacy().newPrescription(name, frequency, dose);
+        				javax.swing.JOptionPane.showMessageDialog(filePrescriptionPanel, "Prescription added successfully!");
+        			}
+        			catch(NumberFormatException e){
+        				javax.swing.JOptionPane.showMessageDialog(filePrescriptionPanel, "Please input numeric amounts for frequency and dose.\nFrequency cannot be a decimal.");
+        			}
         		}
         			
         	}
@@ -787,8 +797,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         	Serialize.serialize(docList, "src/doctor.bin");
         	enterFrequencyTextField.setText("");
         	enterPrescriptionTextField.setText("");
-        	enterDoseTextField.setText("");
-        	javax.swing.JOptionPane.showMessageDialog(filePrescriptionPanel, "Prescription added successfully!");
+        	enterDoseTextField.setText("");   
         	
         }
     }                                                      
@@ -1075,6 +1084,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
          
          if(temp.getPatientList().get(patientIndex).getSymptoms().size() > 0){
 	         for(int i = 0; i < temp.getPatientList().get(patientIndex).getSymptoms().size(); i+=10){
+	        	viewSymptomsTextArea.append("Symptoms found.\nSelect a date to view symptoms on that day.");
 	         	dates.add(temp.getPatientList().get(patientIndex).getSymptoms().get(i).getDate());
 	         }
          }         
@@ -1108,6 +1118,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
         		}
         	}
         }
+    	
     	// adds patient information to the contact patient text area
     	contactPatientTextArea.append("Email: " + temp.getPatientList().get(patientIndex).getEmail() + "\n" +
     								  "Phone Number: (" + temp.getPatientList().get(patientIndex).getPhoneNumber().
@@ -1152,41 +1163,8 @@ public class DoctorUI2 extends javax.swing.JFrame {
       								  "\n");
     	patientPharInfoTextArea.setFont(new java.awt.Font("Times New Roman", 0, 16));
     }
-    /**
-     * @param args the command line arguments
-     */
-    /*public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-    /*
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DoctorUI2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DoctorUI2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DoctorUI2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DoctorUI2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-    
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DoctorUI2().setVisible(true);
-            }
-        });
-    } */
 
-    // Variables declaration - do not modify                     
+    // Global variables declaration section                     
     private javax.swing.JLabel addressHeader;
     private javax.swing.JTextArea chatBoxTextArea;
     private javax.swing.JLabel confirmHeader;
