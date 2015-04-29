@@ -25,6 +25,7 @@ public class Symptom implements Serializable {
 
 	}
 	
+	//accessor methods
 	public String getName(){
 		return name;
 	}
@@ -37,6 +38,7 @@ public class Symptom implements Serializable {
 		return date;
 	}
 	
+	//mutator methods
 	public void setName(String newName){
 		name = newName;
 	}
