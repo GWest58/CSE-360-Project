@@ -545,6 +545,8 @@ public class DoctorUI2 extends javax.swing.JFrame {
         	source.setText("");
         	source.removeFocusListener(this);
         	}});
+    
+        
         editPatientPhone.addFocusListener(new FocusAdapter() {
         	public void focusGained(FocusEvent e){
         	JTextField source = (JTextField)e.getComponent();
