@@ -750,13 +750,14 @@ public class DoctorUI2 extends javax.swing.JFrame {
                                            
     //sends a prescription to the patient which they can view from the patient interface
     private void filePrescriptionButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                                       
-        if(!enterFrequencyTextField.getText().equals("") && !enterPrescriptionTextField.getText().equals("")
+        if(!enterFrequencyTextField.getText().equals("") && !enterPrescriptionTextField.getText().equals("Enter prescription name here") &&
+        		!enterPrescriptionTextField.getText().equals("")
         		&& !enterDoseTextField.getText().equals(""))
         {
         	docList = Serialize.deserialize("src/doctor.bin");
         	Doctor doc = patient.getDoctor();
         	
-        	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the patient list
+        	for (int i = 0; i < docList.size(); i++)	//finds and removes doc from the patient list
         	{
         		if(doc.getname().equals(docList.get(i).getname()) && doc.getEmail().equals(docList.get(i).getEmail()))
         				{
