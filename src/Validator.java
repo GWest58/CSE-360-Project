@@ -1,10 +1,11 @@
 
 public class Validator {
 	
+	//checks to make sure the email being checked is a vaild email based on the standards in the method
 	 public static boolean isEmail(String check){
 	    	int count = 0;
 	    	for(int i = 0; i < check.length(); i++){
-	    		if(check.substring(i, i+1).compareTo("@") == 0)
+	    		if(check.substring(i, i+1).compareTo("@") == 0) //contains an @ character
 	    			count++;
 	    	}
 	    	
@@ -12,6 +13,7 @@ public class Validator {
 	    		if(check.length() <= 10)
 	    			return false;
 	    		else{
+	    			//makes sure ending matches one of these internet protocols
 		    		if(check.substring(check.length()-4, check.length()).compareTo(".com") == 0 ||
 		    				check.substring(check.length()-4, check.length()).compareTo(".net") == 0 ||
 		    				check.substring(check.length()-4, check.length()).compareTo(".org") == 0||
@@ -28,6 +30,7 @@ public class Validator {
 	    		return false;
 	    }
 	    
+	 //makes sure the phone number being checked is a valid phone number (contains 10 integers)
 	    public static boolean isPhone(String check){
 	    	if(check.length() != 10)
 	    		return false;
