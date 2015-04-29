@@ -91,21 +91,6 @@ public class User implements Serializable {
 		this.password=password;
 	}
 	
-	//this is where we get the user object from the text file	
-	public User getUser(){
-		User user = null;
-		try{
-			FileInputStream fileInput= new FileInputStream("user.txt");
-			ObjectInputStream objectInput= new ObjectInputStream (fileInput);
-			user=(User) objectInput.readObject();
-			objectInput.close();
-		}
-		catch (IOException except){
-			except.printStackTrace();
-		}
-		catch (ClassNotFoundException except){
-			except.printStackTrace();
-		}
-		return user;
+
 	}
-}
+
