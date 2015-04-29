@@ -420,46 +420,15 @@ public class DoctorUI2 extends javax.swing.JFrame {
         editPatientStreet.setText("Enter new patient street address here");
 
         editPatientCity.setText("Enter new patient city, state, and zip here");
-        editPatientCity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editPatientCityActionPerformed(evt);
-            }
-        });
+     
         editPatientPharName.setText("Enter new pharmacy name here");
-        editPatientPharName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editPatientPharNameActionPerformed(evt);
-            }
-        });
 
         editPharAddress.setText("Enter new pharmacy address here");
-        editPharAddress.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editPharAddressActionPerformed(evt);
-            }
-        });
 
-       editPatientPharPhone.setText("Enter new pharmacy phone number here");
-       editPatientPharPhone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editPatientPharPhoneActionPerformed(evt);
-            }
-        });
-
-        passField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passField1ActionPerformed(evt);
-            }
-        });
-
+        editPatientPharPhone.setText("Enter new pharmacy phone number here");
+       
         confirmHeader.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         confirmHeader.setText("Confirm Password:");
- 
-        passField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passField2ActionPerformed(evt);
-            }
-        });
 
         editPatientInfoBackButton.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         editPatientInfoBackButton.setText("Go Back to List");
@@ -843,15 +812,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
            ui.setVisible(true);
            this.setVisible(false);
            this.dispose();
-    }                                                        
-
-    private void editPatientCityActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
-    }                                               
-
-    private void passField2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
+    }                                                                                     
 
     	//allows for the editing of patient informaiotn
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                           
@@ -1031,25 +992,7 @@ public class DoctorUI2 extends javax.swing.JFrame {
     	   ui.setVisible(true);
            this.setVisible(false);
            this.dispose();
-    }                                                         
-
-    private void passField1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
-
-    private void editPatientPharPhoneActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        // TODO add your handling code here:
-    }                                                    
-
-    private void editPharAddressActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
-    }                                               
-
-    private void editPatientPharNameActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        // TODO add your handling code here:
-    }
-    
-   
+    }                                                            
 
     private void setSymptomDates(Patient patient){
     	int patientIndex = 0;
