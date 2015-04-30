@@ -6,7 +6,7 @@ In order to run the software system on GitHub, run the project as it is represen
 
 There are several things to consider when running the software:
 	- The main class that kickstarts the application is Login.java
-	- The Doctor.java file is responsible for refreshing the repository and giving it a clean slate
+	- The Doctor.java file is responsible for refreshing the doctor information repository and giving it a clean slate
 	- All passwords are case sensitive
 	- There are three default doctors already stored into the system for use. These doctors are:
 		- Grant West
