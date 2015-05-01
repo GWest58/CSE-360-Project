@@ -22,12 +22,12 @@ public class User implements Serializable {
 //i named the class cereal because I have lame jokes
 //implements serializable so we can store users as objects and retrieve them
 //private vars for each var listed in user class diagram
-	private String name;
-	private String email;
-	private String phoneNumber;
-	private String streetAddress;
-	private String cityStateAddress;
-	private String password;
+	protected String name;
+	protected String email;
+	protected String phoneNumber;
+	protected String streetAddress;
+	protected String cityStateAddress;
+	protected String password;
 	
 	public User(String name,  String email, String phoneNumber, String sAddress, String csAddress, String password){
 //constructor method		
