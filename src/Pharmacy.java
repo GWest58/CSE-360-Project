@@ -1,5 +1,7 @@
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Pharmacy{
+public class Pharmacy implements Serializable{
 
 	public static final int MAX_PRESCRIPTIONS = 20;
 	
@@ -7,13 +9,13 @@ public class Pharmacy{
 		String name;
 		String address;
 		String phoneNum;
-		Prescription prescriptionList[];
+	    ArrayList<Prescription> prescriptionList;
 		
 	public Pharmacy(String nm, String addr, String phone){
 		name = nm;
 		address = addr;
 		phoneNum = phone;
-		prescriptionList = new Prescription[MAX_PRESCRIPTIONS];
+		prescriptionList = new ArrayList<Prescription>();
 	}
 	
 	public String getName(){
@@ -28,6 +30,10 @@ public class Pharmacy{
 		return phoneNum;
 	}
 	
+	public ArrayList<Prescription> getPrescriptions(){
+		return prescriptionList;
+	}
+	
 	public void changeName(String newName){
 		name = newName;
 	}
@@ -40,8 +46,9 @@ public class Pharmacy{
 		phoneNum = newPh;
 	}
 	
-	public void newPrescription(String name, int frequency, int dose, int index){
-		prescriptionList[index] = new Prescription(name, frequency, dose);
+	public void newPrescription(String name, int frequency, int dose){
+		Prescription newPrescription = new Prescription(name, frequency, dose);
+		prescriptionList.add(newPrescription);
 		
 	}
 }

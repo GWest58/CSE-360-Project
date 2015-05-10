@@ -330,10 +330,68 @@ public class Login extends javax.swing.JFrame {
     }                                                        
 
     private void patientLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                         
-        // TODO add your handling code here:
+
+        boolean knowsEmail = false;
+        boolean knowsDoctor = false;
+        boolean login = false;
+    	patientLoginErrorLabel.setText("");
+        // Patient Email and Doctor fields cannot be empty
+        if(!patientLoginEmailField.getText().equals("") && !patientLoginDoctorField.getText().equals("")){
+        	
+        	// loads in the doctor list from the source doctor file
+        	docList = Serialize.deserialize("src/doctor.bin");
+        	if(docList != null){
+        		// searches for the doctor the patient identified to therefore search for the patient
+        		for(int i = 0; i < docList.size(); i++){
+        			if(docList.get(i).getname().equalsIgnoreCase(patientLoginDoctorField.getText())){
+        				knowsDoctor = true;
+        				patientLoginDoctorField.setEditable(false);
+        				for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        					// if doctor's patient matches email and password, then open patient gui
+        					System.out.println(docList.get(i).getPatientList().get(j).getEmail());
+        					if(docList.get(i).getPatientList().get(j).getEmail().equalsIgnoreCase(
+        							patientLoginEmailField.getText()) && docList.get(i).getPatientList().
+        							get(j).getPassword().equals(patientLoginPassField.getText())){
+		        						Patient pat = docList.get(i).getPatientList().get(j);
+		    							PatientUI patUI = new PatientUI(pat);
+		    							patUI.setVisible(true);
+		    							this.setVisible(false);
+		    							this.dispose();
+		    							login = true;
+        					}
+        					else if(docList.get(i).getPatientList().get(j).getEmail().equalsIgnoreCase(
+        							patientLoginEmailField.getText())){
+        						knowsEmail = true;
+        						patientLoginEmailField.setEditable(false);
+        						break;
+        					}
+        				
+        				}
+        			}
+        		}
+        		
+        		if(!login){
+	        		if(!knowsEmail && !knowsDoctor && patientCount < 5)
+	        			javax.swing.JOptionPane.showMessageDialog(login_patient, "Email, doctor, and password entered incorrectly. Please try again.");
+	        		else if(!knowsEmail && knowsDoctor && patientCount < 5)
+	        			javax.swing.JOptionPane.showMessageDialog(login_patient, "Email and password entered incorrectly. Please try again.");
+	        		else if(knowsEmail && patientCount < 5)
+	        			javax.swing.JOptionPane.showMessageDialog(login_patient, "Email correct. Password entered incorrectly.");
+	        		else if(patientCount >= 5)
+	        			javax.swing.JOptionPane.showMessageDialog(login_patient, "Please call your doctor to recover email or password.");
+	        	}
+        		
+				patientLoginPassField.setText(""); //clears the pass field
+				patientCount++;
+        		
+        	}
+
+        }
     }                                                        
 
-    private void doctorLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                        
+    private void doctorLoginSubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {     
+    	boolean knowsEmail = false;
+    	boolean secret = true;
     	doctorLoginErrorLabel.setText("");	//clears the error label
     	if(!doctorLoginEmailField.getText().equals(""))	//if there is an email entered in the email field
         {
@@ -345,6 +403,7 @@ public class Login extends javax.swing.JFrame {
     			//info to find a match
     			for(int i = 0; i < docList.size(); i++)	
     			{
+    				
     				if(docList.get(i).getEmail().equalsIgnoreCase(doctorLoginEmailField.getText()) 
     						&& docList.get(i).getPassword().equals(doctorLoginPassField.getText()))
     						{
@@ -354,12 +413,40 @@ public class Login extends javax.swing.JFrame {
     							docUI.setVisible(true);
     							this.setVisible(false);
     							this.dispose();
+    							secret = false;
     						}
+    				else if(count < 5 && docList.get(i).getEmail().equalsIgnoreCase(doctorLoginEmailField.getText())){
+    					knowsEmail = true;
+    					doctorLoginEmailField.setEditable(false);
+    					break;
+    				}
+    				else if(count >= 5 && docList.get(i).getEmail().equalsIgnoreCase(doctorLoginEmailField.getText())){
+    						if(docList.get(i).getPassword().equals(doctorLoginPassField.getText()) ||
+    							docList.get(i).getAnswer().equalsIgnoreCase(doctorLoginPassField.getText())){
+    						Doctor doc = docList.get(i);
+							DoctorUI docUI = new DoctorUI(doc);
+							docUI.setVisible(true);
+							this.setVisible(false);
+							this.dispose();
+							secret = false;
+    					}
+    						else{
+    							javax.swing.JOptionPane.showMessageDialog(login_doctor, "Too many failed attempts. As an alternative,"
+    	    							+ " enter the answer to the following secret question in the password field:\n" + docList.get(i).getSecret());
+    						secret = false;
+    						System.out.println(docList.get(i).getAnswer());
+    						}
+    				}
     				
     			}
-    			//doctor is not found, display error to user
-				doctorLoginErrorLabel.setText("Email or password entered is incorrect");
+    			//doctor is not found, display error to use
+    			if(!knowsEmail && secret)
+    				javax.swing.JOptionPane.showMessageDialog(login_doctor, "Email and password entered incorrectly. Please try again.");
+    			else if(knowsEmail && count < 5)
+    				javax.swing.JOptionPane.showMessageDialog(login_doctor, "Correct email but incorrect password. Please enter another password.");
+    			
 				doctorLoginPassField.setText(""); //clears the pass field
+				count++;
     		}
         }
     }
@@ -369,6 +456,7 @@ public class Login extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+    	
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -423,5 +511,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel patientLoginPassLabel;
     private javax.swing.JButton patientLoginSubmitButton;
     private ArrayList<Doctor> docList;
+ 	int count = 0; // for doctor login to prompt secret question
+ 	int patientCount = 0; // for patient login to prompt them to call doctor's phone number
     // End of variables declaration                   
 }

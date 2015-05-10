@@ -56,10 +56,8 @@ public class Doctor extends User {
     {
         secretAnswer = changeAnswer;
     }
-    public void registerPatient(Patient newPatient)
-    {
-    	patientList.add(newPatient);
-    }
+    
+    
     
     /*
     public void writeToFile()
