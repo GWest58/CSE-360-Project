@@ -3,11 +3,16 @@
  * @author Alexandra Nazareno and Nizar Kury
  */
 
-// test changes
+// This class is the main boundary class for patient interaction with the efferent patient care system.
+// Look at each action handler for more information on how the patient can interact with the UI.
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class PatientUI extends javax.swing.JFrame {
 
@@ -25,11 +30,12 @@ public class PatientUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents(Patient patient) {
 
+    	// further initialization of global variables
         PatientTabbedPane = new javax.swing.JTabbedPane();
         symptomHistoryTab = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        showSymptoms = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
@@ -64,34 +70,67 @@ public class PatientUI extends javax.swing.JFrame {
         
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel3.setText("Symptom History");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Date", "Rating"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
+        
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        //check if submitting symptoms within specified time frame???
+        Date date = new Date();
+        String today = dateFormat.format(date);
+        
+        // tutorial system that activates for new patients. When a patient has not submitted any symptoms,
+        // this pop-up message informs them of all the features present in the efferent patient care system.
+        if(patient.isSymptomListEmpty()){
+   		 javax.swing.JOptionPane.showMessageDialog(submitSymptomsTab, "Welcome to the Efferent Patient Care System!\n\n"
+   		 		+ "We see you haven't submitted any symptoms yet and would love to get you started.\n"
+   		 		+ "When you first open up the Efferent Patient Care System, you will be greeted with several sliders."
+   		 		+ "Rate these symptoms from 1 to 10, 1 being the lowest feeling of that symptom while 10 being the highest.\n"
+   		 		+ "You can only submit symptoms once per day and they will be sent to your corresponding doctor.\n"
+   		 		+ "To see your assigned doctor, go to the \"Patient Information\" tab. You can alter any of your profile information here as well.\n"
+   		 		+ "In the \"Messages\" tab, you can see recent doctor messages and prescriptions.\n\n"
+   		 		+ "Thank you for using the Efferent Patient Care System. We hope to provide you extra convenience.");
+        }
+        
+        // tutorial system that checks if a user has inputted any symptoms for the day. If they havent,
+        // then information on what each symptom entails is displayed to them.
+        if(!patient.checkDate(today)){
+        	javax.swing.JOptionPane.showMessageDialog(submitSymptomsTab, "Welcome to the Efferent Patient Care System!\n\n"
+       		 		+ "We see you haven't submitted any symptoms today and would like to remind you what each symptom entails:\n\n"
+       		 		+ "Pain- do you feel any sharp or sudden aches or intense physical discomfort?\n"
+       		 		+ "Shortness of Breath- is it hard to breathe right now?\n"
+       		 		+ "Wellbeing- do you feel weak, feeble, and overall down in the dumps?\n"
+       		 		+ "Anxiety- do you feel overly jittery or stressful?\n"
+       		 		+ "Tiredness- do you feel constantly tired despite resting?\n"
+       		 		+ "Depression- do you feel isolated and lonely like the whole world is against you?\n"
+       		 		+ "Nausea- how likely will you vomit in the next thirty minutes?\n"
+       		 		+ "Appetite- do you have a constant urge to eat and are never satisfied afterwards?\n"
+       		 		+ "Drowsiness- do you constantly feel sleepy?\n"
+       		 		+ "Other- if there are other symptoms that you are feeling that are not listed here,\n\tplease rate it and notify your doctor afterwards\n\n"
+       		 		+ "We hope you have an easy time using the Efferent Patient Care System.");
+        }
+        else
+        	javax.swing.JOptionPane.showMessageDialog(submitSymptomsTab, "We see you have already inputted symptoms for the day.\n"
+        			+ "Please log back in tomorrow to input more symptoms.\n"
+        			+ "If there is an emergency, please call your doctor right away or 9-1-1.\n"
+        			+ "You can still view your recent symptom history, edit profile information, or view doctor messages and prescriptions.\n\n"
+        			+ "Thank you for using the Efferent Patient Care System!");
+        
+        showSymptoms.setEditable(false);
+        showSymptoms.setColumns(30);
+        showSymptoms.setRows(5);
+        showSymptoms.setLineWrap(false);
+        showSymptoms.setFont(new java.awt.Font("Tahoma", 0, 16));
+        jScrollPane1.setViewportView(showSymptoms);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Select Symptom");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pain", "Shortness of Breath", "Wellbeing", "Anxiety", "Tiredness", "Depression", "Appetit", "Nausea", "Drowsiness", "Other" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] {" ", "Pain", "Shortness of Breath", "Wellbeing", "Anxiety", "Tiredness", "Depression", "Appetite", "Nausea", "Drowsiness", "Other" }));
         jComboBox1.setToolTipText("");
-
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tableActionPerformed(evt, patient);
+            }
+        });
+        
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Select a symptom from the drop-down menu to view its previous ratings.");
 
@@ -137,52 +176,77 @@ public class PatientUI extends javax.swing.JFrame {
         painSlider.setMajorTickSpacing(1);
         painSlider.setMaximum(10);
         painSlider.setPaintLabels(true);
+        painSlider.setValue(0);
 
         shortnessOfBreathSlider.setMajorTickSpacing(1);
         shortnessOfBreathSlider.setMaximum(10);
         shortnessOfBreathSlider.setPaintLabels(true);
+        shortnessOfBreathSlider.setValue(0);
 
         wellbeingSlider.setMajorTickSpacing(1);
         wellbeingSlider.setMaximum(10);
         wellbeingSlider.setPaintLabels(true);
+        wellbeingSlider.setValue(0);
 
         anxietySlider.setMajorTickSpacing(1);
         anxietySlider.setMaximum(10);
         anxietySlider.setPaintLabels(true);
-
+        anxietySlider.setValue(0);
+        
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SUBMIT SYMPTOMS");
-
+        
         tirednessSlider.setMajorTickSpacing(1);
         tirednessSlider.setMaximum(10);
         tirednessSlider.setPaintLabels(true);
-
+        tirednessSlider.setValue(0);
+        
         depressionSlider.setMajorTickSpacing(1);
         depressionSlider.setMaximum(10);
         depressionSlider.setPaintLabels(true);
-
+        depressionSlider.setValue(0);
+        
         nauseaSlider.setMajorTickSpacing(1);
         nauseaSlider.setMaximum(10);
         nauseaSlider.setPaintLabels(true);
-
+        nauseaSlider.setValue(0);
+        
         appetiteSlider.setMajorTickSpacing(1);
         appetiteSlider.setMaximum(10);
         appetiteSlider.setPaintLabels(true);
-
+        appetiteSlider.setValue(0);
+        
         drowsinessSlider.setMajorTickSpacing(1);
         drowsinessSlider.setMaximum(10);
         drowsinessSlider.setPaintLabels(true);
-
+        drowsinessSlider.setValue(0);
+        
         otherSlider.setMajorTickSpacing(1);
         otherSlider.setMaximum(10);
         otherSlider.setPaintLabels(true);
-
+        otherSlider.setValue(0);
+        
         submitButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         submitButton.setText("SUBMIT");
+        
+        // if any one of the symptoms in the patient is already inputted for today, button is disabled.
+        // Otherwise, button is enabled.       
+        boolean buttonEnabled = true;
+        for(int i = 0; i < patient.getSymptoms().size(); i++){
+        	if(patient.getSymptoms().get(i).getDate().equals(today)){
+        		submitButton.setEnabled(false);
+        		buttonEnabled = false;
+        		break;
+        	}
+        }
+        if(buttonEnabled){
+        	submitButton.setEnabled(true);
+        }
+        
         submitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitButtonActionPerformed(evt);
+                submitButtonActionPerformed(evt, patient);
             }
         });
 
@@ -326,7 +390,8 @@ public class PatientUI extends javax.swing.JFrame {
 
         PatientTabbedPane.addTab("Symptoms", submitSymptomsTab);
         PatientTabbedPane.addTab("Symptom History", symptomHistoryTab);
-                
+        
+        // initializing more global variables
         patientInfoPanel = new javax.swing.JPanel();
         patientName = new javax.swing.JLabel();
         providerName = new javax.swing.JLabel();
@@ -368,16 +433,10 @@ public class PatientUI extends javax.swing.JFrame {
         providerName.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         providerName.setText("Provider: " + patient.getDoctor().getname());
 
-       /* patientDOB.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        patientDOB.setText("DOB: 8/18/1995");
-
-        patientSex.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        patientSex.setText("Male"); */
-
-        emailHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        emailHeader.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         emailHeader.setText("Email:");
 
-        patientEmail.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        patientEmail.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         patientEmail.setText(patient.getEmail());
 
         editEmail.setText("Enter new email address here");
@@ -390,16 +449,10 @@ public class PatientUI extends javax.swing.JFrame {
         	}
         });
         
-        editEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editEmailActionPerformed(evt);
-            }
-        });
-
-        phoneHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        phoneHeader.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         phoneHeader.setText("Phone Number:");
 
-        patientPhone.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        patientPhone.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         patientPhone.setText("(" + patient.getPhoneNumber().substring(0, 3) + ") " +
         		patient.getPhoneNumber().substring(3, 6) + "-" + 
         		patient.getPhoneNumber().substring(6, patient.getPhoneNumber().length()));
@@ -412,16 +465,11 @@ public class PatientUI extends javax.swing.JFrame {
         	source.removeFocusListener(this);
         	}
         });
-        editPhone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editPhoneActionPerformed(evt);
-            }
-        });
 
-        addressHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        addressHeader.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         addressHeader.setText("Address:");
 
-        streetAddr.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        streetAddr.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         streetAddr.setText(patient.getStreetAddress());
 
         editStreet.setText("Enter new street address here");
@@ -432,13 +480,8 @@ public class PatientUI extends javax.swing.JFrame {
         	source.removeFocusListener(this);
         	}
         });
-        editStreet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editStreetActionPerformed(evt);
-            }
-        });
-
-        cityStateAddr.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+      
+        cityStateAddr.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         cityStateAddr.setText(patient.getCityStateAddress());
 
         editCityState.setText("Enter new city, state zip here");
@@ -450,22 +493,17 @@ public class PatientUI extends javax.swing.JFrame {
         	source.removeFocusListener(this);
         	}
         });
-        editCityState.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editCityStateActionPerformed(evt);
-            }
-        });
-
-        pharHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+    
+        pharHeader.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         pharHeader.setText("Pharmacy:");
 
-        pharName.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        pharName.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         pharName.setText(patient.getPharmacy().getName());
 
-        pharCityState.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        pharCityState.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         pharCityState.setText(patient.getPharmacy().getAddress());
 
-        pharPhone.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        pharPhone.setFont(new java.awt.Font("Georgia", 0, 16)); // NOI18N
         pharPhone.setText("(" + patient.getPharmacy().getPhone().substring(0, 3) + ") " +
         		patient.getPharmacy().getPhone().substring(3, 6) + "-" + 
         		patient.getPharmacy().getPhone().substring(6, patient.getPharmacy().getPhone().length()));
@@ -479,12 +517,7 @@ public class PatientUI extends javax.swing.JFrame {
         	source.removeFocusListener(this);
         	}
         });
-        editPharName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editPharNameActionPerformed(evt);
-            }
-        });
-
+   
         editPharCity.setText("Enter new pharmacy city, state");
         editPharCity.setToolTipText("");
         editPharCity.addFocusListener(new FocusAdapter() {
@@ -493,11 +526,6 @@ public class PatientUI extends javax.swing.JFrame {
         	source.setText("");
         	source.removeFocusListener(this);
         	}
-        });
-        editPharCity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editPharCityActionPerformed(evt);
-            }
         });
 
         editPharPhone.setText("Enter new pharmacy phone number");
@@ -509,13 +537,8 @@ public class PatientUI extends javax.swing.JFrame {
         	source.removeFocusListener(this);
         	}
         });
-        editPharPhone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editPharPhoneActionPerformed(evt);
-            }
-        });
 
-        editInfoButton.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        editInfoButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         editInfoButton.setText("Edit");
         editInfoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -627,49 +650,44 @@ public class PatientUI extends javax.swing.JFrame {
                     .addComponent(editPharPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(67, Short.MAX_VALUE))
         );
-
+        
+    
+        
         PatientTabbedPane.addTab("Patient Information", patientInfoPanel);
 
         dateReceivedHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
         dateReceivedHeader.setText("Date Received: ");
         
-        ArrayList<String> dates = new ArrayList<String>();
-        
-        // for TESTING- IT WORKS! :D
-        patient.addMessage("04/19/2015 Hey, call me. My phone number is 623-555-5555");
-        patient.addMessage("04/20/2015 Hey, I think you're pregnant. Call me.");
-     
-        // adds the dates to the dates combo box
-        for(int i = 0; i < patient.getMessageList().size(); i++){
-        	dates.add(patient.getMessageList().get(i).substring(0, 11));
-        }
+        setMessageDates(patient);
                
-        messageDates.setModel(new javax.swing.DefaultComboBoxModel(dates.toArray()));
+     
         messageDates.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 messageDatesActionPerformed(evt, patient);
             }
         });
 
-        messageHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
+        messageHeader.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         messageHeader.setText("Message:");
         
         messages.setEditable(false);
-        messages.setColumns(20);
+        messages.setColumns(40);
         messages.setRows(5);
+        messages.setFont(new java.awt.Font("Tahoma", 0, 14));
         messages.setLineWrap(true);
-        if(patient.getMessageList().size() > 0)
-        	messages.append(patient.getMessageList().get(0).substring(11, patient.getMessageList().get(0).length()));
-       
+      
         JScrollPane3.setViewportView(messages);
 
-        prescriptionHeader.setFont(new java.awt.Font("Georgia", 0, 12)); // NOI18N
-        prescriptionHeader.setText("Prescription Summary:");
+        prescriptionHeader.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
+        prescriptionHeader.setText("Latest Prescription");
 
-        prescriptionSummary.setColumns(20);
+        prescriptionSummary.setColumns(40);
         prescriptionSummary.setRows(5);
+        prescriptionSummary.setFont(new java.awt.Font("Tahoma", 0, 14));
         jScrollPane2.setViewportView(prescriptionSummary);
-
+        
+        setPrescriptions(patient);
+        
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -719,20 +737,7 @@ public class PatientUI extends javax.swing.JFrame {
                 .addComponent(PatientTabbedPane)
                 .addContainerGap())
         ); 
-        /*
-        javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(panelLayout);
-        panelLayout.setHorizontalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PatientTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 591, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        panelLayout.setVerticalGroup(
-            panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelLayout.createSequentialGroup()
-                .addComponent(PatientTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        ); */
-       
+  
        pack();
     }// </editor-fold>                        
 
@@ -743,249 +748,444 @@ public class PatientUI extends javax.swing.JFrame {
             return false;
     }
     
-    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:      
-        double painRate = painSlider.getValue();
-        double shortnessOfBreathRate = shortnessOfBreathSlider.getValue();
-        double wellbeingRate = wellbeingSlider.getValue();     
-        double anxietyRate = anxietySlider.getValue();
-        double tirednessRate = tirednessSlider.getValue();
-        double depressionRate = depressionSlider.getValue();
-        double nauseaRate = nauseaSlider.getValue();
-        double appetiteRate = appetiteSlider.getValue();
-        double drowsinessRate = drowsinessSlider.getValue();
-        double otherRate = otherSlider.getValue();
-        
-        //check if all values are valid
-        if (checkVal(painRate) && checkVal(shortnessOfBreathRate) && checkVal(wellbeingRate) && checkVal(anxietyRate) && checkVal(tirednessRate) &&
-                checkVal(depressionRate) && checkVal(nauseaRate) && checkVal(appetiteRate) && checkVal(drowsinessRate) && checkVal(otherRate))
-        {
-            //continue, push values to database, disable button
-        }
-        else if (!checkVal(painRate)){
-            //print error message
-        }
-        
-        
-    }            
+    // this action handler is in the "Submit Symptoms" tab and is used to retrieve the data from each 
+    // slider and store it in a SymptomList for the patient. The symptoms are the bread and butter of the
+    // whole efferent patient care system so we need to treat this information delicately and store it
+    // efficiently. 
+    private void submitButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                             
     
-    // function for checking validity of email in the editButtonActionPerformed method
-    public boolean isEmail(String check){
-    	int count = 0;
-    	for(int i = 0; i < check.length(); i++){
-    		if(check.substring(i, i+1).compareTo("@") == 0)
-    			count++;
-    	}
+        int painRate = painSlider.getValue();
+        int shortnessOfBreathRate = shortnessOfBreathSlider.getValue();
+        int wellbeingRate = wellbeingSlider.getValue();     
+        int anxietyRate = anxietySlider.getValue();
+        int tirednessRate = tirednessSlider.getValue();
+        int depressionRate = depressionSlider.getValue();
+        int nauseaRate = nauseaSlider.getValue();
+        int appetiteRate = appetiteSlider.getValue();
+        int drowsinessRate = drowsinessSlider.getValue();
+        int otherRate = otherSlider.getValue();
+        
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        //check if submitting symptoms within specified time frame???
+        Date date = new Date();
+        String today = dateFormat.format(date);
+  
+        int patientIndex = 0;
+    	Doctor temp = null;
     	
-    	if(count == 1){
-    		if(check.length() <= 10)
-    			return false;
-    		else{
-	    		if(check.substring(check.length()-4, check.length()).compareTo(".com") == 0 ||
-	    				check.substring(check.length()-4, check.length()).compareTo(".net") == 0 ||
-	    				check.substring(check.length()-4, check.length()).compareTo(".org") == 0||
-	    				check.substring(check.length()-4, check.length()).compareTo("edu") == 0 ||
-	    				check.substring(check.length()-4, check.length()).compareTo(".gov") == 0 ||
-	    				check.substring(check.length()-4, check.length()).compareTo(".mil") == 0 ||
-	    				check.substring(check.length()-4, check.length()).compareTo(".int") == 0)
-	    					return true;
-	    		else
-	    			return false;
-    		}
-    	}
-    	else
-    		return false;
-    }
-    
-    public boolean isPhone(String check){
-    	if(check.length() != 10)
-    		return false;
-    	else{
-    		for(int i = 0; i < check.length(); i++){
-    			if(!check.substring(i, i+1).equals("0") &&
-    					!check.substring(i, i+1).equals("1") &&
-    					!check.substring(i, i+1).equals("2") &&
-    					!check.substring(i, i+1).equals("3") &&
-    					!check.substring(i, i+1).equals("4") &&
-    					!check.substring(i, i+1).equals("5") &&
-    					!check.substring(i, i+1).equals("6") &&
-    					!check.substring(i, i+1).equals("7") &&
-    					!check.substring(i, i+1).equals("8") &&
-    					!check.substring(i, i+1).equals("9"))
-    				return false;    					
-    		}
-    		return true;
-    	}
-    }
-    
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+												// we remove doc from the list so that way we can readd him
+												// and write a fresh new serializable file
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        						docList.remove(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+        	//check if all values are valid
+        if (checkVal(painRate) && checkVal(shortnessOfBreathRate) && checkVal(wellbeingRate) && checkVal(anxietyRate) && checkVal(tirednessRate) &&
+        			checkVal(depressionRate) && checkVal(nauseaRate) && checkVal(appetiteRate) && checkVal(drowsinessRate) && checkVal(otherRate))
+        	{
+        		submitButton.setEnabled(false);
+        	
+        		//add new symptoms to pt's symptom list
+        		patient.newSymptom("Pain", painRate, today);
+        		patient.newSymptom("Shortness of Breath", shortnessOfBreathRate, today);
+        		patient.newSymptom("Wellbeing", wellbeingRate, today);
+        		patient.newSymptom("Anxiety", anxietyRate, today);
+        		patient.newSymptom("Tiredness", tirednessRate, today);
+        		patient.newSymptom("Depression", depressionRate, today);
+        		patient.newSymptom("Nausea", nauseaRate, today);
+        		patient.newSymptom("Appetite", appetiteRate, today);
+        		patient.newSymptom("Drowsiness", drowsinessRate, today);
+        		patient.newSymptom("Other", otherRate, today); 
+        		temp.getPatientList().get(patientIndex).newSymptomList(patient.getSymptoms());
+        		
+        		JOptionPane.showMessageDialog(jScrollPane1, "Symptoms submitted! Please log in another day to input more symptom ratings.");//, "error", JOptionPane.ERROR_MESSAGE);
+        	    
+        		// reset all the sliders to 0
+        		painSlider.setValue(0);
+        	    shortnessOfBreathSlider.setValue(0);
+        	    wellbeingSlider.setValue(0);
+        	    anxietySlider.setValue(0);
+        	    tirednessSlider.setValue(0);
+        	    depressionSlider.setValue(0);
+        	    nauseaSlider.setValue(0);
+        	    appetiteSlider.setValue(0);
+        	    drowsinessSlider.setValue(0);
+        	    otherSlider.setValue(0);
+        	 
+        	}
+        	// if any one of the sliders has not been used, then an error message will pop up requesting the
+        	// user to submit a symptom by using the slider.
+        	else if (!checkVal(painRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Pain between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(shortnessOfBreathRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Shortness of Breath between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(wellbeingRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Wellbeing between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(anxietyRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Anxiety between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(tirednessRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Tiredness between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(depressionRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Depression between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(nauseaRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Nausea between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(appetiteRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Appetite between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(drowsinessRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Drowsiness between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        	else if (!checkVal(otherRate)){
+        		JOptionPane.showMessageDialog(jScrollPane1, "Please rate Other between 1 and 10");//, "error", JOptionPane.ERROR_MESSAGE);
+        	}
+        
+        docList.add(temp);
+     	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
+     													//new information
+   }
+        
+    // function for checking validity of email in the editButtonActionPerformed method
+  
+    // edit the information inputted into the text fields into the respective fields of the patient.
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt, Patient patient){
     	int count = 0;
+    	int patientIndex = 0;
+    	Doctor temp = null;		
+    	boolean change = false; // this boolean is to determine if information has been changed so that
+    							// way we can display a pop-up message that says "Info changed".
+    	
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	//finds and removes doc from the doc list
+    											// we remove doc from the list so that way we can readd him
+    											// and write a fresh new serializable file
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        						docList.remove(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	// checks to see if new email has been entered. In order to check the validity of the email, 
+    	// we use the class Validator.
     	if(!editEmail.getText().equals("") && !editEmail.getText().equals("Enter new email address here")){
-    		if(isEmail(editEmail.getText())){
+    		if(Validator.isEmail(editEmail.getText())){
 	    		 String newEmail = editEmail.getText();	
 	    	     patientEmail.setText(newEmail);
 	    	     editEmail.setText("");
-	    	     patient.setEmail(newEmail); // I hope this actually changes the patient field when we return to UI
+	    	     temp.getPatientList().remove(patientIndex);
+	    	     patient.setEmail(newEmail);
+	    	     temp.getPatientList().add(patientIndex, patient);
+	    	     change = true;
+
     		}
     		else{
     			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid email.");
     			editEmail.setText("");
-    			count++;
     		}
     	}
-    	else
-    		count++;
     	
+    	// checks to see if new phone number has been entered. In order to check the validity of the 
+    	// phone number we use the class Validator.
     	if(!editPhone.getText().equals("") && !editPhone.getText().equals("Enter new phone number here")){
-    		if(isPhone(editPhone.getText())){
+    		if(Validator.isPhone(editPhone.getText())){
     		String newPhone= editPhone.getText();	
     		patientPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
    	     	editPhone.setText("");
-   	     	patient.setPhoneNumber(newPhone); // I hope this actually changes the patient variable when we return
-    		}
+   	     	temp.getPatientList().get(patientIndex).setPhoneNumber(newPhone);
+		    change = true;
+		    }
     		else{
-    			count++;
     			editPhone.setText("");
-    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid phone number in the form of XXXXXXXXXX with no spaces");
+    			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid phone number in the form of XXXXXXXXXX with no spaces\n(i.e. 6235552455)");
     		}
     			
    	     }
-    	else
-    		count++;
     	
+    	// checks to see if new street address is entered.
     	if(!editStreet.getText().equals("") && !editStreet.getText().equals("Enter new street address here")){
     		String newStreet = editStreet.getText();
     		streetAddr.setText(newStreet);
     		editStreet.setText("");
-    		patient.setStreetAddress(newStreet);
+    		temp.getPatientList().get(patientIndex).setStreetAddress(newStreet);;
+	    	change = true;
     	}
-    	else 
-    		count++;
     	
+    	// checks to see if new city/state/zip address is entered.
     	if(!editCityState.getText().equals("") && !editCityState.getText().equals("Enter new city, state zip here")){
     		String newCityState = editCityState.getText();
     		cityStateAddr.setText(newCityState);
     		editCityState.setText("");
-    		patient.setCityStateAddress(newCityState);
+    		temp.getPatientList().get(patientIndex).setCityStateAddress(newCityState);
+	    	change = true;
     	}
-    	else
-    		count++;
-    	
+    
+    	// checks to see if new pharmacy name is enetered.
     	if(!editPharName.getText().equals("") && !editPharName.getText().equals("Enter new pharmacy name")){
     		String newPharName = editPharName.getText();
     		pharName.setText(newPharName);
     		editPharName.setText("");
-    		patient.getPharmacy().changeName(newPharName);
+    		temp.getPatientList().get(patientIndex).getPharmacy().changeName(newPharName);
+	    	change = true;
     	}
-    	else
-    		count++;
     	
+    	// checks to see if new pharmacy city/state address is entered
     	if(!editPharCity.getText().equals("") && !editPharCity.getText().equals("Enter new pharmacy city, state")){
     		String newPharCity = editPharCity.getText();
     		pharCityState.setText(newPharCity);
     		editPharCity.setText("");
-    		patient.getPharmacy().changeAddr(newPharCity);
+    		temp.getPatientList().get(patientIndex).getPharmacy().changeAddr(newPharCity);
+	    	change = true;
     	}
-    	else
-    		count++;
     	
+    	// checks to see if new pharmacy phone number is entered. Like patient phone number, we use the
+    	// Validator class to validate the phone number is in proper format.
     	if(!editPharPhone.getText().equals("") && !editPharPhone.getText().equals("Enter new pharmacy phone number")){
-    		if(isPhone(editPharPhone.getText())){
+    		if(Validator.isPhone(editPharPhone.getText())){
         		String newPhone= editPharPhone.getText();	
         		pharPhone.setText("(" + newPhone.substring(0, 3) + ") " + newPhone.substring(3, 6) + "-" + newPhone.substring(6, newPhone.length()));
        	     	editPharPhone.setText("");
-       	     	patient.getPharmacy().changePhone(newPhone);
+       	     	temp.getPatientList().get(patientIndex).getPharmacy().changePhone(newPhone);
+	 	    	change = true;
         		}
         		else{
-        			count++;
         			editPharPhone.setText("");
-        			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid pharmacy phone number in the form of XXXXXXXXXX with no spaces");
+        			javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter a valid pharmacy phone number in the form of XXXXXXXXXX with no spaces\n(i.e. 6235552455)");
         		}
     	}
-    	else
-    		count++;
     	
-    	if(count == 7)
+    	// we use the boolean change in order to display the correct pop-up message
+    	if(!change)
     		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Please enter new profile information in their respective text fields.");
     	else
     		javax.swing.JOptionPane.showMessageDialog(jScrollPane1, "Profile information changed.");
     	
+    
+    	docList.add(temp);
+     	Serialize.serialize(docList, "src/doctor.bin");	//re adds the doc to the doc list with
+     													//new information    	
+    }
+    
+    // This method is responsible for displaying the symptom information in the text area of the 
+    // "View Submissions" tab depending on what symptom the user selects in the combo box. Accordingly,
+    // the text area will display the date of submission as well as what it was rated at that time.
+    private void tableActionPerformed(java.awt.event.ActionEvent evt, Patient patient){
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	showSymptoms.setText(""); // initialize text to being empty
+    	
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	// finds the doctor in the list in order to retrieve 
+												// the patient of the selected doctor
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }
+    	
+    	for(int i = 0; i < temp.getPatientList().get(patientIndex).getSymptoms().size(); i++){
+	    	// if symptom name is equal to the one in the combo box, then append symptoms to it
+    		if(temp.getPatientList().get(patientIndex).getSymptoms().get(i).getName().equals
+	    		((String)jComboBox1.getSelectedItem())){
+	    			showSymptoms.append("On " + temp.getPatientList().get(patientIndex).getSymptoms().get(i).getDate()
+	    					+ ", the symptom was rated " + temp.getPatientList().get(patientIndex).getSymptoms().get(i).getLevel()
+	    					+ "\n");
+	    	}
+    	
+    	}
     	
     }
     
-    private void editEmailActionPerformed(java.awt.event.ActionEvent evt) {                                          
-    }                                         
-
-    private void editPhoneActionPerformed(java.awt.event.ActionEvent evt) {                                          
-    }                                         
-
-    private void editStreetActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
-
-    private void editCityStateActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void editPharNameActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
-
-    private void editPharCityActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
-    }                                            
-
-    private void editPharPhoneActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void messageDatesActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                             
-        String selectedDate = (String) messageDates.getSelectedItem();
-        messages.setText(null);
-        
-        for(int i = 0; i < patient.getMessageList().size(); i++){
-        	if(selectedDate.compareTo(patient.getMessageList().get(i).substring(0, 11)) == 0){
-        		messages.append(patient.getMessageList().get(i).substring(11, patient.getMessageList().get(i).length()));
+    // In the "Messages" tab, this action handler is responsible for storing the dates of messages in 
+    // the combo box.
+    private void setMessageDates(Patient patient){
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	messages.setText(null);
+    	// reads in patients
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	// finds the doctor in the list in order to retrieve 
+    											// the patient of the selected doctor
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
         	}
         }
-    }                                            
-
-    /**
-     * @param args the command line arguments
-     */
-   // public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        /*try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PatientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PatientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PatientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PatientUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    	
+    	 ArrayList<String> dates = new ArrayList<String>();
+         
+         // adds the dates to the dates combo box starting with a blank one
+         dates.add("");
+         
+         // dateDoesntExist boolean is used to get rid of duplicate dates in the combo box and only have
+         // one instance of a date
+         boolean dateDoesntExist;
+         
+         // go through each message that a patient has and check if there is a new date in each message.
+         // Recall that the format of a message is MM/DD/YYYY and we use substrings to divide individual
+         // information.
+         if(temp.getPatientList().get(patientIndex).getMessageList().size() > 0){
+	         for(int i = 0; i < temp.getPatientList().get(patientIndex).getMessageList().size(); i++){
+	        	 dateDoesntExist = true;
+	         	for(int j = 0; j < dates.size(); j++){
+	         		if(dates.get(j).equals(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring(0, 11)))
+	         			dateDoesntExist = false;	         	
+	         	}
+	         	if(dateDoesntExist)
+	         		dates.add(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring(0, 11));
+	         }
+         }
+         else
+        	 messages.append("No messages found.");
+         
+         messageDates.setModel(new javax.swing.DefaultComboBoxModel(dates.toArray()));
+         
+         
+    }
+    
+    // in the "Messages" tab, this action handler is responsible for displaying the most recent
+    // prescription prescribed to the patient in the prescriptionSummary text area.
+    private void setPrescriptions(Patient patient){
+    	prescriptionSummary.setText(null); // initialize to empty
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	
+    	// reads in patients
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	// finds the doctor in the list in order to retrieve 
+												// the patient of the selected doctor
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
         }
-        //</editor-fold>
+    	
+    	// store the size in a variable so that way we can conserve space when we constantly use size 
+    	// in displaying the information
+    	int size = temp.getPatientList().get(patientIndex).getPharmacy().getPrescriptions().size();
+    	
+    	// checks if there are prescriptions in the first place. If not, then it will say no prescriptions found.
+    	if(size > 0){
+	    	prescriptionSummary.append("Latest prescription:\n");
+	    	prescriptionSummary.append("At " + temp.getPatientList().get(patientIndex).getPharmacy().getName() +
+	    			" in " + temp.getPatientList().get(patientIndex).getPharmacy().getAddress() + ",\n" + 
+	    			temp.getPatientList().get(patientIndex).getPharmacy().getPrescriptions().get(size -1).
+	    			getName() + " has been filed " + temp.getPatientList().get(patientIndex).getPharmacy().
+	    			getPrescriptions().get(size-1).getFrequency() + " times and in " +
+	    			temp.getPatientList().get(patientIndex).getPharmacy().getPrescriptions().get(size-1).getDose() +
+	    			" mg doses each\n");
+    	}
+    	else
+    		prescriptionSummary.append("No prescriptions found. Please request your doctor to file a prescription.");
+    }
+    
+    // in the "Messages" tab, patient can select a date from the combo box and see the date's respective
+    // message. This action handler deals with displaying the messages on a certain date in the message
+    // text area. Recall that messages are in the form: MM/DD/YYYY <message>. Consequently, we use
+    // substrings to separate the string as a whole and check for individual parts
+    private void messageDatesActionPerformed(java.awt.event.ActionEvent evt, Patient patient) {                                             
+    	int patientIndex = 0;
+    	Doctor temp = null;
+    	
+    	// reads in patients
+    	docList = Serialize.deserialize("src/doctor.bin");
+    	
+    	for(int i = 0; i < docList.size(); i++)	// finds the doctor in the list in order to retrieve 
+    											// the patient of the selected doctor
+        {
+        	if(docList.get(i).getEmail().equalsIgnoreCase(patient.getDoctor().getEmail()) 
+        			&& docList.get(i).getPassword().equals(patient.getDoctor().getPassword()))
+        	{
+        		for(int j = 0; j < docList.get(i).getPatientList().size(); j++){
+        			if(patient.getEmail().equalsIgnoreCase(docList.get(i).getPatientList().get(j).getEmail())
+        					&& patient.getPassword().equals(docList.get(i).getPatientList().get(j).getPassword())){
+        						patientIndex = j;
+        						temp = docList.get(i);
+        			     		break;
+        			}
+        		}
+        	}
+        }    	
+    	
+    	// stores the selected date into a variable that will be used to check each message in the ArrayList
+    	String selectedDate = (String) messageDates.getSelectedItem();
+        // clear the text area before displaying the messages of the newly selected date
+    	messages.setText(null);
+        	
+    		// go through each message in the patient's message list and retrieve all the messages 
+    		// associated with the date selected in the combo box. Each message will have the keyword
+    		// MESSAGE in the front to denote a new message at a different time.
+	        for(int i = 0; i < temp.getPatientList().get(patientIndex).getMessageList().size(); i++){
+	        	if(selectedDate.compareTo(temp.getPatientList().get(patientIndex).getMessageList().get(i).substring(0, 11)) == 0){
+	        		messages.append("MESSAGE: " + temp.getPatientList().get(patientIndex).getMessageList().get(i).substring
+	        				(11, temp.getPatientList().get(patientIndex).getMessageList().get(i).length()) + "\n\n");
+	        	}
+	        }
+        }
+                                 
 
-        /* Create and display the form */
-       /* java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PatientUI().setVisible(true);
-            }
-        });
-    }*/
-
-    // Variables declaration - do not modify                     
+    // global variable declaration section includes all the GUI components              
     private javax.swing.JTabbedPane PatientTabbedPane;
     private javax.swing.JLabel anxietyLabel;
     private javax.swing.JSlider anxietySlider;
@@ -1002,7 +1202,7 @@ public class PatientUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea showSymptoms;
     private javax.swing.JLabel nauseaLabel;
     private javax.swing.JSlider nauseaSlider;
     private javax.swing.JLabel otherLabel;
@@ -1051,5 +1251,6 @@ public class PatientUI extends javax.swing.JFrame {
     private javax.swing.JTextArea prescriptionSummary;
     private javax.swing.JLabel providerName;
     private javax.swing.JLabel streetAddr;
+    private ArrayList<Doctor> docList;
     // End of variables declaration                   
 }

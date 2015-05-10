@@ -1,21 +1,25 @@
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class Pharmacy{
-
-	public static final int MAX_PRESCRIPTIONS = 20;
+// the class is responsible for storing the pharmacy information like name, address, and phone number as well
+// as hold a list of prescriptions assigned to a patient.
+public class Pharmacy implements Serializable{
 	
 	private
 		String name;
 		String address;
 		String phoneNum;
-		Prescription prescriptionList[];
-		
+	    ArrayList<Prescription> prescriptionList; // list of prescriptions that are assigned to the patient
+	
+	// constructor of Pharmacy	
 	public Pharmacy(String nm, String addr, String phone){
 		name = nm;
 		address = addr;
 		phoneNum = phone;
-		prescriptionList = new Prescription[MAX_PRESCRIPTIONS];
+		prescriptionList = new ArrayList<Prescription>();
 	}
 	
+	//accessor methods
 	public String getName(){
 		return name;
 	}
@@ -28,6 +32,11 @@ public class Pharmacy{
 		return phoneNum;
 	}
 	
+	public ArrayList<Prescription> getPrescriptions(){
+		return prescriptionList;
+	}
+	
+	//mutator methods
 	public void changeName(String newName){
 		name = newName;
 	}
@@ -40,8 +49,10 @@ public class Pharmacy{
 		phoneNum = newPh;
 	}
 	
-	public void newPrescription(String name, int frequency, int dose, int index){
-		prescriptionList[index] = new Prescription(name, frequency, dose);
+	// adds a new prescription by taking in the information as a parameter such as name, frequency, and dose.
+	public void newPrescription(String name, int frequency, double dose){
+		Prescription newPrescription = new Prescription(name, frequency, dose);
+		prescriptionList.add(newPrescription);
 		
 	}
 }

@@ -8,79 +8,46 @@
 import java.util.ArrayList;
 import java.lang.Math;
 import java.util.*;
-public class Symptom {
+import java.io.Serializable;
+
+// the Symptoms class implements serializable because when a patient submits their symptoms, it must
+// save the symptoms in the serializable file as well
+public class Symptom implements Serializable {
 	String name;
 	int level;
 	String date;
-	int threshhold;
-	ArrayList<Integer> levelList =  new ArrayList<Integer>(); //NEW
-	int stddev;//NEW
 	
 	//constructor
 	Symptom(String n, int l, String d){
 		name = n;
 		level =  l;
 		date = d;
-		levelList.add(level); 
+
 	}
 	
-	double calcStdDev(){//NEW
-		double sum=0;
-		double mean;
-		double sigma = 0.0;
-		double var, stddev;
-		
-		for(int e: levelList){
-			sum += e; 
-		}
-		
-		mean = sum / levelList.size();
-		
-		for(int e: levelList){
-			sigma += Math.pow((Math.abs(mean-e)), 2);
-		}
-		
-		var = sigma / (double)levelList.size();
-		
-		stddev = Math.sqrt(var);
-		return stddev;
+	//accessor methods
+	public String getName(){
+		return name;
 	}
 	
-	boolean isProblematic(){
-		if (levelList.size() < 60){
-			if (level == threshhold + 2)
-				return true;
-		}
-		else{ //calc standard deviation
-			if (level == 2*calcStdDev())
-				return true;
-		}
-		return false;
+	public int getLevel(){
+		return level;
 	}
 	
-	boolean isSeverelyProblematic(){//NEW
-		if (levelList.size() < 60){
-			if (level >= threshhold + 3){
-				return true;
-			}
-		}
-		else{
-			if (level >= 3*calcStdDev()){
-				return true;
-			}
-		}
-		
-		return false;
+	public String getDate(){
+		return date;
 	}
 	
-	void setThreshhold(int setting){//doctor determined threshhold
-		if (levelList.size() < 60){
-			threshhold = setting;
-		}
+	//mutator methods
+	public void setName(String newName){
+		name = newName;
 	}
 	
-	void setSymptomLevel(int l){
-		level = l;
-		levelList.add(l);
+	public void setLevel(int newLevel){
+		level = newLevel;
+	}
+	
+	public void setDate(String newDate){
+		date = newDate;
 	}
 }

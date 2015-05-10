@@ -22,12 +22,12 @@ public class User implements Serializable {
 //i named the class cereal because I have lame jokes
 //implements serializable so we can store users as objects and retrieve them
 //private vars for each var listed in user class diagram
-	private String name;
-	private String email;
-	private String phoneNumber;
-	private String streetAddress;
-	private String cityStateAddress;
-	private String password;
+	protected String name;
+	protected String email;
+	protected String phoneNumber;
+	protected String streetAddress;
+	protected String cityStateAddress;
+	protected String password;
 	
 	public User(String name,  String email, String phoneNumber, String sAddress, String csAddress, String password){
 //constructor method		
@@ -38,7 +38,8 @@ public class User implements Serializable {
 		this.cityStateAddress = csAddress;
 		this.password=password;
 	}
-//getter methods for each var	
+	
+	//accessor methods for each var	
 	public String getname(){
 		return name;
 	}
@@ -63,7 +64,8 @@ public class User implements Serializable {
 	public String getPassword(){
 		return password;
 	}
-//setter methods for each var	
+	
+	//setter methods for each var	
 	public void setName(String name){
 		this.name=name;
 	}
@@ -88,21 +90,7 @@ public class User implements Serializable {
 	public void setPassword(String password){
 		this.password=password;
 	}
-//this is where we get the user object from the text file	
-	public User getUser(){
-		User user = null;
-		try{
-			FileInputStream fileInput= new FileInputStream("user.txt");
-			ObjectInputStream objectInput= new ObjectInputStream (fileInput);
-			user=(User) objectInput.readObject();
-			objectInput.close();
-		}
-		catch (IOException except){
-			except.printStackTrace();
-		}
-		catch (ClassNotFoundException except){
-			except.printStackTrace();
-		}
-		return user;
+	
+
 	}
-}
+

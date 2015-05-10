@@ -1,5 +1,9 @@
 import java.io.*;
 import java.util.*;
+
+/* Class used to read a write objects within the system into a 
+ * serializable file
+ */
 public class Serialize {
 
 	public static void serialize(ArrayList<Doctor> docList, String fileName)	//used to write doctor objects to the file.
